@@ -1,0 +1,24 @@
+{
+	"id": "4fe1ba55-4a83-478d-8552-3c270052b581",
+	"values": [
+		{
+			"key": "url",
+			"value": "https://api.turning.io",
+			"enabled": true
+		},
+		{
+			"key": "jwt_token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIiLCJzdWIiOiJnbXNGbF9GcWpoUGZ2REZoU3pZZ004aTZqN3R0ZEVaMnkwSXdTUFhWYklrNlYtd0Y1TXdEVGJvZUdiM3p6azMtIiwiYXVkIjoiODB2RmV0U0cxeTJEOFl3LV9rVmVwUU1Wa2plc1FHST0iLCJleHAiOjE2MDk2MjIwNDUsImlhdCI6MTU3ODA4NjA0NX0.5wewp7RF_QyohBpCxi0TNiaxNIENCkmH5skumZK-2l0",
+			"enabled": true
+		},
+		{
+			"key": "url_location",
+			"value": "https://api.turning.io",
+			"enabled": true
+		}
+	],
+	"name": "Turn API Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2021-07-08T21:11:48.100Z",
+	"_postman_exported_using": "Postman/8.8.0-210630-1400"
+}
