@@ -3705,17 +3705,6 @@ components:
       example:
         message: The email was accepted
       x-internal: true
-    422Noinvitationsent1:
-      title: 422Noinvitationsent1
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: No email was sent to this candidate
-      x-internal: true
     /fcra_check/form_request:
       title: /fcra_check/form_request
       required:
@@ -3873,28 +3862,6 @@ components:
           - Missing data for required field.
         json.zipcode:
           - Missing data for required field.
-      x-internal: true
-    422Invalidpackage1:
-      title: 422Invalidpackage1
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: Package P0000000000 doesn't exist.
-      x-internal: true
-    422Invalidzipcode1:
-      title: 422Invalidzipcode1
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: Invalid zip code ..
       x-internal: true
     /fcra_check/form/<check_id>_request:
       title: /fcra_check/form/<check_id>_request
@@ -4094,24 +4061,6 @@ components:
         message: The operation completed successfully.
         transaction_uuid: 3ea933c7-1e2f-4245-8d80-2c31709a09ff
       x-internal: true
-    200Candidatealreadyexists:
-      title: 200Candidatealreadyexists
-      required:
-        - message
-        - turn_id
-      type: object
-      properties:
-        message:
-          $ref: '#/components/schemas/Message1'
-        turn_id:
-          type: string
-      example:
-        message:
-          code: 9400
-          message: Candidate with this ssn already exists.
-          transaction_uuid: dfa4ac9a-8858-486f-9e65-f84cb7ba6251
-        turn_id: C1259272294
-      x-internal: true
     404InvalidCheckId1:
       title: 404InvalidCheckId1
       required:
@@ -4122,17 +4071,6 @@ components:
           type: string
       example:
         error: FOOBAR is not valid id
-      x-internal: true
-    404checkiddoesn'texist1:
-      title: 404checkiddoesn'texist1
-      required:
-        - error
-      type: object
-      properties:
-        error:
-          type: string
-      example:
-        error: a4b9b53e-b665-4a11-8872-2005bb151652 does not exist
       x-internal: true
     422checkidhasalreadybeenused1:
       title: 422checkidhasalreadybeenused1
@@ -4145,86 +4083,6 @@ components:
       example:
         error: a4b9b53e-b665-4a11-8872-2005bb15165d has already been used
       x-internal: true
-    422Missingrequiredfield5:
-      title: 422Missingrequiredfield5
-      required:
-        - json.callback_url
-        - json.consent_document
-        - json.date_of_birth
-        - json.email
-        - json.first_name
-        - json.last_name
-        - json.phone
-        - json.ssn
-        - json.zipcode
-      type: object
-      properties:
-        json.callback_url:
-          type: array
-          items:
-            type: string
-          description: ''
-        json.consent_document:
-          type: array
-          items:
-            type: string
-          description: ''
-        json.date_of_birth:
-          type: array
-          items:
-            type: string
-          description: ''
-        json.email:
-          type: array
-          items:
-            type: string
-          description: ''
-        json.first_name:
-          type: array
-          items:
-            type: string
-          description: ''
-        json.last_name:
-          type: array
-          items:
-            type: string
-          description: ''
-        json.phone:
-          type: array
-          items:
-            type: string
-          description: ''
-        json.ssn:
-          type: array
-          items:
-            type: string
-          description: ''
-        json.zipcode:
-          type: array
-          items:
-            type: string
-          description: ''
-      example:
-        json.callback_url:
-          - Missing data for required field.
-        json.consent_document:
-          - Missing data for required field.
-        json.date_of_birth:
-          - Missing data for required field.
-        json.email:
-          - Missing data for required field.
-        json.first_name:
-          - Missing data for required field.
-        json.last_name:
-          - Missing data for required field.
-        json.phone:
-          - Missing data for required field.
-        json.ssn:
-          - SSN should be 9 digits long
-        json.zipcode:
-          - Missing data for required field.
-          - Zipcodes do not match
-      x-internal: true
     404ChecksIdalreadyrunning1:
       title: 404ChecksIdalreadyrunning1
       required:
@@ -4235,17 +4093,6 @@ components:
           type: string
       example:
         message: Checks of this worker have already run.
-      x-internal: true
-    404CheckIdnotfound1:
-      title: 404CheckIdnotfound1
-      required:
-        - error
-      type: object
-      properties:
-        error:
-          type: string
-      example:
-        error: d34962e4-5db3-417f-addf-f5cf608eee72 does not exist
       x-internal: true
     200Success3:
       title: 200Success3
@@ -4614,17 +4461,6 @@ components:
         last_seen: '2019-08-01'
         state: IL
         zip: '12345'
-      x-internal: true
-    422Backgroundchecknotready1:
-      title: 422Backgroundchecknotready1
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: The background check for C1364903861 is not ready yet.
       x-internal: true
     ProfileRequest:
       title: ProfileRequest
@@ -5052,72 +4888,6 @@ components:
       example:
         message: OK
       x-internal: true
-    200SuccessAddress:
-      title: 200SuccessAddress
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: OK
-      x-internal: true
-    200SuccessTask:
-      title: 200SuccessTask
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: OK
-      x-internal: true
-    200SuccessVehicle:
-      title: 200SuccessVehicle
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: OK
-      x-internal: true
-    200SuccessPayout:
-      title: 200SuccessPayout
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: OK
-      x-internal: true
-    200SuccessCareer:
-      title: 200SuccessCareer
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: OK
-      x-internal: true
-    200SuccessReputation:
-      title: 200SuccessReputation
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: OK
-      x-internal: true
     404Workernotfound1:
       title: 404Workernotfound1
       required:
@@ -5128,17 +4898,6 @@ components:
           type: string
       example:
         message: Worker not found
-      x-internal: true
-    404InvalidTurnID1:
-      title: 404InvalidTurnID1
-      required:
-        - error
-      type: object
-      properties:
-        error:
-          type: string
-      example:
-        error: invalid_turn_id is not valid turn_id
       x-internal: true
     422Invalidcandidatestatus1:
       title: 422Invalidcandidatestatus1
