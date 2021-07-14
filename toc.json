@@ -11,8 +11,13 @@
     },
     {
       "type": "item",
-      "title": "Background-Checks",
-      "uri": "docs/ Screening/Background-Checks.md"
+      "title": "Background Checks",
+      "uri": "docs/ Screening/background-checks.md"
+    },
+    {
+      "type": "item",
+      "title": "Common Background Check flows",
+      "uri": "docs/ Screening/common-background-check-flows.md"
     },
     {
       "type": "divider",

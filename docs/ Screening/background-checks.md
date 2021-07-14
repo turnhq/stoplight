@@ -1,4 +1,4 @@
-# Background-Checks
+# Background Checks
 
 Background checks are an easy and secure way to screen and confirm candidates are qualified to provide a service. Turn can run a basic background check in 1.1 seconds with industry-leading turnaround times.
 
