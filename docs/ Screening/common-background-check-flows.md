@@ -21,3 +21,81 @@ If a candidate’s check comes back clear, we will send them a copy of the repor
 If their background check reveals a criminal hit, we let them know about the record found and provide them an opportunity to dispute the claim. Once the report is assented
 
 ## The Hiring Manager Experience
+When a background check is clear on a candidate, the flow is as follows from the hiring manager perspective:
+
+![](https://cdn.buttercms.com/59A1ttCxTrK2NYv6vBoW)
+
+1.  **a) Below is the case if the background checks surfaces a criminal hit:**  
+    ![](https://cdn.buttercms.com/CNdhe1FTRTaf5O1zolde)
+2.  **b) Below is the case if the background checks surfaces non-criminal related hits:**  
+    ![](https://cdn.buttercms.com/aF2L0JXTAueJFwqZmaFF)
+
+## Background Check Status
+Now that we understand the process and flow of a background check, lets review all the different candidates statuses in the Turn Dashboard.
+
+### Emailed
+![alt text](https://documentation.turning.io/static/status/emailed.jpg)
+
+A candidate is just added to the dashboard via the Add Candidate feature or using the API. Turn will send a personalized invitation to run a background check. This invitation will work only once, and reminders will be sent via email and sms (if a phone number is provided) to guide the candidate through the background check process.
+
+### Processing
+![alt text](https://documentation.turning.io/static/status/processing.jpg)
+
+There are parts of the background check that are still being processed such as county criminal checks or an MVR. We display which checks are done and which checks are still currently being processed.
+
+### Reviewing
+![alt text](https://documentation.turning.io/static/status/reviewing.jpg)
+
+The data in the application was flagged due to information mismatch or inaccuracies. Our QA team will work directly with the candidate to update their data to resume the check.
+
+### Consent
+![alt text](https://documentation.turning.io/static/status/consent.jpg)
+
+All checks are done processing. If potentially negative information is obtained from the background checks, we provide the candidate an opportunity to dispute any inaccurate or incomplete information, as required by FCRA. An applicant who disputes their background check results will have the Consent status while Turn reinvestigates. Also, applicants whose confirmation of their results is pending shall remain in Consent status.
+
+### Pending
+![alt text](https://documentation.turning.io/static/status/pending.jpg)
+
+The background check is ready, but we flagged potential information that could be a stopper in your hiring process. The pending status report should be reviewed by an employer’s hiring manager, as they are responsible for the final decision of approving or rejecting a candidate.
+
+### Approved
+![alt text](https://documentation.turning.io/static/status/approved.jpg)
+
+A candidate is approved.
+
+
+### Rejected
+![alt text](https://documentation.turning.io/static/status/rejected.jpg)
+
+A candidate is rejected.
+
+## Sequencing of Checks
+Turn is able to implement certain rules to optimize the cost of background checks. For example, if an employer creates a candidate package that includes a Basic check, MVR check, and a 7 year county criminal search, our platform allows the employer to sequence the order of those checks to filter out candidates that fail earlier in the process.
+
+Here’s an example of how an employer could define a rule for check sequencing:
+
+1.  Run MVR first, then Basic, then 7 year county search.
+2.  If the MVR is either clear or reviewed by a hiring manager, run all pending checks.
+3.  If the MVR is not clear, stop all pending checks, and proceed with Adverse Action. This type of sequencing would prevent the employer from incurring the cost of triggering all pending checks.
+
+![alt text](https://documentation.turning.io/static/status/sequencing-checks-1.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
