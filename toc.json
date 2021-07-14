@@ -94,6 +94,39 @@
     },
     {
       "type": "divider",
+      "title": "Settings"
+    },
+    {
+      "type": "item",
+      "title": "Team Members",
+      "uri": "docs/Settings/team-members.md"
+    },
+    {
+      "type": "item",
+      "title": "Manage Sourcing Subscription",
+      "uri": "docs/Settings/manage-sourcing-subscription.md"
+    },
+    {
+      "type": "item",
+      "title": "Background Check Packages",
+      "uri": "docs/Settings/background-checks-packages.md"
+    },
+    {
+      "type": "divider",
+      "title": "Help"
+    },
+    {
+      "type": "item",
+      "title": "Request a Demo",
+      "uri": "docs/Help/request-demo.md"
+    },
+    {
+      "type": "item",
+      "title": "Contact Support",
+      "uri": "docs/Help/contact-support.md"
+    },
+    {
+      "type": "divider",
       "title": "APIS"
     },
     {
