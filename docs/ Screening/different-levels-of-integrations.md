@@ -468,7 +468,7 @@ This level of integration is recommended when:
 * You reach the point in your onboarding flow when you have the candidate name/email and you wish to start the background check, but do not want to manually input the candidate’s information in your Turn Dashboard.
 * You want to know programmatically when a check is completed and its status.
 
-Take a look on how to implement it:[API /person/search_async](https://apidoc.turning.io/?version=latest#884b66a9-b417-4932-b6af-4c0cda9da47c)(email_candidate flag on)
+Take a look on how to implement it:[API /person/search_async](https://turnhq.stoplight.io/docs/turn-api/TurnAPIStoplight.yml/paths/~1person~1search_async/post)(email_candidate flag on)
 
 ### b) Automating the background check request - Your Protocol
 
@@ -480,7 +480,7 @@ This level of integration is recommended when:
 * You want to include the link of the consent form in other types of communication.
 * You want to embed the consent form as part of your already existing web or mobile application.
 
-Take a look on how to implement it:[API /person/search_async](https://apidoc.turning.io/?version=latest#884b66a9-b417-4932-b6af-4c0cda9da47c)(email_candidate flag off)
+Take a look on how to implement it:[API /person/search_async](https://turnhq.stoplight.io/docs/turn-api/TurnAPIStoplight.yml/paths/~1person~1search_async/post)(email_candidate flag off)
 
 ### c) End to End Integration
 The third level of integration is when you want control over the UI and UX of your background check request process for candidates. We’ll let you know the inputs you need to gather from candidates, and the legal text to display. When the background check is completed, a webhook with the results will be posted back at you.
@@ -489,7 +489,7 @@ This level of integration is recommended when:
 
 * You want complete control over the background check experience for the candidates.
 
-Take a look on how to implement it:[API /fcra_check/form](https://apidoc.turning.io/?version=latest#fcee9724-31a1-4c5d-ad68-6fa3c62bc7a0)
+Take a look on how to implement it:[API /fcra_check/form](https://turnhq.stoplight.io/docs/turn-api/TurnAPIStoplight.yml/paths/~1fcra_check~1form/post)
 
 ### Test Identities
 While testing with the API, a set of identities can be used to simulate reports with multiple background hits, specifying the following names (no matter what other information is required) a complete simulated report will be posted back to the specified webhook URL.
@@ -501,20 +501,20 @@ While testing with the API, a set of identities can be used to simulate reports 
 | Walter | White |
 
 ### Automating the background check request - Turn’s Protocol
-This integration involves the use of the [API /person/search_async](https://apidoc.turning.io/?version=latest#884b66a9-b417-4932-b6af-4c0cda9da47c) endpoint. You provide basic candidate details (name, email,) specify your required package, and make sure to pass the email\_candidate flag with a true value. Once the check is complete the results will be posted back via a webhook to the specified location provided in the callback\_url parameter. See [Webhooks - Background Check Results](https://apidoc.turning.io/?version=latest#48b91644-ffda-47ee-a4df-60fc81f2211b) for details on the response.
+This integration involves the use of the [API /person/search_async](https://turnhq.stoplight.io/docs/turn-api/TurnAPIStoplight.yml/paths/~1person~1search_async/post) endpoint. You provide basic candidate details (name, email,) specify your required package, and make sure to pass the email\_candidate flag with a true value. Once the check is complete the results will be posted back via a webhook to the specified location provided in the callback\_url parameter. See [Webhooks - Background Check Results](https://turnhq.stoplight.io/docs/turn-api/TurnAPIStoplight.yml/paths/~1fcra_check~1form/post) for details on the response.
 
 ### Automating the background check request - Your Protocol
-This integration also involves the[API /person/search_async](https://apidoc.turning.io/?version=latest#884b66a9-b417-4932-b6af-4c0cda9da47c)endpoint. You provide basic candidate details (name, email) specify your required package, and make sure to pass the email_candidate flag with a false value.
+This integration also involves the[API /person/search_async](https://turnhq.stoplight.io/docs/turn-api/TurnAPIStoplight.yml/paths/~1person~1search_async/post)endpoint. You provide basic candidate details (name, email) specify your required package, and make sure to pass the email_candidate flag with a false value.
 
 In the response, look for the candidate\_consent\_url value, this will be the URL you need to present to the candidate to start their background check.
 
-Once the check is complete, the results will be posted back via a webhook to the specified location provided in the callback_url parameter. See[Webhooks - Background Check Results](https://apidoc.turning.io/?version=latest#48b91644-ffda-47ee-a4df-60fc81f2211b)for details on the response.
+Once the check is complete, the results will be posted back via a webhook to the specified location provided in the callback_url parameter. See[Webhooks - Background Check Results](https://turnhq.stoplight.io/docs/turn-api/TurnAPIStoplight.yml/paths/~1fcra_check~1form/post)for details on the response.
 
 ### End to End Integration
-This integration involves the use of the[API /fcra_check/form](https://apidoc.turning.io/?version=latest#fcee9724-31a1-4c5d-ad68-6fa3c62bc7a0)endpoint, with a two step process. First, you need to call the[Create Check Form](https://apidoc.turning.io/?version=latest#fcee9724-31a1-4c5d-ad68-6fa3c62bc7a0)endpoint, specifying the package you want to run, and the zip code where the candidate resides. This won’t create a new check, but will give you directions on 1) What information to gather from the candidate and 2) All legal disclosures the candidate must agree to before running the background check.
+This integration involves the use of the[API /fcra_check/form](https://turnhq.stoplight.io/docs/turn-api/TurnAPIStoplight.yml/paths/~1fcra_check~1form/post)endpoint, with a two step process. First, you need to call the[Create Check Form](https://turnhq.stoplight.io/docs/turn-api/TurnAPIStoplight.yml/paths/~1fcra_check~1form/post)endpoint, specifying the package you want to run, and the zip code where the candidate resides. This won’t create a new check, but will give you directions on 1) What information to gather from the candidate and 2) All legal disclosures the candidate must agree to before running the background check.
 
 The first response is divided into two main sections: data and disclosures. data - Has all the inputs you should gather from the candidate disclosures - This is a list of “sections” or disclosures you should display to the candidate. Each section has 4 attributes: title - Main title for the section order - Numeric order in how to display the sections. checkboxes - A list of checkboxes to display to the user copy_html - An HTML containing the text to be displayed.
 
-Once you have gathered all user information, it’s time to call the[Submit Check Form](https://apidoc.turning.io/?version=latest#6f10e036-f9be-48b5-9a7f-5986bcee4f8b)endpoint, you’ll provide all user information as required in the first endpoint plus a Base64 encoded image with the signature of the candidate.
+Once you have gathered all user information, it’s time to call the[Submit Check Form](https://turnhq.stoplight.io/docs/turn-api/TurnAPIStoplight.yml/paths/~1fcra_check~1form/post)endpoint, you’ll provide all user information as required in the first endpoint plus a Base64 encoded image with the signature of the candidate.
 
-Once the check is complete the results will be posted back via a webhook to the specified location provided in the callback_url parameter. See[Webhooks - Background Check Results](https://apidoc.turning.io/?version=latest#48b91644-ffda-47ee-a4df-60fc81f2211b)for details on the response.
+Once the check is complete the results will be posted back via a webhook to the specified location provided in the callback_url parameter. See[Webhooks - Background Check Results](https://turnhq.stoplight.io/docs/turn-api/TurnAPIStoplight.yml/paths/~1fcra_check~1form/post)for details on the response.

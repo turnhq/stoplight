@@ -19,6 +19,21 @@
       "title": "Common Background Check flows",
       "uri": "docs/ Screening/common-background-check-flows.md"
     },
+{
+      "type": "item",
+      "title": "MVR Matrix (Autoapprove)",
+      "uri": "docs/ Screening/mvr-matrix.md"
+    },
+    {
+      "type": "item",
+      "title": "Different Levels of Integrations",
+      "uri": "docs/ Screening/different-levels-of-integrations.md"
+    },
+    {
+      "type": "item",
+      "title": "Compliance",
+      "uri": "docs/ Screening/compliance.md"
+    },
     {
       "type": "divider",
       "title": "APIS"
