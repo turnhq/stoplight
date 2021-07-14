@@ -49,6 +49,50 @@
       "uri": "docs/Sourcing/manage-your-subscription-billing.md"
     },
     {
+      "type": "item",
+      "title": "Set Up & Integrations",
+      "uri": "docs/Sourcing/setup-and-integrations.md"
+    },
+    {
+      "type": "item",
+      "title": "Common Sourcing Flows",
+      "uri": "docs/Sourcing/common-sourcing-flows.md"
+    },
+    {
+      "type": "item",
+      "title": "How Sourcing Works",
+      "uri": "docs/Sourcing/how-sourcing-works.md"
+    },
+    {
+      "type": "item",
+      "title": "Target Workers",
+      "uri": "docs/Sourcing/target-workers.md"
+    },
+    {
+      "type": "item",
+      "title": "Enter Desired Number of Applicants",
+      "uri": "docs/Sourcing/enter-desired-number-of-applicants.md"
+    },
+    {
+      "type": "item",
+      "title": "Invite Workers to Apply",
+      "uri": "docs/Sourcing/invite-workers-to-apply.md"
+    },
+    {
+      "type": "item",
+      "title": "Track Your Applicants",
+      "uri": "docs/Sourcing/track-your-applicants.md"
+    },
+    {
+      "type": "divider",
+      "title": "Security"
+    },
+    {
+      "type": "item",
+      "title": "Overview",
+      "uri": "docs/Security/security.md"
+    },
+    {
       "type": "divider",
       "title": "APIS"
     },

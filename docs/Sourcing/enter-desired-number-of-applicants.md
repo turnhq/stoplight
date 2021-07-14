@@ -1,0 +1,2 @@
+# Enter Desired Number of Applicants
+Once you filter available workers to more closely match what your job requires, simply tell us how many applicants you want. You can do this on the **Find Applicants tab**, in **Step 2**.
