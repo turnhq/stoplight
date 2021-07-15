@@ -139,36 +139,56 @@ All data points you push can be “partial”, meaning you can easily update it 
 Our REST API is designed to receive data as soon as you learn about it, but you’re also able to submit data at any time.
 
 For example (using Python and [Requests](https://pypi.org/project/requests/) library):
+```# Find the Turn ID of your Worker
+turn_id = worker.turn_id
+
+# Prepare the Task data
+task = {
+  'id': 'your-internal-task-id',
+  'type': 'pet-care',
+  'status': 'completed',
+  'start_date': '2020-01-01 00:00:00Z',
+  'end_date': '2020-01-01 01:00:00Z'
+}
+
+# Submit the Task to Turn's API
+requests.post(
+  f'https://api.turning.io/v1/workforce/{turn_id}/task',
+  headers={'Authorization': f'Bearer {TURN_API_TOKEN}'},
+  json=task
+)
+```
+
 
 #### Submitting Data without a Turn ID
 
 By using our [External Profile API](https://apidoc.turning.io/#561f36d6-ff7a-4849-966f-100a335cd3ea), you’ll be able to submit Data Points without using a Turn ID. To match your worker, we’ll use their personal details instead.
 
 For example (using Python and [Requests](https://pypi.org/project/requests/) library):
+```# Get the worker data
+worker = {
+  'first_name': 'Alex',
+  'last_name': 'Mendez',
+  'email': 'alex@turning.io',
+  'phone_number': '18645404931',
+  'date_of_birth': '1987-05-24'
+}
 
+# Prepare the Task data
+task = {
+  'id': 'your-internal-task-id',
+  'type': 'pet-care',
+  'status': 'completed',
+  'start_date': '2020-01-01 00:00:00Z',
+  'end_date': '2020-01-01 01:00:00Z'
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Submit the Task to Turn's API
+requests.post(
+  'https://api.turning.io/v1/workforce/unknown-profile',
+  headers={'Authorization': f'Bearer {TURN_API_TOKEN}'},
+  json={
+    **worker,
+    'task': task
+  }
+)```
