@@ -6,32 +6,18 @@ Once you indicate your desired number of applicants, customize email content for
 To customize your email invitation, simply click **View / Edit** under the **Email icon** in **Step 3**.
 
 Customize your job invite email with:
-
-1.  Your company logo
-
-1.  Make sure this is high resolution so the applicant can see your company’s brand
-2.  We recommend using a transparent background  
-      
-    
-
-3.  Heading text and color
-
-1.  We recommend including a strong reason to apply to a specific  job opportunity
-2.  Update text color to match your brand guidelines  
-      
-    
-
-5.  Body text and color
-
-1.  Use this area to tell workers more about your company, the job, and why they should consider applying
-2.  Update text color to match your brand guidelines  
-      
-    
-
-7.  CTA button text and color
-
-1.  Be direct, push the worker to apply!
-2.  Update the color to match your brand guidelines
+1. Your company logo
+    1. Make sure this is high resolution so the applicant can see your company’s brand
+    2.  We recommend using a transparent background        
+2.  Heading text and color
+    1.  We recommend including a strong reason to apply to a specific  job opportunity
+    2.  Update text color to match your brand guidelines
+3.  Body text and color
+    1.  Use this area to tell workers more about your company, the job, and why they should consider applying
+    2.  Update text color to match your brand guidelines
+4.  CTA button text and color
+    1.  Be direct, push the worker to apply!
+    2.  Update the color to match your brand guidelines
 
 ![](https://cdn.buttercms.com/gWlJAQAKSi6ZHtDX1del)
 
