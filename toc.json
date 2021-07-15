@@ -127,6 +127,15 @@
     },
     {
       "type": "divider",
+      "title": "Workforce"
+    },
+    {
+      "type": "item",
+      "title": "Overview",
+      "uri": "docs/Workforce/overview.md"
+    },
+    {
+      "type": "divider",
       "title": "APIS"
     },
     {
