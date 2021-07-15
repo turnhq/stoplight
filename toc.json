@@ -103,6 +103,11 @@
     },
     {
       "type": "item",
+      "title": "Integrations",
+      "uri": "docs/Settings/integrations.md"
+    },
+    {
+      "type": "item",
       "title": "Manage Sourcing Subscription",
       "uri": "docs/Settings/manage-sourcing-subscription.md"
     },
