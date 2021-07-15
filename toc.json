@@ -136,6 +136,29 @@
     },
     {
       "type": "divider",
+      "title": "Recheck"
+    },
+    {
+      "type": "item",
+      "title": "Overview",
+      "uri": "docs/Recheck/overview.md"
+    },
+    {
+      "type": "divider",
+      "title": "Webhooks"
+    },
+    {
+      "type": "item",
+      "title": "Overview",
+      "uri": "docs/Webhooks/overview.md"
+    },
+    {
+      "type": "item",
+      "title": "Sourcing",
+      "uri": "docs/Webhooks/sourcing.md"
+    },
+    {
+      "type": "divider",
       "title": "APIS"
     },
     {
