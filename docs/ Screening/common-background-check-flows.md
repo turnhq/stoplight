@@ -69,6 +69,24 @@ A candidate is approved.
 
 A candidate is rejected.
 
+### First Notice
+![alt text](https://documentation.turning.io/static/status/first-notice.jpg)
+
+A first notice is sent when an employer decides to initiate adverse action against a candidate (explained further in the Compliance section below). This legally mandated requirement offers the candidate a chance to dispute any information they consider inaccurate or incomplete.
+
+### Second Notice
+![alt text](https://documentation.turning.io/static/status/second-notice.jpg)
+
+If a candidate fails to respond to the first notice within a reasonable time (seven business days), then a second notice is sent to the candidate, notifying them that their candidacy is rejected.
+
+### Withdraw
+![alt text](https://documentation.turning.io/static/status/withdrawn.jpg)
+
+If a background check is stalled because either the employer or the candidate no longer wish to continue the process, then the status is considered withdrawn and is archived as a non-completed check.
+
+
+
+
 ## Sequencing of Checks
 Turn is able to implement certain rules to optimize the cost of background checks. For example, if an employer creates a candidate package that includes a Basic check, MVR check, and a 7 year county criminal search, our platform allows the employer to sequence the order of those checks to filter out candidates that fail earlier in the process.
 
