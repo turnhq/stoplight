@@ -518,3 +518,105 @@ The first response is divided into two main sections: data and disclosures. data
 Once you have gathered all user information, it’s time to call the[Submit Check Form](https://turnhq.stoplight.io/docs/turn-api/TurnAPIStoplight.yml/paths/~1fcra_check~1form/post)endpoint, you’ll provide all user information as required in the first endpoint plus a Base64 encoded image with the signature of the candidate.
 
 Once the check is complete the results will be posted back via a webhook to the specified location provided in the callback_url parameter. See[Webhooks - Background Check Results](https://turnhq.stoplight.io/docs/turn-api/TurnAPIStoplight.yml/paths/~1fcra_check~1form/post)for details on the response.
+
+### Query Endpoints
+There might be a case where you need to poll the specific status/contents of a background check. We have two endpoints which will be useful depending on your use case: Candidate Status and Candidate Details.
+
+Both endpoints receive a worker_id which can either be:
+
+The full UUID of the worker eg: d54eb469-d74d-450a-b7f9-b0d98f55ac9e The shortened version, also called turn id: C1704355400
+
+### Candidate Status
+This endpoint will give you basic information about the candidate, primarily the current status.
+
+[API /person/&lt;worker_id&gt;/status](https://apidoc.turning.io/?version=latest#6f10e036-f9be-48b5-9a7f-5986bcee4f8b)
+
+Here is a sample response:
+
+    {
+    	"dashboard_url": "https://partners.turning.io/workers/d54eb469-d74d-450a-b7f9-b0d98f55ac9e",
+    	"state": "emailed",
+    	"turn_id": "C1704355400",
+    	"worker_email": "someone@gmail.com",
+    	"worker_id": "d54eb469-d74d-450a-b7f9-b0d98f55ac9e"
+    }
+
+### Candidate Details
+This endpoint is focused on delivering the status of the worker and as much information as possible about the candidate background check results.
+
+[API /person/&lt;worker_id&gt;/details](https://apidoc.turning.io/?version=latest#c25b098f-2f3a-40fb-bc94-bcb913ae8e64)
+
+Here is a sample response:
+
+    {
+       "checks": {
+    	   "addresses": [
+    		   {
+    			   "address1": "123 Main St",
+    			   "city": "CHICAGO",
+    			   "county": "COOK",
+    			   "state": "IL",
+    			   "zip": "12345",
+    			   "zip4": null
+    		   },
+    		   [...]
+    	   ],
+    	   "aliases": null,
+    	   "candidate_provided_date_of_birth": "1987-09-15",
+    	   "candidate_provided_name": "Hari Seldon",
+    	   "candidate_provided_ssn": null,
+    	   "criminal": "clear",
+    	   "dob_status": "matched",
+    	   "location": null,
+    	   "mvr": null,
+    	   "name_status": "matched",
+    	   "partner_provided_name": "Hari Seldon",
+    	   "partner_provided_ssn": null,
+    	   "public_name_status": "matched",
+    	   "public_provided_name": "HARI SELDON",
+    	   "public_record_date_of_birth": "1987-09-15",
+    	   "sex_offender": "clear",
+    	   "ssn": {
+    		   "deceased_date": null,
+    		   "dob_status": "",
+    		   "is_deceased": false,
+    		   "is_random": false,
+    		   "issue_date": "IN THE YEAR 1994-1996",
+    		   "issue_state": "OH",
+    		   "name_status": "",
+    		   "number": "*****1234",
+    		   "status": "valid"
+    	   },
+    	   "ssn_status": "none",
+    	   "watchlist": "clear"
+       },
+       "complete": true,
+       "current_address": {
+    	   "address1": "123 Main St",
+    	   "address2": null,
+    	   "city": "CHICAGO",
+    	   "first_seen": "2016-11-01",
+    	   "last_seen": "2019-08-01",
+    	   "state": "IL",
+    	   "zip": "12345"
+       },
+       "dashboard_url": "https://partners.turning.io/workers/6c72b249-d1c1-4a1e-9697-650948171738",
+       "date_of_birth": "1987-09-15",
+       "email": "someone@gmail.com",
+       "license_number": "",
+       "license_state": "",
+       "name": "Hari Seldon",
+       "partner_worker_status": "approved",
+       "reference_id": "",
+       "turn_id": "C1108624821",
+       "worker_uuid": "6c72b249-d1c1-4a1e-9697-650948171739"
+    }
+     
+
+The checks section will include all background-check related information.
+
+If the check hasn’t been initiated (the candidate hasn’t filled out the consent form) this endpoint will return a 422 status along with a message stating that the report is not available yet.
+
+If the check is being processed but hasn’t been completed, this endpoint will display the preliminary data of the report, a warning key will be appended to the response stating that no action should be taken against the candidate until the report is complete.
+
+You can always check if the report is already completed with the complete key of the response.
