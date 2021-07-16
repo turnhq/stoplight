@@ -1,187 +1,254 @@
-openapi: 3.1.0
+openapi: 3.0.0
 info:
   title: Authentication
+  description: |
+    Turn uses JSON Web Tokens (JWT) keys to allow access to the API. Before making any requests to the API you must request a token. Please request a token by contacting your sales representative.
+    # 
+    All API requests to the Turn API must include the JWT in an Authorization header. The format of the header is described below:
+
+
+        Authorization: Bearer <jwt_token>
+
+    Where *Authorization* is the header name, and *Bearer jwt_token* is the header value.
+
+    > You must replace jwt token with your personal API key.
+  contact: {}
   version: '1.0'
 servers:
-  - url: 'http://localhost:3000'
+  - url: 'https://api.turning.io/v1'
+    variables: {}
 paths:
-  '/users/{userId}':
-    parameters:
-      - schema:
-          type: integer
-        name: userId
-        in: path
-        required: true
-        description: Id of an existing user.
+  /public_api/me:
     get:
-      summary: Get User Info by User ID
-      tags: []
+      tags:
+        - Authentication
+      summary: /public_api/me
+      description: Issue a simple request to validate your JWT Token. This endpoint will give back your correct Account name if the provided token is valid. In no Authorization header is present a 401 http response will be issued. If the token is invalid a 400 http response will be issued.
+      operationId: /public_api/me
+      parameters: []
       responses:
         '200':
-          description: User Found
+          description: OK
+          headers:
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: gunicorn/19.6.0
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Mon, 16 Dec 2019 22:45:51 GMT'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '36'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=31536000
+            X-Protected-By:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sqreen
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-              examples:
-                Get User Alice Smith:
-                  value:
-                    id: 142
-                    firstName: Alice
-                    lastName: Smith
-                    email: alice.smith@gmail.com
-                    dateOfBirth: '1997-10-31'
-                    emailVerified: true
-                    signUpDate: '2019-08-24'
-        '404':
-          description: User Not Found
-      operationId: get-users-userId
-      description: Retrieve the information of the user with the matching user ID.
-    patch:
-      summary: Update User Information
-      operationId: patch-users-userId
-      responses:
-        '200':
-          description: User Updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-              examples:
-                Updated User Rebecca Baker:
-                  value:
-                    id: 13
-                    firstName: Rebecca
-                    lastName: Baker
-                    email: rebecca@gmail.com
-                    dateOfBirth: '1985-10-02'
-                    emailVerified: false
-                    createDate: '2019-08-24'
-        '404':
-          description: User Not Found
-        '409':
-          description: Email Already Taken
-      description: Update the information of an existing user.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                firstName:
-                  type: string
-                lastName:
-                  type: string
-                email:
-                  type: string
-                  description: 'If a new email is given, the user''s email verified property will be set to false.'
-                dateOfBirth:
-                  type: string
-            examples:
-              Update First Name:
-                value:
-                  firstName: Rebecca
-              Update Email:
-                value:
-                  email: rebecca@gmail.com
-              Update Last Name & Date of Birth:
-                value:
-                  lastName: Baker
-                  dateOfBirth: '1985-10-02'
-        description: Patch user properties to update.
-  /user:
-    post:
-      summary: Create New User
-      operationId: post-user
-      responses:
-        '200':
-          description: User Created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-              examples:
-                New User Bob Fellow:
-                  value:
-                    id: 12
-                    firstName: Bob
-                    lastName: Fellow
-                    email: bob.fellow@gmail.com
-                    dateOfBirth: '1996-08-24'
-                    emailVerified: false
-                    createDate: '2020-11-18'
+                $ref: '#/components/schemas/200Sucess'
+              example:
+                name: ACME
         '400':
-          description: Missing Required Information
-        '409':
-          description: Email Already Taken
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                firstName:
-                  type: string
-                lastName:
-                  type: string
-                email:
-                  type: string
-                dateOfBirth:
-                  type: string
-                  format: date
-              required:
-                - firstName
-                - lastName
-                - email
-                - dateOfBirth
-            examples:
-              Create User Bob Fellow:
-                value:
-                  firstName: Bob
-                  lastName: Fellow
-                  email: bob.fellow@gmail.com
-                  dateOfBirth: '1996-08-24'
-        description: Post the necessary fields for the API to create a new user.
-      description: Create a new user.
+          description: BAD REQUEST
+          headers:
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: gunicorn/19.6.0
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Mon, 16 Dec 2019 22:56:58 GMT'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '89'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=31536000
+            X-Protected-By:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sqreen
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1.1 vegur
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400InvalidToken1'
+              example:
+                code: invalid_header
+                description: Unable to parse authentication token
+        '401':
+          description: UNAUTHORIZED
+          headers:
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: gunicorn/19.6.0
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Mon, 16 Dec 2019 22:58:51 GMT'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '99'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=31536000
+            X-Protected-By:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sqreen
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1.1 vegur
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401NoTokenProvided1'
+              example:
+                code: authorization_header_missing
+                description: Authorization header is expected
+      deprecated: false
 components:
   schemas:
-    User:
-      title: User
-      type: object
-      description: ''
-      examples:
-        - id: 142
-          firstName: Alice
-          lastName: Smith
-          email: alice.smith@gmail.com
-          dateOfBirth: '1997-10-31'
-          emailVerified: true
-          signUpDate: '2019-08-24'
-      properties:
-        id:
-          type: integer
-          description: Unique identifier for the given user.
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-          format: email
-        dateOfBirth:
-          type: string
-          format: date
-          example: '1997-10-31'
-        emailVerified:
-          type: boolean
-          description: Set to true if the user's email has been verified.
-        createDate:
-          type: string
-          format: date
-          description: The date that the user was created.
+    200Sucess:
+      title: 200Sucess
       required:
-        - id
-        - firstName
-        - lastName
-        - email
-        - emailVerified
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+      example:
+        name: ACME
+      x-internal: true
+    400InvalidToken1:
+      title: 400InvalidToken1
+      required:
+        - code
+        - description
+      type: object
+      properties:
+        code:
+          type: string
+        description:
+          type: string
+      example:
+        code: invalid_header
+        description: Unable to parse authentication token
+      x-internal: true
+    401NoTokenProvided1:
+      title: 401NoTokenProvided1
+      required:
+        - code
+        - description
+      type: object
+      properties:
+        code:
+          type: string
+        description:
+          type: string
+      example:
+        code: authorization_header_missing
+        description: Authorization header is expected
+      x-internal: true
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+  - httpBearer: []
+tags:
+  - name: Authentication
