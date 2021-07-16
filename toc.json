@@ -170,6 +170,11 @@
       "type": "item",
       "title": "TurnAPI",
       "uri": "TurnAPIStoplight.yml"
+    },
+    {
+      "type": "item",
+      "title": "Authentication",
+      "uri": "Authentication.yaml"
     }
   ]
 }
