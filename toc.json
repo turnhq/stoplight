@@ -168,13 +168,18 @@
     },
     {
       "type": "item",
-      "title": "TurnAPI",
-      "uri": "TurnAPIStoplight.yml"
+      "title": "Authentication",
+      "uri": "reference/Authentication.yaml"
     },
     {
       "type": "item",
-      "title": "Authentication",
-      "uri": "Authentication.yaml"
+      "title": "Screening",
+      "uri": "reference/Screening.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Onaboarding",
+      "uri": "reference/Onboarding.yaml"
     }
   ]
 }
