@@ -2,20 +2,16 @@ openapi: 3.0.0
 info:
   title: Onboarding
   description: |-
-    Welcome to the Turn API. Our API is designed to make it easy for you to automate the initialization and management, of all your screening needs. Our API is a modern REST API and can easily be consumed with any programming language.
+    Our Onboarding API is an easy way to receive Turn Applicants in your existing onboarding funnel. Setting up this API will enable us to inject workers, along with their profile properties, into your preferred tracking system and desired stage. This takes the manual follow-up out of starting to approve applicants for work—so you no longer have to export and import applicants into your hiring flow!
 
-    ## Authentication
+    Additionally, this API enables Turn to understand where an applicant is in your hiring flow by detecting:
 
-    Turn uses JSON Web Tokens (JWT) keys to allow access to the API. Before making any requests to the API you must request a token. Please request a token by contacting your sales representative.
-    # 
-    All API requests to the Turn API must include the JWT in an Authorization header. The format of the header is described below:
+    - If there is something stopping an applicant from being hired
+    - If and when an applicant completes a milestone
+    - If and when an applicant is rejected
+    - If and when an applicant is cleared/approved to start completing tasks
 
-
-        Authorization: Bearer <jwt_token>
-
-    Where *Authorization* is the header name, and *Bearer jwt_token* is the header value.
-
-    > You must replace jwt token with your personal API key.
+    Turn will then use this data to help re-engage with applicants that have shown interest in working for you and drive them to complete your onboarding. Our ultimate goal is to send you applicants that turn into reliable workers, helping your business grow in the markets where you need it most.
   contact: {}
   version: '1.0'
 servers:

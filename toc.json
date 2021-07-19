@@ -178,6 +178,11 @@
     },
     {
       "type": "item",
+      "title": "Workforce",
+      "uri": "reference/Workforce.yaml"
+    },
+    {
+      "type": "item",
       "title": "Onaboarding",
       "uri": "reference/Onboarding.yaml"
     }
