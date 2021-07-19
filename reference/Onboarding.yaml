@@ -1,0 +1,1183 @@
+openapi: 3.0.0
+info:
+  title: Onboarding
+  description: |-
+    Welcome to the Turn API. Our API is designed to make it easy for you to automate the initialization and management, of all your screening needs. Our API is a modern REST API and can easily be consumed with any programming language.
+
+    ## Authentication
+
+    Turn uses JSON Web Tokens (JWT) keys to allow access to the API. Before making any requests to the API you must request a token. Please request a token by contacting your sales representative.
+    # 
+    All API requests to the Turn API must include the JWT in an Authorization header. The format of the header is described below:
+
+
+        Authorization: Bearer <jwt_token>
+
+    Where *Authorization* is the header name, and *Bearer jwt_token* is the header value.
+
+    > You must replace jwt token with your personal API key.
+  contact: {}
+  version: '1.0'
+servers:
+  - url: 'https://api.turning.io/v1'
+    variables: {}
+paths:
+  /onboardings:
+    post:
+      tags:
+        - Onboarding
+      summary: /onboardings
+      description: "Our Onboarding API is an easy way to receive Turn Applicants in your existing onboarding funnel.\n\nTo set up an onboarding flow first we would need to create one. The following attributes are passed as parameters to this endpoint:\n\n|Parameter\t\t\t|Required\t|Type\t\t|Description\n|:-----------\t\t|:---------:|------:\t|:-----------\n|name\t\t\t|true\t\t|`string`\t\t|Onboarding flow name\n|steps\t\t\t|true\t\t|`list`\t\t|List of steps to follow on your onboarding flow with its name and order"
+      operationId: /onboardings
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/~1onboardingsrequest'
+            example:
+              name: Onboarding Flow
+              steps:
+                - name: Handoff
+                  order: 0
+                - name: Phone Interview
+                  order: 1
+                - name: Background Check
+                  order: 2
+        required: true
+      responses:
+        '201':
+          description: CREATED
+          headers:
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '533'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Werkzeug/0.15.4 Python/3.6.12
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 22 Jun 2021 19:08:55 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/201Success1'
+              example:
+                id: bb914fcf-6567-4b92-bd36-468b4cb9c7e3
+                name: Onboarding Flow
+                steps:
+                  - id: 2331237c-c829-4d06-bd71-521e8d2e952a
+                    name: Handoff
+                    order: 0
+                  - id: c7688207-c871-41ea-b3c0-f3304344a67a
+                    name: Phone Interview
+                    order: 1
+                  - id: b513b6b5-8d79-42a7-be52-d3f6b16ef7ea
+                    name: Background Check
+                    order: 2
+        '422':
+          description: UNPROCESSABLE ENTITY
+          headers:
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '68'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Werkzeug/0.15.4 Python/3.6.12
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 22 Jun 2021 18:48:07 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422Missingdata1'
+              example:
+                steps:
+                  - Missing data for required field.
+      deprecated: false
+    get:
+      tags:
+        - Onboarding
+      summary: /onboardings
+      description: Use this endpoint to get all your onboarding flows.
+      operationId: Get/onboardings
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '3699'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Werkzeug/0.15.4 Python/3.6.12
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 22 Jun 2021 19:11:36 GMT'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/200Success12'
+                description: ''
+                example:
+                  - id: fa126a70-48dc-4288-af0a-a4cf4d2cd861
+                    name: Onboarding Flow
+                    steps:
+                      - id: 01cbd016-29ee-4f2d-900c-eb2043d629c8
+                        name: Handoff
+                        order: 0
+                      - id: 6706efba-fe85-4cd1-9f6e-59c8c75926b8
+                        name: Phone Interview
+                        order: 1
+                      - id: 6f35e8cc-b566-40c3-96de-ba33719977dd
+                        name: Background Check
+                        order: 2
+                  - id: 9d88adc3-3696-41ec-bb27-de325a5434ef
+                    name: Alternative Onboarding Flow
+                    steps:
+                      - id: e58d0744-49cd-4a1e-b785-43b003fe83c3
+                        name: Handoff
+                        order: 0
+                      - id: b04c4be1-6ae5-42f9-aeca-89ba1ab7352d
+                        name: Phone Interview
+                        order: 1
+                      - id: b655bfe6-1023-45bc-a21e-aaf77ba09c3d
+                        name: Background Check
+                        order: 2
+              example:
+                - id: fa126a70-48dc-4288-af0a-a4cf4d2cd861
+                  name: Onboarding Flow
+                  steps:
+                    - id: 01cbd016-29ee-4f2d-900c-eb2043d629c8
+                      name: Handoff
+                      order: 0
+                    - id: 6706efba-fe85-4cd1-9f6e-59c8c75926b8
+                      name: Phone Interview
+                      order: 1
+                    - id: 6f35e8cc-b566-40c3-96de-ba33719977dd
+                      name: Background Check
+                      order: 2
+                - id: 9d88adc3-3696-41ec-bb27-de325a5434ef
+                  name: Alternative Onboarding Flow
+                  steps:
+                    - id: e58d0744-49cd-4a1e-b785-43b003fe83c3
+                      name: Handoff
+                      order: 0
+                    - id: b04c4be1-6ae5-42f9-aeca-89ba1ab7352d
+                      name: Phone Interview
+                      order: 1
+                    - id: b655bfe6-1023-45bc-a21e-aaf77ba09c3d
+                      name: Background Check
+                      order: 2
+      deprecated: false
+  /onboardings/steps:
+    post:
+      tags:
+        - Onboarding
+      summary: /onboardings/steps
+      description: "If later you need to add a step to your onboarding flow you can do it. The following attributes are passed as parameters to this endpoint:\n\n|Parameter\t\t\t|Required\t|Type\t\t|Description\n|:-----------\t\t|:---------:|------:\t|:-----------\n|name\t\t\t|true\t\t|`string`\t\t|Onboarding step name\n|onboarding_id\t\t|true\t\t|`string`\t\t|Onboarding id\n|order\t\t\t|true\t\t|`integer`\t\t|Order in which you want to set your onboarding step"
+      operationId: /onboardings/steps
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/~1onboardings~1stepsrequest'
+            example:
+              name: End onboarding
+              onboarding_id: bb914fcf-6567-4b92-bd36-468b4cb9c7e3
+              order: 3
+        required: true
+      responses:
+        '201':
+          description: CREATED
+          headers:
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '160'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Werkzeug/0.15.4 Python/3.6.12
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 22 Jun 2021 21:05:21 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/201Success2'
+              example:
+                id: e49dd39a-89bd-4d96-ba75-dc27af454c55
+                name: End onboarding
+                onboarding_id: bb914fcf-6567-4b92-bd36-468b4cb9c7e3
+                order: 3
+        '400':
+          description: BAD REQUEST
+          headers:
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '62'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Werkzeug/0.15.4 Python/3.6.12
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 22 Jun 2021 21:04:02 GMT'
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '"Steps order needs to be consecutive numbers starting from 0"'
+              example: '"Steps order needs to be consecutive numbers starting from 0"'
+        '422':
+          description: UNPROCESSABLE ENTITY
+          headers:
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '76'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Werkzeug/0.15.4 Python/3.6.12
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 22 Jun 2021 21:05:44 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422Missingdata3'
+              example:
+                onboarding_id:
+                  - Missing data for required field.
+      deprecated: false
+    get:
+      tags:
+        - Onboarding
+      summary: /onboardings/steps
+      description: Use this endpoint to get all your onboarding flows steps.
+      operationId: Get/onboardings/steps
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '3309'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Werkzeug/0.15.4 Python/3.6.12
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 22 Jun 2021 19:16:38 GMT'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/200Success13'
+                description: ''
+                example:
+                  - id: 01cbd016-29ee-4f2d-900c-eb2043d629c8
+                    name: Handoff
+                    onboarding_id: fa126a70-48dc-4288-af0a-a4cf4d2cd861
+                    order: 0
+                  - id: 6706efba-fe85-4cd1-9f6e-59c8c75926b8
+                    name: Phone Interview
+                    onboarding_id: fa126a70-48dc-4288-af0a-a4cf4d2cd861
+                    order: 1
+                  - id: 6f35e8cc-b566-40c3-96de-ba33719977dd
+                    name: Background Check
+                    onboarding_id: fa126a70-48dc-4288-af0a-a4cf4d2cd861
+                    order: 2
+                  - id: e58d0744-49cd-4a1e-b785-43b003fe83c3
+                    name: Handoff
+                    onboarding_id: 9d88adc3-3696-41ec-bb27-de325a5434ef
+                    order: 0
+                  - id: b04c4be1-6ae5-42f9-aeca-89ba1ab7352d
+                    name: Phone Interview
+                    onboarding_id: 9d88adc3-3696-41ec-bb27-de325a5434ef
+                    order: 1
+                  - id: b655bfe6-1023-45bc-a21e-aaf77ba09c3d
+                    name: Background Check
+                    onboarding_id: 9d88adc3-3696-41ec-bb27-de325a5434ef
+                    order: 2
+              example:
+                - id: 01cbd016-29ee-4f2d-900c-eb2043d629c8
+                  name: Handoff
+                  onboarding_id: fa126a70-48dc-4288-af0a-a4cf4d2cd861
+                  order: 0
+                - id: 6706efba-fe85-4cd1-9f6e-59c8c75926b8
+                  name: Phone Interview
+                  onboarding_id: fa126a70-48dc-4288-af0a-a4cf4d2cd861
+                  order: 1
+                - id: 6f35e8cc-b566-40c3-96de-ba33719977dd
+                  name: Background Check
+                  onboarding_id: fa126a70-48dc-4288-af0a-a4cf4d2cd861
+                  order: 2
+                - id: e58d0744-49cd-4a1e-b785-43b003fe83c3
+                  name: Handoff
+                  onboarding_id: 9d88adc3-3696-41ec-bb27-de325a5434ef
+                  order: 0
+                - id: b04c4be1-6ae5-42f9-aeca-89ba1ab7352d
+                  name: Phone Interview
+                  onboarding_id: 9d88adc3-3696-41ec-bb27-de325a5434ef
+                  order: 1
+                - id: b655bfe6-1023-45bc-a21e-aaf77ba09c3d
+                  name: Background Check
+                  onboarding_id: 9d88adc3-3696-41ec-bb27-de325a5434ef
+                  order: 2
+      deprecated: false
+  /onboardings/steps/01cbd016-29ee-4f2d-900c-eb2043d629c8:
+    get:
+      tags:
+        - Onboarding
+      summary: /onboardings/steps/<step_id>
+      description: Use this endpoint to get a specific onboarding step.
+      operationId: /onboardings/steps/step_id
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '153'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Werkzeug/0.15.4 Python/3.6.12
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 22 Jun 2021 19:18:36 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200Success13'
+              example:
+                id: 01cbd016-29ee-4f2d-900c-eb2043d629c8
+                name: Handoff
+                onboarding_id: fa126a70-48dc-4288-af0a-a4cf4d2cd861
+                order: 0
+        '404':
+          description: NOT FOUND
+          headers:
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '40'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Werkzeug/0.15.4 Python/3.6.12
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 22 Jun 2021 19:18:55 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404Stepnotfound1'
+              example:
+                message: Resource not found
+      deprecated: false
+  /onboardings/fa126a70-48dc-4288-af0a-a4cf4d2cd861:
+    get:
+      tags:
+        - Onboarding
+      summary: /onboardings/<onboarding_id>
+      description: Use this endpoint to see detailed information about one of your onboarding flows.
+      operationId: /onboardings/onboarding_id
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '521'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Werkzeug/0.15.4 Python/3.6.12
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 22 Jun 2021 19:14:13 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200Success12'
+              example:
+                id: fa126a70-48dc-4288-af0a-a4cf4d2cd861
+                name: Onboarding Flow
+                steps:
+                  - id: 01cbd016-29ee-4f2d-900c-eb2043d629c8
+                    name: Handoff
+                    order: 0
+                  - id: 6706efba-fe85-4cd1-9f6e-59c8c75926b8
+                    name: Phone Interview
+                    order: 1
+                  - id: 6f35e8cc-b566-40c3-96de-ba33719977dd
+                    name: Background Check
+                    order: 2
+        '404':
+          description: NOT FOUND
+          headers:
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '40'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Werkzeug/0.15.4 Python/3.6.12
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 22 Jun 2021 19:15:04 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404Onboardingnotfound1'
+              example:
+                message: Resource not found
+      deprecated: false
+  /onboardings/candidates/7d94e947-dd5e-4784-b180-c1c906f48643:
+    patch:
+      tags:
+        - Onboarding
+      summary: /onboardings/candidates/<candidate_id>
+      description: |-
+        This endpoint will help you move your candidates through the onboarding flow steps. You have several ways to do this. You can move a candidate to a specific step by making a patch request with the step name. Example:
+
+        ```
+        {
+            "step": "Phone Interview"
+        }
+        ```
+
+        Or you can move it one step forward or backward relative to its current step. Example:
+        ```
+        {
+            "step": "forward"
+        }
+        ```
+        Also, you can move it to the start or end of the flow. Example:
+        ```
+        {
+            "step": "start"
+        }
+        ```
+        And finally, you can change it to `approved`, `rejected`, and `withdraw`.
+        ```
+        {
+            "status": "approved"
+        }
+        ```
+      operationId: /onboardings/candidates/candidate_id
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/~1onboardings~1candidates~1%3Ccandidate_id%3E_request'
+            example:
+              status: forward
+        required: true
+      responses:
+        '204':
+          description: NO CONTENT
+          headers:
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Werkzeug/0.15.4 Python/3.6.12
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 22 Jun 2021 21:10:05 GMT'
+          content: {}
+        '404':
+          description: NOT FOUND
+          headers:
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '36'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Werkzeug/0.15.4 Python/3.6.12
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 22 Jun 2021 21:13:11 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404Stepnotfound1'
+              example:
+                message: Step not found
+        '422':
+          description: UNPROCESSABLE ENTITY
+          headers:
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '56'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Werkzeug/0.15.4 Python/3.6.12
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 22 Jun 2021 21:15:43 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422Notavalidstatus1'
+              example:
+                status:
+                  - Not a valid choice.
+      deprecated: false
+    get:
+      tags:
+        - Onboarding
+      summary: /onboardings/candidates/<candidate_id>
+      description: 'Use this endpoint to get detailed information about a candidate such as status, current step and name.'
+      operationId: Get/onboardings/candidates/candidate_id
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '124'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Werkzeug/0.15.4 Python/3.6.12
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 22 Jun 2021 20:55:46 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200Success16'
+              example:
+                id: 7d94e947-dd5e-4784-b180-c1c906f48643
+                name: George Lopez
+                status: ''
+                step: Handoff
+        '404':
+          description: NOT FOUND
+          headers:
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '40'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Werkzeug/0.15.4 Python/3.6.12
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 22 Jun 2021 20:56:38 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404Candidatenotfound1'
+              example:
+                message: Resource not found
+      deprecated: false
+  /onboardings/candidates:
+    get:
+      tags:
+        - Onboarding
+      summary: /onboardings/candidates
+      description: Use this endpoint to get all your candidates
+      operationId: /onboardings/candidates
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '152'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Werkzeug/0.15.4 Python/3.6.12
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 22 Jun 2021 20:53:21 GMT'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/200Success16'
+                description: ''
+                example:
+                  - id: 7d94e947-dd5e-4784-b180-c1c906f48643
+                    name: George Lopez
+                    status: ''
+                    step: Handoff
+              example:
+                - id: 7d94e947-dd5e-4784-b180-c1c906f48643
+                  name: George Lopez
+                  status: ''
+                  step: Handoff
+      deprecated: false
+components:
+  schemas:
+    /onboardingsrequest:
+      title: /onboardingsrequest
+      required:
+        - name
+        - steps
+      type: object
+      properties:
+        name:
+          type: string
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/Step'
+          description: ''
+      example:
+        name: Onboarding Flow
+        steps:
+          - name: Handoff
+            order: 0
+          - name: Phone Interview
+            order: 1
+          - name: Background Check
+            order: 2
+      x-internal: true
+    Step:
+      title: Step
+      required:
+        - name
+        - order
+      type: object
+      properties:
+        name:
+          type: string
+        order:
+          type: integer
+          format: int32
+      example:
+        name: Handoff
+        order: 0
+      x-internal: true
+    201Success1:
+      title: 201Success1
+      required:
+        - id
+        - name
+        - steps
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/Step1'
+          description: ''
+      example:
+        id: bb914fcf-6567-4b92-bd36-468b4cb9c7e3
+        name: Onboarding Flow
+        steps:
+          - id: 2331237c-c829-4d06-bd71-521e8d2e952a
+            name: Handoff
+            order: 0
+          - id: c7688207-c871-41ea-b3c0-f3304344a67a
+            name: Phone Interview
+            order: 1
+          - id: b513b6b5-8d79-42a7-be52-d3f6b16ef7ea
+            name: Background Check
+            order: 2
+      x-internal: true
+    Step1:
+      title: Step1
+      required:
+        - id
+        - name
+        - order
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        order:
+          type: integer
+          format: int32
+      example:
+        id: 2331237c-c829-4d06-bd71-521e8d2e952a
+        name: Handoff
+        order: 0
+      x-internal: true
+    422Missingdata1:
+      title: 422Missingdata1
+      required:
+        - steps
+      type: object
+      properties:
+        steps:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        steps:
+          - Missing data for required field.
+      x-internal: true
+    /onboardings/stepsrequest:
+      title: /onboardings/stepsrequest
+      required:
+        - name
+        - onboarding_id
+        - order
+      type: object
+      properties:
+        name:
+          type: string
+        onboarding_id:
+          type: string
+        order:
+          type: integer
+          format: int32
+      example:
+        name: End onboarding
+        onboarding_id: bb914fcf-6567-4b92-bd36-468b4cb9c7e3
+        order: 3
+      x-internal: true
+    201Success2:
+      title: 201Success2
+      required:
+        - id
+        - name
+        - onboarding_id
+        - order
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        onboarding_id:
+          type: string
+        order:
+          type: integer
+          format: int32
+      example:
+        id: e49dd39a-89bd-4d96-ba75-dc27af454c55
+        name: End onboarding
+        onboarding_id: bb914fcf-6567-4b92-bd36-468b4cb9c7e3
+        order: 3
+      x-internal: true
+    422Missingdata3:
+      title: 422Missingdata3
+      required:
+        - onboarding_id
+      type: object
+      properties:
+        onboarding_id:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        onboarding_id:
+          - Missing data for required field.
+      x-internal: true
+    200Success12:
+      title: 200Success12
+      required:
+        - id
+        - name
+        - steps
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/Step1'
+          description: ''
+      example:
+        id: fa126a70-48dc-4288-af0a-a4cf4d2cd861
+        name: Onboarding Flow
+        steps:
+          - id: 01cbd016-29ee-4f2d-900c-eb2043d629c8
+            name: Handoff
+            order: 0
+          - id: 6706efba-fe85-4cd1-9f6e-59c8c75926b8
+            name: Phone Interview
+            order: 1
+          - id: 6f35e8cc-b566-40c3-96de-ba33719977dd
+            name: Background Check
+            order: 2
+      x-internal: true
+    200Success13:
+      title: 200Success13
+      required:
+        - id
+        - name
+        - onboarding_id
+        - order
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        onboarding_id:
+          type: string
+        order:
+          type: integer
+          format: int32
+      example:
+        id: 01cbd016-29ee-4f2d-900c-eb2043d629c8
+        name: Handoff
+        onboarding_id: fa126a70-48dc-4288-af0a-a4cf4d2cd861
+        order: 0
+      x-internal: true
+    404Stepnotfound1:
+      title: 404Stepnotfound1
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          type: string
+      example:
+        message: Resource not found
+      x-internal: true
+    404Onboardingnotfound1:
+      title: 404Onboardingnotfound1
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          type: string
+      example:
+        message: Resource not found
+      x-internal: true
+    /onboardings/candidates/<candidate_id>_request:
+      title: /onboardings/candidates/<candidate_id>_request
+      required:
+        - status
+      type: object
+      properties:
+        status:
+          type: string
+      example:
+        status: forward
+      x-internal: true
+    422Notavalidstatus1:
+      title: 422Notavalidstatus1
+      required:
+        - status
+      type: object
+      properties:
+        status:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        status:
+          - Not a valid choice.
+      x-internal: true
+    200Success16:
+      title: 200Success16
+      required:
+        - id
+        - name
+        - status
+        - step
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+          nullable: true
+        step:
+          type: string
+      example:
+        id: 7d94e947-dd5e-4784-b180-c1c906f48643
+        name: George Lopez
+        status: ''
+        step: Handoff
+      x-internal: true
+    404Candidatenotfound1:
+      title: 404Candidatenotfound1
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          type: string
+      example:
+        message: Resource not found
+      x-internal: true
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+  - httpBearer: []
+tags:
+  - name: Onboarding
