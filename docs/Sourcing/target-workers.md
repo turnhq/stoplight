@@ -49,7 +49,7 @@ Sourcing is currently available in the below markets and continually expanding:
 | Virginia | Richmond |
 | Washington | Seattle |
 
-**Don’t see the city you’re hiring in on the above list?** Not to worry—we are regularly adding cities you can recruit in. To start sourcing workers in a particular city, [contact us](#Contact-Support) at [support@turning.io](mailto:support@turning.io) and we’ll activate a market as quickly as possible for you, typically within five business days.
+**Don’t see the city you’re hiring in on the above list?** Not to worry—we are regularly adding cities you can recruit in. To start sourcing workers in a particular city, [contact us](/docs/turn-api/ZG9jOjE1NzkwNTIy-contact-support) at [support@turning.io](mailto:support@turning.io) and we’ll activate a market as quickly as possible for you, typically within five business days.
 
 ## By Experience
 Filtering Turn workers by their experience ensures your applicants are the right match. Using Sourcing, you can drill down workers based on the below skills:

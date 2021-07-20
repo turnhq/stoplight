@@ -1,4 +1,4 @@
-# invite-workers-to-apply
+# Invite workers to apply
 
 ## Email Invite
 Once you indicate your desired number of applicants, customize email content for your job invite. This email message will be sent to workers that match the criteria you filtered by in **Step 1**.

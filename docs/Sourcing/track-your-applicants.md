@@ -1,11 +1,11 @@
 # Track Your Applicants
-After you invite workers to apply to your open job, you can [view applicants](#View-Applicant-List) in your [Turn Dashboard](https://partners.turning.io/). If you are set up with our ATS integration or Webhook API, you can also view Turn Applicants in your preferred tracking system.
+After you invite workers to apply to your open job, you can [view applicants](#view-applicant-list) in your [Turn Dashboard](https://partners.turning.io/). If you are set up with our ATS integration or Webhook API, you can also view Turn Applicants in your preferred tracking system.
 
 In addition to just viewing your applicants in your Turn Dashboard, you can:
 
-1.  Explore their [profiles](#View-Applicant-Profiles)
-2.  [Filter or search](#Filter-Applicants) for specific applicants
-3.  [Export](#Export-Applicants) them as a .csv file
+1.  Explore their [profiles](#view-applicant-profiles)
+2.  [Filter or search](#filter-applicants) for specific applicants
+3.  [Export](#export-applicants) them as a .csv file
 
 **Tip:** The faster you invite an applicant to complete a background check after they apply, the more likely they are to start working!
 
@@ -41,7 +41,7 @@ This will open their profile with additional information, including:
 We’re working on expanding on the details provided in our applicant profiles, so be on the lookout for more information soon!
 
 ## Export Applicants
-[Sourcing](#What-is-Sourcing) also gives you the ability to export your applicants in a .csv file at any time, giving your team the flexibility to track your applicants in any way you need.
+[Sourcing](/docs/turn-api/ZG9jOjE1NzEzNjk2-what-is-sourcing) also gives you the ability to export your applicants in a .csv file at any time, giving your team the flexibility to track your applicants in any way you need.
 
 To export your applicants, simply make sure you are viewing the list of applicants on the **Sourcing tab** in your [Turn Dashboard](https://partners.turning.io/).  Click on the **Actions button** in the upper left corner of the page. Select the option to **Export** your applicants.
 
