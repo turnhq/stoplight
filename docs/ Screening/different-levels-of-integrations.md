@@ -505,11 +505,11 @@ While testing with the API, a set of identities can be used to simulate reports 
 This integration involves the use of the [API /person/search_async](/docs/turn-api/b3A6MTYyMDg2OTQ-person-search-async) endpoint. You provide basic candidate details (name, email,) specify your required package, and make sure to pass the email\_candidate flag with a true value. Once the check is complete the results will be posted back via a webhook to the specified location provided in the callback\_url parameter. See [Webhooks - Background Check Results](/docs/turn-api/b3A6MTYxMDE1OTU-fcra-check-form) for details on the response.
 
 ### Automating the background check request - Your Protocol
-This integration also involves the [API /person/search_async](/docs/turn-api/b3A6MTYyMDg2OTQ-person-search-async)endpoint. You provide basic candidate details (name, email) specify your required package, and make sure to pass the email_candidate flag with a false value.
+This integration also involves the [API /person/search_async](/docs/turn-api/b3A6MTYyMDg2OTQ-person-search-async) endpoint. You provide basic candidate details (name, email) specify your required package, and make sure to pass the email_candidate flag with a false value.
 
 In the response, look for the candidate\_consent\_url value, this will be the URL you need to present to the candidate to start their background check.
 
-Once the check is complete, the results will be posted back via a webhook to the specified location provided in the callback_url parameter. See [Webhooks - Background Check Results](/docs/turn-api/b3A6MTYxMDE1OTU-fcra-check-form)for details on the response.
+Once the check is complete, the results will be posted back via a webhook to the specified location provided in the callback_url parameter. See [Webhooks - Background Check Results](/docs/turn-api/b3A6MTYxMDE1OTU-fcra-check-form) for details on the response.
 
 ### End to End Integration
 This integration involves the use of the [API /fcra_check/form](/docs/turn-api/b3A6MTYxMDE1OTU-fcra-check-form)endpoint, with a two step process. First, you need to call the [Create Check Form](/docs/turn-api/b3A6MTYxMDE1OTU-fcra-check-form) endpoint, specifying the package you want to run, and the zip code where the candidate resides. This won’t create a new check, but will give you directions on 1) What information to gather from the candidate and 2) All legal disclosures the candidate must agree to before running the background check.
