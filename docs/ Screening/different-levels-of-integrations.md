@@ -468,7 +468,8 @@ This level of integration is recommended when:
 * You reach the point in your onboarding flow when you have the candidate name/email and you wish to start the background check, but do not want to manually input the candidate’s information in your Turn Dashboard.
 * You want to know programmatically when a check is completed and its status.
 
-Take a look on how to implement it:[API /person/search_async](/docs/turn-api/b3A6MTYxMDE2MDM-person-search-async)(email_candidate flag on)
+Take a look on how to implement it:[API /person/search_async](/docs/turn-api/b3A6MTYyMDg2OTQ-person-search-async){:target="_blank"}
+(email_candidate flag on)
 
 ### b) Automating the background check request - Your Protocol
 
