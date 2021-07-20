@@ -3,7 +3,7 @@
 ## Subscription Plans
 Turn offers affordable and flexible pricing options for Sourcing. 
 
-We also give you the opportunity to test out the Sourcing tool, on us! When you [sign up](#Sign-Up-For-a-Subscription) for a subscription, you receive 20 applicants at no cost. If any of those 20 applicants complete a Basic background check, that is on us, too!
+We also give you the opportunity to test out the Sourcing tool, on us! When you [sign up](#sign-up-for-a-subscription) for a subscription, you receive 20 applicants at no cost. If any of those 20 applicants complete a Basic background check, that is on us, too!
 
 If your business is not ready to sign up for an annual subscription, you can also pay-as-you-go. 
 
@@ -27,7 +27,7 @@ Signing up to use Sourcing is easy. If you are not already signed up, you can do
 4.  Update or add your payment information (we accept ACH or a credit card)
 5.  Agree to Terms of Service and Privacy Policy
 
-Once you sign up, you’ll be prompted to schedule a time with our Support Team to [set up your applicant workflow](#Set-Up--Integrations), with options to use an ATS integration or our Webhook API.
+Once you sign up, you’ll be prompted to schedule a time with our Support Team to [set up your applicant workflow](/docs/turn-api/ZG9jOjE1Nzc4MTYx-set-up-and-integrations), with options to use an ATS integration or our Webhook API.
 
 ## Manage Your Subscription
 To see your active subscription plan, simply navigate to the **Settings** tab in the left hand navigation bar of your [Turn Dashboard](https://partners.turning.io). Once there, in the **Packages & Subscriptions** section, you’ll be able to view:
