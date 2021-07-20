@@ -1,11 +1,11 @@
 # Set Up & Integrations
-Once you [sign up](#Sign-Up-For-a-Subscription) for Sourcing, we’ll work with your team to complete your Sourcing configuration.
+Once you [sign up](/docs/turn-api/ZG9jOjE1NzEzNjk1-manage-your-subscription-and-billing#sign-up-for-a-subscription) for Sourcing, we’ll work with your team to complete your Sourcing configuration.
 
 We’ll determine the below:
 
-1.  What [cities](#By-Location) you’re actively hiring in
-2.  If you’d like us to automatically inject Turn Applicants into your preferred onboarding workflow using our [Webhook API](#Webhook-API) or [ATS Integration](#API-or-ATS-Integration) options. We have ATS integrations for [Fountain](https://get.fountain.com/) and [Greenhouse](https://www.greenhouse.io/integrations/turn-technologies).
-3.  How Turn will receive [task completion and performance data](#Workforce--API) for active workers acquired via Sourcing
+1.  What [cities](/docs/turn-api/ZG9jOjE1Nzc4MTYy-target-workers#by-location) you’re actively hiring in
+2.  If you’d like us to automatically inject Turn Applicants into your preferred onboarding workflow using our [Webhook API](#webhook-api) or [ATS Integration](/docs/turn-api/ZG9jOjE1Nzc4MTU3-common-sourcing-flows#api-or-ats-integration) options. We have ATS integrations for [Fountain](https://get.fountain.com/) and [Greenhouse](https://www.greenhouse.io/integrations/turn-technologies).
+3.  How Turn will receive [task completion and performance data](#workforce--api) for active workers acquired via Sourcing
 
 ## Fountain Integration for Sourcing
 Our Fountain integration allows us to inject Turn Applicants directly into your existing workflows. This helps to push potential workers through your onboarding stages as quickly as possible.
