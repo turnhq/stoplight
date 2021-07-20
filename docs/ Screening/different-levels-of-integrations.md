@@ -8,7 +8,7 @@ You can send a candidate a unique URL that’s linked to a specific package; you
 
 ![alt text](https://documentation.turning.io/static/status/package-url.png)
 
-Once the candidate opens the URL, the consent form is displayed, and they’ll provide all the required information. You can also prefill every part of the form, see [prefilling the candidate consent form section](#Pre-filling-the-Unique-URL---Consent-Form).
+Once the candidate opens the URL, the consent form is displayed, and they’ll provide all the required information. You can also prefill every part of the form, see [prefilling the candidate consent form section](#pre-filling-the-unique-url---consent-form).
 
 ### Personal Invitation
 You can also kick off a background check by sending personalized invitation to a candidate with the “Add Candidate” feature in your Turn Dashboard.
