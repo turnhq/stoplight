@@ -47,7 +47,7 @@ Each Turn Applicant added to Greenhouse will include the following profile attri
 Each Turn Applicant is added to the **first step** of your application workflow.
 
 ## Webhook API
-If you’re not using an ATS to track your applicants, you can take advantage of our [Webhook API](https://apidoc.turning.io/#2c2193a9-1319-48c9-88ed-4c009cdffc2a). This will inject workers into the system you use to track and onboard incoming applicants.
+If you’re not using an ATS to track your applicants, you can take advantage of our [Webhook API](/docs/turn-api/ZG9jOjE1ODgwNTQ0-overview). This will inject workers into the system you use to track and onboard incoming applicants.
 
 Implementation will require a developer resource on your team to set up the ability to receive the incoming webhook and initiate your onboarding flow using the Applicant Profile. 
 
