@@ -22,6 +22,174 @@ servers:
   - url: 'https://api.turning.io/v1'
     variables: {}
 paths:
+  /person/search_async:
+    post:
+      tags:
+        - Person Search
+      summary: /person/search_async
+      description: "The Asynchronous Person Search endpoint is the most basic way to initiate a background check. It's a two way process:\n\n1. This endpoint is called with the necesary details to invite a candidate to do a background check.\n\n2. When the background check is completed, the results will be posted back to your provided URL. \n\nRather than returning an inline response, requests made to this endpoint will return a unique UUID as a response. The full person response will then be returned asynchronously via HTTP POST to an endpoint that is specified as an additional callback_url parameter in the original requrest.\n\nThe UUID will be included as an additional key:value pair in the response, in order to tie requests back to their responses.\n\n|Parameter\t\t\t|Required\t|Type\t\t\t|Description\n|:-----------\t\t|---------  |------\t\t\t|-----------\n|first_name\t\t\t|true\t\t|`string`\t\t|Legal first name of the person to check\n|last_name\t\t\t|true\t\t|`string`\t\t|Legal last name of the person to check\n|email\t\t\t\t|true\t\t|`string`\t\t|The email of the person to check\n|phone_number\t\t|false\t\t|`string`\t\t|Mobile phone number of the person to check\n|email_candidate\t|false\t(defaults to `true`)|`boolean`\t|Boolean value to indicate whether Turn should initiate the invitation via email (and via sms if a phone number was provided)\n|callback_url\t\t|true\t\t|`string`\t\t|A URL endpoint to which the background results will be POSTed asynchronously\n|reference_id\t\t|false\t\t|`string`\t\t|An arbitrary metadata value that can be passed. It will be returned in the response and also visible on the background report in your Turn Dashboard\n|package_id\t\t\t|false\t\t|`string`\t\t|The id of the package this check will use\n|redirect_url\t\t|false\t\t|`string` \t\t|After completion of the background check flow, the candidate will be redirected to the provided URL\n|do_checks\t\t|false\t(defaults to `true`)|`boolean` \t\t|If true starts the background check right away after the candidate consents, if false puts the check in a standby mode to be started at a later date using the `worker_id` provided in the response.\n\n\n\n## About *email_candidate*\nIf you want Turn to initiate the communication with the candidate to start the background check, specify this flag in `true`. Marking this flag as `false` means you want to control the communication with your candidate. Use the `candidate_consent_url` response parameter to show your candidate the personalized consent form to start the background check, you can send this link using an internal communication channel (email, slack, etc) or embed the link inside a web application of your own or even a mobile app.\n\n## About *do_checks*\nIf *do_checks* is specified as `false` the background check won't be started right away after the candidate consents. The check will be in an _initiated_ status which means:\n\n* The check won't appear in your Turn Dashboard (until it's requested)\n* You won't be charged for this check if it's never initiated\n* The candidate won't be notified/sent any communication\n\nIf not specified, do_checks will always be `true`\n\nTo request the execution of the background check the /person/\\<worker_id\\>/run endpoint.\n\n\n## About *phone_number*\nIf a phone number is specified and `email_candidate` is set to `true`, we'll also send a TEXT invitation (alongside the email). We'll send reminders as well, if we detect that the background check hasn't been started. \n\n## About *package_id*\nIf you are configured with multiple packages, you can pass in the ID of the package here. The package_id is an 11 character string starting with a ‘P’ and followed by 10 digits. If no package_id is passed, the configured default package will be used.\n\n## Consent Form Prepopulation\nfirst_name, last_name, email and phone_number will be used to prepopulate the candidate_consent_url the candidate will receive to start the background check form."
+      operationId: /person/search_async
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/~1person~1search_async_request'
+            example:
+              email_candidate: true
+              first_name: Alec
+              last_name: Sadler
+              email: contact@turning.io
+              phone_number: '18884998876'
+              package_id: P1234567890
+              callback_url: 'https://somedomain.com/response'
+              reference_id: ABC12345
+              redirect_url: 'https://turning.io'
+              do_checks: true
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: gunicorn/19.6.0
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 17 Dec 2019 19:12:58 GMT'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '1077'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=31536000
+            X-Protected-By:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sqreen
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1.1 vegur
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200Success'
+              example:
+                message:
+                  code: '9200'
+                  message: The operation completed successfully.
+                  request_uuid: 21aac715-ada2-409a-952d-7610873ebfde
+                candidate_consent_url: 'https://partners.turning.io/consent/HG6qlUzrxv5jEXhqmeywDRL_zpRQ9pe9?first_name=Alec&last_name=Sadler&phone_number=18884998876&email=contact%40turning.io&email_candidate=True&reference_id=ABC12345&redirect_url=https%3A%2F%2Fturning.io'
+                email: contact@turning.io
+                email_candidate: true
+                first_name: Alec
+                last_name: Sadler
+                phone_number: '18884998876'
+                redirect_url: 'https://turning.io'
+                reference_id: ABC12345
+                email_status:
+                  message: 'The notification email is on our queue, it will be delivered shortly'
+                  status: 200
+                sms_status:
+                  message: SMS queued to be sent
+                  status: 200
+                uuid: 12d6d04a-45df-4f02-9d2c-a1db2b2391bf
+                worker_id: 5c8f690c-0cc5-4063-beb8-8a140ff3abc6
+        '422':
+          description: UNPROCESSABLE ENTITY
+          headers:
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: gunicorn/19.6.0
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Tue, 17 Dec 2019 20:26:29 GMT'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '222'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=31536000
+            X-Protected-By:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sqreen
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1.1 vegur
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422Missingrequiredfield1'
+              example:
+                json.email:
+                  - Missing data for required field.
+                json.first_name:
+                  - Missing data for required field.
+                json.last_name:
+                  - Missing data for required field.
+                json.callback_url:
+                  - Missing data for required field.
+      deprecated: false
   '/person/{worker_id}/run':
     post:
       tags:
@@ -1525,6 +1693,209 @@ paths:
       deprecated: false
 components:
   schemas:
+    /person/search_async_request:
+      title: /person/search_async_request
+      required:
+        - email_candidate
+        - first_name
+        - last_name
+        - email
+        - phone_number
+        - package_id
+        - callback_url
+        - reference_id
+        - redirect_url
+        - do_checks
+      type: object
+      properties:
+        email_candidate:
+          type: boolean
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        phone_number:
+          type: string
+        package_id:
+          type: string
+        callback_url:
+          type: string
+        reference_id:
+          type: string
+        redirect_url:
+          type: string
+        do_checks:
+          type: boolean
+      example:
+        email_candidate: true
+        first_name: Alec
+        last_name: Sadler
+        email: contact@turning.io
+        phone_number: '18884998876'
+        package_id: P1234567890
+        callback_url: 'https://somedomain.com/response'
+        reference_id: ABC12345
+        redirect_url: 'https://turning.io'
+        do_checks: true
+      x-internal: true
+    200Success:
+      title: 200Success
+      required:
+        - message
+        - candidate_consent_url
+        - email
+        - email_candidate
+        - first_name
+        - last_name
+        - phone_number
+        - redirect_url
+        - reference_id
+        - email_status
+        - sms_status
+        - uuid
+        - worker_id
+      type: object
+      properties:
+        message:
+          $ref: '#/components/schemas/Message'
+        candidate_consent_url:
+          type: string
+        email:
+          type: string
+        email_candidate:
+          type: boolean
+        first_name:
+          type: string
+        last_name:
+          type: string
+        phone_number:
+          type: string
+        redirect_url:
+          type: string
+        reference_id:
+          type: string
+        email_status:
+          $ref: '#/components/schemas/EmailStatus'
+        sms_status:
+          $ref: '#/components/schemas/SmsStatus'
+        uuid:
+          type: string
+        worker_id:
+          type: string
+      example:
+        message:
+          code: '9200'
+          message: The operation completed successfully.
+          request_uuid: 21aac715-ada2-409a-952d-7610873ebfde
+        candidate_consent_url: 'https://partners.turning.io/consent/HG6qlUzrxv5jEXhqmeywDRL_zpRQ9pe9?first_name=Alec&last_name=Sadler&phone_number=18884998876&email=contact%40turning.io&email_candidate=True&reference_id=ABC12345&redirect_url=https%3A%2F%2Fturning.io'
+        email: contact@turning.io
+        email_candidate: true
+        first_name: Alec
+        last_name: Sadler
+        phone_number: '18884998876'
+        redirect_url: 'https://turning.io'
+        reference_id: ABC12345
+        email_status:
+          message: 'The notification email is on our queue, it will be delivered shortly'
+          status: 200
+        sms_status:
+          message: SMS queued to be sent
+          status: 200
+        uuid: 12d6d04a-45df-4f02-9d2c-a1db2b2391bf
+        worker_id: 5c8f690c-0cc5-4063-beb8-8a140ff3abc6
+      x-internal: true
+    Message:
+      title: Message
+      required:
+        - code
+        - message
+        - request_uuid
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        request_uuid:
+          type: string
+      example:
+        code: '9200'
+        message: The operation completed successfully.
+        request_uuid: 21aac715-ada2-409a-952d-7610873ebfde
+      x-internal: true
+    EmailStatus:
+      title: EmailStatus
+      required:
+        - message
+        - status
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: integer
+          format: int32
+      example:
+        message: 'The notification email is on our queue, it will be delivered shortly'
+        status: 200
+      x-internal: true
+    SmsStatus:
+      title: SmsStatus
+      required:
+        - message
+        - status
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: integer
+          format: int32
+      example:
+        message: SMS queued to be sent
+        status: 200
+      x-internal: true
+    422Missingrequiredfield1:
+      title: 422Missingrequiredfield1
+      required:
+        - json.email
+        - json.first_name
+        - json.last_name
+        - json.callback_url
+      type: object
+      properties:
+        json.email:
+          type: array
+          items:
+            type: string
+          description: ''
+        json.first_name:
+          type: array
+          items:
+            type: string
+          description: ''
+        json.last_name:
+          type: array
+          items:
+            type: string
+          description: ''
+        json.callback_url:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        json.email:
+          - Missing data for required field.
+        json.first_name:
+          - Missing data for required field.
+        json.last_name:
+          - Missing data for required field.
+        json.callback_url:
+          - Missing data for required field.
+      x-internal: true
     200Sucess1:
       title: 200Sucess1
       required:
