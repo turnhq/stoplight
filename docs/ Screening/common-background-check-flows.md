@@ -23,10 +23,10 @@ If their background check reveals a criminal hit, we let them know about the rec
 ## The Hiring Manager Experience
 When a background check is clear on a candidate, the flow is as follows from the hiring manager perspective:
 
-![](../../assets/images/1.png)
+![](https://cdn.buttercms.com/59A1ttCxTrK2NYv6vBoW)
 
 1.  **a) Below is the case if the background checks surfaces a criminal hit:**  
-    ![](../../assets/images/2.png)
+    ![](https://cdn.buttercms.com/CNdhe1FTRTaf5O1zolde)
 2.  **b) Below is the case if the background checks surfaces non-criminal related hits:**  
     ![](https://cdn.buttercms.com/aF2L0JXTAueJFwqZmaFF)
 
