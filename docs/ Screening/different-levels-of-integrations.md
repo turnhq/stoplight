@@ -6,28 +6,28 @@ You can use the Turn Dashboard to initiate background checks without needing to 
 ### Unique Package URL
 You can send a candidate a unique URL that’s linked to a specific package; you’ll have a unique URL for each package you configure. You can see a list of all your configured packages and the unique URLs in your Turn Dashboard under Settings > Packages.
 
-![alt text](https://documentation.turning.io/static/status/package-url.png)
+![alt text](https://www.turning.io/static/status/package-url.png)
 
 Once the candidate opens the URL, the consent form is displayed, and they’ll provide all the required information. You can also prefill every part of the form, see [prefilling the candidate consent form section](#pre-filling-the-unique-url---consent-form).
 
 ### Personal Invitation
 You can also kick off a background check by sending personalized invitation to a candidate with the “Add Candidate” feature in your Turn Dashboard.
 
-![alt text](https://documentation.turning.io/static/status/personal-invitation.png)
+![alt text](https://www.turning.io/static/status/personal-invitation.png)
 
 You need to specify the candidate’s name, email and the desired package (you can also specify a mobile phone number).
 
-![alt text](https://documentation.turning.io/static/status/personal-invitation-2.png)
+![alt text](https://www.turning.io/static/status/personal-invitation-2.png)
 
 We’ll send a personalized email invitation to start the background check with a direct link to the consent form. If a phone number is provided, we’ll also send a sms/text invitation.
 
 The candidate will appear in your Turn Dashboard as emailed:
 
-![alt text](https://documentation.turning.io/static/status/personal-invitation-3.png)
+![alt text](https://www.turning.io/static/status/personal-invitation-3.png)
 
 We’ll let you know if, and how many times, the candidate opened the invitation, clicked on the consent form as well as allow you to manually resend the invitation.
 
-![alt text](https://documentation.turning.io/static/status/personal-invitation-4.png)
+![alt text](https://www.turning.io/static/status/personal-invitation-4.png)
 
 Turn has a communication protocol in place for candidates that have yet to fill out the consent form.
 
@@ -102,7 +102,7 @@ The valid Unique URL would read like:
 
 If you want to link a specific candidate with some arbitrary internal reference of yours, you can use this parameter, it’ll be visible in your Turn Dashboard in your candidate report like this:
 
-![alt text](https://documentation.turning.io/static/status/reference-id.png)
+![alt text](https://www.turning.io/static/status/reference-id.png)
 
 And it will also be sent in all API events sent back to you.
 
@@ -120,21 +120,21 @@ Turn offers a seamless integration with Fountain. You can integrate Turn and Fou
 
 Starting in your fountain dashboard. In the upper right corner, hovering over your name and it will give you the option for Company Settings. Please click on that.
 
-![alt text](https://documentation.turning.io/static/fountain/company-settings.png)
+![alt text](https://www.turning.io/static/fountain/company-settings.png)
 
 On the left side of the screen you will see the developer settings tab. Under that you will see API. Please click on that.
 
-![alt text](https://documentation.turning.io/static/fountain/developer-settings.png)
+![alt text](https://www.turning.io/static/fountain/developer-settings.png)
 
 Click on the show API Keys button.
 
-![alt text](https://documentation.turning.io/static/fountain/show-api-keys.png)
+![alt text](https://www.turning.io/static/fountain/show-api-keys.png)
 
 Click on the create secondary tokens. Please copy that private API key under Secondary Token.
 
 Lets now go over into your Turn dashboard. Click on the settings menu in the top right.
 
-![alt text](https://documentation.turning.io/static/partner-dashboard/settings-button.png)
+![alt text](https://www.turning.io/static/partner-dashboard/settings-button.png)
 
 Scroll down in your setting tab until you see the Fountain Integration header. Input the private API key into the API key field.
 
@@ -142,7 +142,7 @@ Go back to Fountain and copy the public API key from the secondary tokens.
 
 And let’s go back into Turn settings and input the Public API Key into the Public API Key in the Turn Dashboard. Click save.
 
-![alt text](https://documentation.turning.io/static/partner-dashboard/fountain-integration-section.png)
+![alt text](https://www.turning.io/static/partner-dashboard/fountain-integration-section.png)
 
 **Great, we are done with Step 1.**
 
@@ -150,27 +150,27 @@ And let’s go back into Turn settings and input the Public API Key into the Pub
 
 Staying in the Company Settings tab in Fountain. Under the app Settings tab on the left you will see Custom Attributes. Please click that.
 
-![alt text](https://documentation.turning.io/static/fountain/app-settings-option.png)
+![alt text](https://www.turning.io/static/fountain/app-settings-option.png)
 
 In the top right corner you will see a blue button that says Add Custom Attribute. Please click on that.
 
-![alt text](https://documentation.turning.io/static/fountain/add-custom-attribute-button.png)
+![alt text](https://www.turning.io/static/fountain/add-custom-attribute-button.png)
 
 We are going to add two custom attributes in the next form starting with Attribute Name: turn_status. Please make sure that is all lowercase. Attribute Title: Turn Status. Please click Save Attribute.
 
-![alt text](https://documentation.turning.io/static/fountain/add-custom-attribute-form-turn-status.png)
+![alt text](https://www.turning.io/static/fountain/add-custom-attribute-form-turn-status.png)
 
 **The Turn status will show the status of Turn’s background checks in Fountain.**
 
-**![alt text](https://documentation.turning.io/static/fountain/custom-attributes-table.png)**
+**![alt text](https://www.turning.io/static/fountain/custom-attributes-table.png)**
 
 We are going to click on Add Custom Attribute again.
 
-![alt text](https://documentation.turning.io/static/fountain/add-custom-attribute-button.png)
+![alt text](https://www.turning.io/static/fountain/add-custom-attribute-button.png)
 
 This time the Attribute Name is: turn_url. All lowercase. Attribute Title: Turn URL. Please click “Save Attribute”.
 
-![alt text](https://documentation.turning.io/static/fountain/add-custom-attribute-form-turn-url.png)
+![alt text](https://www.turning.io/static/fountain/add-custom-attribute-form-turn-url.png)
 
 **The Turn URL provides you with the links to take you to the complete background check in the Turn Dashboard.**
 
@@ -182,21 +182,21 @@ This time the Attribute Name is: turn_url. All lowercase. Attribute Title: Turn 
 
 Please click on the blue fountain logo in the top left corner which will take you back to the fountain home page.
 
-![alt text](https://documentation.turning.io/static/fountain/fountain-header.png)
+![alt text](https://www.turning.io/static/fountain/fountain-header.png)
 
 In the top right corner, please click on Add Opening.
 
-![alt text](https://documentation.turning.io/static/fountain/add-opening.png)
+![alt text](https://www.turning.io/static/fountain/add-opening.png)
 
-You will see a Position & Location form.![alt text](https://documentation.turning.io/static/fountain/position-and-location-form.png)
+You will see a Position & Location form.![alt text](https://www.turning.io/static/fountain/position-and-location-form.png)
 
 For location you can decide where you want to test. You can click on the Add Location button and label it as you see fit.
 
-![alt text](https://documentation.turning.io/static/fountain/position-and-location-form-add-location.png)
+![alt text](https://www.turning.io/static/fountain/position-and-location-form-add-location.png)
 
 For position, you need to have a position not currently associated with that selected location. So you can click on the Add Position button and label it something like New Courier.
 
-![alt text](https://documentation.turning.io/static/fountain/position-and-location-form-add-position.png)
+![alt text](https://www.turning.io/static/fountain/position-and-location-form-add-position.png)
 
 Feel free to adjust the name opening or keep it as is.
 
@@ -204,11 +204,11 @@ For opening details you need to add an Owner, but other than that you can either
 
 For the application form we can skip this for now. Select continue.
 
-![alt text](https://documentation.turning.io/static/fountain/opening-details-form.png)
+![alt text](https://www.turning.io/static/fountain/opening-details-form.png)
 
 Now you have the opportunity to either clone a workflow you already have or create a new workflow. If you have a workflow you want to use, you can pick that one from the drop down and click Save.
 
-![alt text](https://documentation.turning.io/static/fountain/hiring-workflow-options.png)
+![alt text](https://www.turning.io/static/fountain/hiring-workflow-options.png)
 
 **Great. Now we are done with Step 3.**
 
@@ -216,67 +216,67 @@ Now you have the opportunity to either clone a workflow you already have or crea
 
 Please click on the actions button next to the workflow we want to test. Click on Edit Workflow.
 
-![alt text](https://documentation.turning.io/static/fountain/edit-workflow.png)
+![alt text](https://www.turning.io/static/fountain/edit-workflow.png)
 
 We are going to start by deleting any stages and rules that are not relevant here. Please click on the background stage and then hit the red x button to delete. If there are rules in the workflow, you will need to delete that first. Except the predefined rules Approved, Rejected and On Hold, they can’t be deleted.
 
-![alt text](https://documentation.turning.io/static/fountain/default-stages.png)
+![alt text](https://www.turning.io/static/fountain/default-stages.png)
 
 We are going to add two new stages. So first click on the button in the top left that says add stage. Click on Create New Stage.
 
-![alt text](https://documentation.turning.io/static/fountain/create-new-stage-button.png)
+![alt text](https://www.turning.io/static/fountain/create-new-stage-button.png)
 
 You can title it - Turn Background Check. Stage type is Custom. You can pick where you want to insert it in the flow.
 
-![alt text](https://documentation.turning.io/static/fountain/create-new-stage-turn-bgc.png)
+![alt text](https://www.turning.io/static/fountain/create-new-stage-turn-bgc.png)
 
 We are going to add another stage now. Please click on Create New Stage again.
 
-![alt text](https://documentation.turning.io/static/fountain/create-new-stage-button.png)
+![alt text](https://www.turning.io/static/fountain/create-new-stage-button.png)
 
 We can title this Turn Background Check Processing. Stage type is Custom here as well.
 
-![alt text](https://documentation.turning.io/static/fountain/create-new-stage-turn-bgc-processing.png)
+![alt text](https://www.turning.io/static/fountain/create-new-stage-turn-bgc-processing.png)
 
 This is where workers will go once they submit their background check.
 
 Please put this after the Turn Background check in the workflow.
 
-![alt text](https://documentation.turning.io/static/fountain/stages-highlighted.png)
+![alt text](https://www.turning.io/static/fountain/stages-highlighted.png)
 
 We are now done with the stages and moving on to creating the two rules. Please click on the Add Rule button in the top left.
 
-![alt text](https://documentation.turning.io/static/fountain/add-rule-button.png)
+![alt text](https://www.turning.io/static/fountain/add-rule-button.png)
 
 Lets title that Turn Rules. Set that below the Turn Background Check Processing stage and click Add Rule stage.
 
-![alt text](https://documentation.turning.io/static/fountain/create-new-rule-stage-turn-rules.png)
+![alt text](https://www.turning.io/static/fountain/create-new-rule-stage-turn-rules.png)
 
 From here we are going to add two rules. Please click on the green Add Rule button.
 
-![alt text](https://documentation.turning.io/static/fountain/add-rule-alt.png)
+![alt text](https://www.turning.io/static/fountain/add-rule-alt.png)
 
 Applicant field is turn_status from the custom tab. Set value as Equals. Below Equals input clear. Move applicant to stage Approved. Click Save Changes.
 
-![alt text](https://documentation.turning.io/static/fountain/rules-turn-status.png)
+![alt text](https://www.turning.io/static/fountain/rules-turn-status.png)
 
 Click on the green Add Rule button again.
 
-![alt text](https://documentation.turning.io/static/fountain/add-rule-alt2.png)
+![alt text](https://www.turning.io/static/fountain/add-rule-alt2.png)
 
 In the And Then section we are going to add another rule. Select turn_status from the custom tab again. Set value as equals. Then consider.
 
 Next move the applicant to rejected (or whatever stage to review candidates). Provide a reason in the because field.
 
-![alt text](https://documentation.turning.io/static/fountain/rules-turn-status2.png)
+![alt text](https://www.turning.io/static/fountain/rules-turn-status2.png)
 
 Click Save Changes.
 
-![alt text](https://documentation.turning.io/static/fountain/rules-save-changes-button.png)
+![alt text](https://www.turning.io/static/fountain/rules-save-changes-button.png)
 
 Below is an example of the order:
 
-![alt text](https://documentation.turning.io/static/fountain/turn-rules-stage.png)
+![alt text](https://www.turning.io/static/fountain/turn-rules-stage.png)
 
 **We are now done with Step 4.**
 
@@ -284,19 +284,19 @@ Below is an example of the order:
 
 Click on the Applicant tab in the top left corner.
 
-![alt text](https://documentation.turning.io/static/fountain/applicants-tab.png)
+![alt text](https://www.turning.io/static/fountain/applicants-tab.png)
 
 Click on the bottom plus menu item in the table.
 
-![alt text](https://documentation.turning.io/static/fountain/plus-icon-on-table.png)
+![alt text](https://www.turning.io/static/fountain/plus-icon-on-table.png)
 
 Search Turn and select turn\_status and turn\_url attributes.
 
-![alt text](https://documentation.turning.io/static/fountain/turn-status-and-url.png)
+![alt text](https://www.turning.io/static/fountain/turn-status-and-url.png)
 
 Those will now display in your table.
 
-![alt text](https://documentation.turning.io/static/fountain/turn-table-headers.png)
+![alt text](https://www.turning.io/static/fountain/turn-table-headers.png)
 
 **That is it for Step 5.**
 
@@ -306,17 +306,17 @@ We are going to go back into the Company Settings tab.
 
 Under Developer Settings on the left you will see Webhooks. Please click that.
 
-![alt text](https://documentation.turning.io/static/fountain/company-settings.png)
+![alt text](https://www.turning.io/static/fountain/company-settings.png)
 
-![alt text](https://documentation.turning.io/static/fountain/developer-settings.png)
+![alt text](https://www.turning.io/static/fountain/developer-settings.png)
 
 Click on the blue button that says Add Webhook.
 
-![alt text](https://documentation.turning.io/static/fountain/add-webhook-button.png)
+![alt text](https://www.turning.io/static/fountain/add-webhook-button.png)
 
 Give it the webhook name: Turn Webhook. Input your Fountain Webhook. Trigger should be Stage Transition. And then for stage the All Stages option. Click save.
 
-![alt text](https://documentation.turning.io/static/fountain/add-turn-webhook-form.png)
+![alt text](https://www.turning.io/static/fountain/add-turn-webhook-form.png)
 
 **That is it for step 6.**
 
@@ -324,31 +324,31 @@ Give it the webhook name: Turn Webhook. Input your Fountain Webhook. Trigger sho
 
 Click on the blue fountain logo in the top left.
 
-![alt text](https://documentation.turning.io/static/fountain/fountain-header.png)
+![alt text](https://www.turning.io/static/fountain/fountain-header.png)
 
 Click on the action button in the workflow we just created. Click on the Edit Workflow.
 
-![alt text](https://documentation.turning.io/static/fountain/edit-workflow.png)
+![alt text](https://www.turning.io/static/fountain/edit-workflow.png)
 
 Click on the Turn Background check stage.
 
-![alt text](https://documentation.turning.io/static/fountain/turn-bgc-stage.png)
+![alt text](https://www.turning.io/static/fountain/turn-bgc-stage.png)
 
 Click on Add Message under Automated Message.
 
-![alt text](https://documentation.turning.io/static/fountain/add-message-button.png)
+![alt text](https://www.turning.io/static/fountain/add-message-button.png)
 
 Message Name is: Background Check Email. Message type is Automated. Send from the Opening Owner is fine.
 
-![alt text](https://documentation.turning.io/static/fountain/add-automated-message.png)
+![alt text](https://www.turning.io/static/fountain/add-automated-message.png)
 
 Click on the “What do you want to say” add email button.
 
-![alt text](https://documentation.turning.io/static/fountain/add-email-field.png)
+![alt text](https://www.turning.io/static/fountain/add-email-field.png)
 
 Email subject is: {your company name} - Background Needed to Continue. For the email body, please include the candidate URL.
 
-![alt text](https://documentation.turning.io/static/fountain/email-message-form.png)
+![alt text](https://www.turning.io/static/fountain/email-message-form.png)
 
 You are now all set up with Turn in Fountain!
 
@@ -369,35 +369,35 @@ Below is the walkthrough if you select the 3 stage option.
 
 When you access the Partner Dashboard and want to apply Pre-Adverse Action to one candidate:
 
-![alt text](https://documentation.turning.io/static/partner-dashboard/pre-aa-button.png)
+![alt text](https://www.turning.io/static/partner-dashboard/pre-aa-button.png)
 
 Respectively provide your decision.
 
-![alt text](https://documentation.turning.io/static/partner-dashboard/reason-aa.png)
+![alt text](https://www.turning.io/static/partner-dashboard/reason-aa.png)
 
 You will see the candidate passed to Adverse Action / Rejected Stage inside the Fountain process page as well as the Turn Status will pass to First notice. Do not worry about a Status empty column.
 
-![alt text](https://documentation.turning.io/static/fountain/aa-first-notice.png)
+![alt text](https://www.turning.io/static/fountain/aa-first-notice.png)
 
 Then if you want to pass the candidate to Second Notice, click again on:
 
-![alt text](https://documentation.turning.io/static/partner-dashboard/pre-aa-button.png)
+![alt text](https://www.turning.io/static/partner-dashboard/pre-aa-button.png)
 
 Provide the reason as shown previously.
 
 You will see the candidate stay at Adverse Action / Rejected Stage inside the Fountain process but Turn Status will pass to Second notice. Do not worry about a Status empty column.
 
-![alt text](https://documentation.turning.io/static/fountain/aa-second-notice.png)
+![alt text](https://www.turning.io/static/fountain/aa-second-notice.png)
 
 In case you have 2 steps configured, the candidate will stop here.
 
 You have one step left. Click again in Pre-Adverse Action:
 
-![alt text](https://documentation.turning.io/static/partner-dashboard/pre-aa-button.png)
+![alt text](https://www.turning.io/static/partner-dashboard/pre-aa-button.png)
 
 Introduce the message and return to the Fountain process page and you’ll see the candidate has passed to Rejected.
 
-![alt text](https://documentation.turning.io/static/fountain/rejected.png)
+![alt text](https://www.turning.io/static/fountain/rejected.png)
 
 Any questions please reach out to your Turn representative.
 
@@ -414,7 +414,7 @@ Add a new custom stage just after the already existing Processing Stage. (If no 
 
 No more, no less, match spaces and upper/lower case.
 
-![alt text](https://documentation.turning.io/static/fountain/initiated-bgc-stage.png)
+![alt text](https://www.turning.io/static/fountain/initiated-bgc-stage.png)
 
 **Email with do_checks parameter**
 
@@ -422,7 +422,7 @@ Edit email/SMS with instructions on how to start the BGC, to append the do_check
 
 _&do_checks=false_
 
-_![alt text](https://documentation.turning.io/static/fountain/message-with-do_checks-parameter.png)_
+_![alt text](https://www.turning.io/static/fountain/message-with-do_checks-parameter.png)_
 
 **Add a new Webhook with /run parameter**
 
@@ -438,7 +438,7 @@ New “Turn Webhook Run”
 
 So please add the previous URL to Payload URL text field:
 
-![alt text](https://documentation.turning.io/static/fountain/add-webhook-form.png)
+![alt text](https://www.turning.io/static/fountain/add-webhook-form.png)
 
 It’s Done! How does the new flow work?
 
@@ -453,7 +453,7 @@ We have a working integration with Greenhouse. If you have your hiring process w
 
 Please reach out to your Turn representative to make it possible.
 
-![alt text](https://documentation.turning.io/static/greenhouse/turn-greenhouse.png)
+![alt text](https://www.turning.io/static/greenhouse/turn-greenhouse.png)
 
 ## API Integration
 Turn’s flexible API lets you integrate in a customizable way depending on your needs and desired level of integration. In this section, we will cover all the ways you can start an integration with Turn’s API, the webhooks you can expect, and other useful API calls.

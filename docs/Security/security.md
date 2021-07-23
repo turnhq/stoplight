@@ -3,7 +3,7 @@ The core of Turn’s business is our data. The ability to execute on our vision 
 
 Our platform uses best in class security practices to monitor and block all suspicious activity while transiting data via HTTPS in real-time. Furthermore, all traffic is exchanged over SSL to ensure secure links between Turn servers and final user endpoints. Our automated monitoring looks to find and block any suspicious IP or domain coming from remote places.
 
-![alt text](https://documentation.turning.io/static/status/security-laptop.png "Security")
+![alt text](https://www.turning.io/static/status/security-laptop.png "Security")
 
 Below is a review of some of the core functionality that our real-time security system provides.
 

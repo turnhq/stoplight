@@ -34,53 +34,53 @@ When a background check is clear on a candidate, the flow is as follows from the
 Now that we understand the process and flow of a background check, lets review all the different candidates statuses in the Turn Dashboard.
 
 ### Emailed
-![alt text](https://documentation.turning.io/static/status/emailed.jpg)
+![alt text](https://www.turning.io/static/status/emailed.jpg)
 
 A candidate is just added to the dashboard via the Add Candidate feature or using the API. Turn will send a personalized invitation to run a background check. This invitation will work only once, and reminders will be sent via email and sms (if a phone number is provided) to guide the candidate through the background check process.
 
 ### Processing
-![alt text](https://documentation.turning.io/static/status/processing.jpg)
+![alt text](https://www.turning.io/static/status/processing.jpg)
 
 There are parts of the background check that are still being processed such as county criminal checks or an MVR. We display which checks are done and which checks are still currently being processed.
 
 ### Reviewing
-![alt text](https://documentation.turning.io/static/status/reviewing.jpg)
+![alt text](https://www.turning.io/static/status/reviewing.jpg)
 
 The data in the application was flagged due to information mismatch or inaccuracies. Our QA team will work directly with the candidate to update their data to resume the check.
 
 ### Consent
-![alt text](https://documentation.turning.io/static/status/consent.jpg)
+![alt text](https://www.turning.io/static/status/consent.jpg)
 
 All checks are done processing. If potentially negative information is obtained from the background checks, we provide the candidate an opportunity to dispute any inaccurate or incomplete information, as required by FCRA. An applicant who disputes their background check results will have the Consent status while Turn reinvestigates. Also, applicants whose confirmation of their results is pending shall remain in Consent status.
 
 ### Pending
-![alt text](https://documentation.turning.io/static/status/pending.jpg)
+![alt text](https://www.turning.io/static/status/pending.jpg)
 
 The background check is ready, but we flagged potential information that could be a stopper in your hiring process. The pending status report should be reviewed by an employer’s hiring manager, as they are responsible for the final decision of approving or rejecting a candidate.
 
 ### Approved
-![alt text](https://documentation.turning.io/static/status/approved.jpg)
+![alt text](https://www.turning.io/static/status/approved.jpg)
 
 A candidate is approved.
 
 
 ### Rejected
-![alt text](https://documentation.turning.io/static/status/rejected.jpg)
+![alt text](https://www.turning.io/static/status/rejected.jpg)
 
 A candidate is rejected.
 
 ### First Notice
-![alt text](https://documentation.turning.io/static/status/first-notice.jpg)
+![alt text](https://www.turning.io/static/status/first-notice.jpg)
 
 A first notice is sent when an employer decides to initiate adverse action against a candidate (explained further in the Compliance section below). This legally mandated requirement offers the candidate a chance to dispute any information they consider inaccurate or incomplete.
 
 ### Second Notice
-![alt text](https://documentation.turning.io/static/status/second-notice.jpg)
+![alt text](https://www.turning.io/static/status/second-notice.jpg)
 
 If a candidate fails to respond to the first notice within a reasonable time (seven business days), then a second notice is sent to the candidate, notifying them that their candidacy is rejected.
 
 ### Withdraw
-![alt text](https://documentation.turning.io/static/status/withdrawn.jpg)
+![alt text](https://www.turning.io/static/status/withdrawn.jpg)
 
 If a background check is stalled because either the employer or the candidate no longer wish to continue the process, then the status is considered withdrawn and is archived as a non-completed check.
 
@@ -96,7 +96,7 @@ Here’s an example of how an employer could define a rule for check sequencing:
 2.  If the MVR is either clear or reviewed by a hiring manager, run all pending checks.
 3.  If the MVR is not clear, stop all pending checks, and proceed with Adverse Action. This type of sequencing would prevent the employer from incurring the cost of triggering all pending checks.
 
-![alt text](https://documentation.turning.io/static/status/sequencing-checks-1.png)
+![alt text](https://www.turning.io/static/status/sequencing-checks-1.png)
 
 
 
