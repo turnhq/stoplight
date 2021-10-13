@@ -53,9 +53,12 @@ The nature and gravity of the offense or conduct;
 The time that has passed since the offense, conduct and/or completion of the sentence; and
 
 The nature of the job held or sought.
+
 [FCRA Summary of Rights for Consumers/Applicants](https://www.consumer.ftc.gov/articles/pdf-0096-fair-credit-reporting-act.pdf)
 
 FTC: [What Hiring Entities Need to Know](https://www.ftc.gov/tips-advice/business-center/guidance/background-checks-what-employers-need-know)
+
+[Common Non Conviction Synonyms](https://turn-hq.s3.amazonaws.com/Common+Non+Conviction+Synonyms.pdf)
 
 ## Disclaimer 
 The information above is for educational purposes only and is based on current practice, industry related knowledge, and business expertise. The information provided shall not be construed as legal advice, express, or implied.
