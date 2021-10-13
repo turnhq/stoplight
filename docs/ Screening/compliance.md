@@ -40,3 +40,22 @@ Reinvestigation scenarios:
 
 ## Legal Guidance
 The process above was created in conjunction with Seyfarth Shaw LLP, the industry’s leading compliance, privacy, and FCRA lawyers, to create a streamlined flow. Turn’s unique compliance flow requires the applicant to confirm the accuracy and completeness of a report before any adverse decision can be made, thereby drastically reducing the likelihood of disputes or potential litigation exposure. Internally, Turn employs its own in-house legal and compliance team to stay ahead of issues related to FCRA employment and consumer privacy.
+
+## Resources
+[Notice to Users of Consumer Reports](https://pubs.thepbsa.org/pub.cfm?id=8075FEC2-0ADD-C23B-85E4-E6459D9E6E50)
+
+[EEOC Guidance on the Consideration of Public Records](https://www.eeoc.gov/laws/guidance/enforcement-guidance-consideration-arrest-and-conviction-records-employment-decisions#VB6)
+
+EEOC's Green Factors for Consideration of Public Records
+
+The nature and gravity of the offense or conduct;
+
+The time that has passed since the offense, conduct and/or completion of the sentence; and
+
+The nature of the job held or sought.
+[FCRA Summary of Rights for Consumers/Applicants](https://www.consumer.ftc.gov/articles/pdf-0096-fair-credit-reporting-act.pdf)
+
+FTC: [What Hiring Entities Need to Know](https://www.ftc.gov/tips-advice/business-center/guidance/background-checks-what-employers-need-know)
+
+## Disclaimer 
+The information above is for educational purposes only and is based on current practice, industry related knowledge, and business expertise. The information provided shall not be construed as legal advice, express, or implied.
