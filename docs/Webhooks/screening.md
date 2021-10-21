@@ -28,6 +28,21 @@ In this case, 4 webhooks would be triggered one for each status change.
 }
 ```
 
+This table maps out the Dashboard background check status with it's corresponding webhook status.
+
+| Dashboard Status | API Status             |
+|------------------|------------------------|
+| Emailed          | emailed                |
+| Processing       | processing             |
+| Reviewing        | review                 |
+| Consent          | consent                |
+| Consider         | pending                |
+| Approved         | approved               |
+| Rejected         | rejected               |
+| First Notice     | pending__first_notice  |
+| Second Notice    | pending__second_notice |
+| Withdrawn        | withdrawn              |
+| Initiated        | initiated              |
 
 ## b) Background Check Results
 
