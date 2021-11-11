@@ -61,4 +61,7 @@ FTC: [What Hiring Entities Need to Know](https://www.ftc.gov/tips-advice/busines
 [Common Non Conviction Synonyms](https://turn-hq.s3.amazonaws.com/Common+Non+Conviction+Synonyms.pdf)
 
 ## Disclaimer 
+
+You should consult your own counsel regarding state/local and federal laws that may concern your company.
+
 The information above is for educational purposes only and is based on current practice, industry related knowledge, and business expertise. The information provided shall not be construed as legal advice, express, or implied.
