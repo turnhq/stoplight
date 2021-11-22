@@ -36,55 +36,6 @@
     },
     {
       "type": "divider",
-      "title": "Sourcing"
-    },
-    {
-      "type": "item",
-      "title": "What is Sourcing?",
-      "uri": "docs/Sourcing/what-is-sourcing.md"
-    },
-    {
-      "type": "item",
-      "title": "Manage Your Subscription & Billing",
-      "uri": "docs/Sourcing/manage-your-subscription-billing.md"
-    },
-    {
-      "type": "item",
-      "title": "Set Up & Integrations",
-      "uri": "docs/Sourcing/setup-and-integrations.md"
-    },
-    {
-      "type": "item",
-      "title": "Common Sourcing Flows",
-      "uri": "docs/Sourcing/common-sourcing-flows.md"
-    },
-    {
-      "type": "item",
-      "title": "How Sourcing Works",
-      "uri": "docs/Sourcing/how-sourcing-works.md"
-    },
-    {
-      "type": "item",
-      "title": "Target Workers",
-      "uri": "docs/Sourcing/target-workers.md"
-    },
-    {
-      "type": "item",
-      "title": "Enter Desired Number of Applicants",
-      "uri": "docs/Sourcing/enter-desired-number-of-applicants.md"
-    },
-    {
-      "type": "item",
-      "title": "Invite Workers to Apply",
-      "uri": "docs/Sourcing/invite-workers-to-apply.md"
-    },
-    {
-      "type": "item",
-      "title": "Track Your Applicants",
-      "uri": "docs/Sourcing/track-your-applicants.md"
-    },
-    {
-      "type": "divider",
       "title": "Security"
     },
     {
@@ -105,11 +56,6 @@
       "type": "item",
       "title": "Integrations",
       "uri": "docs/Settings/integrations.md"
-    },
-    {
-      "type": "item",
-      "title": "Manage Sourcing Subscription",
-      "uri": "docs/Settings/manage-sourcing-subscription.md"
     },
     {
       "type": "item",
@@ -156,11 +102,6 @@
       "type": "item",
       "title": "Screening",
       "uri": "docs/Webhooks/screening.md"
-    },
-    {
-      "type": "item",
-      "title": "Sourcing",
-      "uri": "docs/Webhooks/sourcing.md"
     },
     {
       "type": "divider",
