@@ -896,6 +896,22 @@ paths:
                   transaction_uuid: 3ea933c7-1e2f-4245-8d80-2c31709a09ff
                 rcmp_redirect_url: ''
                 turn_id: C1259272294
+              examples:
+                example 200 success:
+                  value:
+                    message:
+                      code: 9200
+                      message: The operation completed successfully.
+                      transaction_uuid: 3ea933c7-1e2f-4245-8d80-2c31709a09ff
+                    rcmp_redirect_url: ''
+                    turn_id: C1259272294
+                example 200 candidate already exists:
+                  value:
+                    message:
+                      code: 9400
+                      message: Candidate with this ssn already exists.
+                      transaction_uuid: dfa4ac9a-8858-486f-9e65-f84cb7ba6251
+                    turn_id: C1259272294
         '404':
           description: NOT FOUND
           headers:
@@ -953,6 +969,29 @@ paths:
                 $ref: '#/components/schemas/404InvalidCheckId1'
               example:
                 error: FOOBAR is not valid id
+              examples:
+                example 404 invalid check id:
+                  value:
+                    error: FOOBAR is not valid id
+                example 404 check id doesn't exist:
+                  value:
+                    error: a4b9b53e-b665-4a11-8872-2005bb151652 does not exist
+        '409':
+          description: Conflict - Invalid SSN
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  example-1:
+                    message: We are unable to validate your identity with the Social Security Number you entered. Please check your SSN is correct and try again.
+              examples:
+                example-1:
+                  value:
+                    message: We are unable to validate your identity with the Social Security Number you entered. Please check your SSN is correct and try again.
         '422':
           description: UNPROCESSABLE ENTITY
           headers:
@@ -1010,6 +1049,47 @@ paths:
                 $ref: '#/components/schemas/422checkidhasalreadybeenused1'
               example:
                 error: a4b9b53e-b665-4a11-8872-2005bb15165d has already been used
+              examples:
+                example 422 - check id has already been used:
+                  value:
+                    error: a4b9b53e-b665-4a11-8872-2005bb15165d has already been used
+                example 422 - missing required field:
+                  value:
+                    json.callback_url:
+                      - Missing data for required field.
+                    json.consent_document:
+                      - Missing data for required field.
+                    json.date_of_birth:
+                      - Missing data for required field.
+                    json.email:
+                      - Missing data for required field.
+                    json.first_name:
+                      - Missing data for required field.
+                    json.last_name:
+                      - Missing data for required field.
+                    json.phone:
+                      - Missing data for required field.
+                    json.ssn:
+                      - SSN should be 9 digits long
+                    json.zipcode:
+                      - Missing data for required field.
+                      - Zipcodes do not match
+        '429':
+          description: 'Too many requests with wrong SSN '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  example-1:
+                    message: SSN trace limit reached. (Max number of attempts is 3).
+              examples:
+                example-1:
+                  value:
+                    message: SSN trace limit reached. (Max number of attempts is 3).
       deprecated: false
   '/fcra_check/form/{check_id}/run':
     post:
