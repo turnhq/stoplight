@@ -43,8 +43,8 @@ A candidate is just added to the dashboard via the Add Candidate feature or usin
 
 There are parts of the background check that are still being processed such as county criminal checks or an MVR. We display which checks are done and which checks are still currently being processed.
 
-### Reviewing
-![alt text](https://www.turning.io/static/status/reviewing.jpg)
+### Verifying
+![image.png](https://stoplight.io/api/v1/projects/cHJqOjcyNTE0/images/f9g85HvmjQU)
 
 The data in the application was flagged due to information mismatch or inaccuracies. Our QA team will work directly with the candidate to update their data to resume the check.
 
@@ -52,6 +52,11 @@ The data in the application was flagged due to information mismatch or inaccurac
 ![alt text](https://www.turning.io/static/status/consent.jpg)
 
 All checks are done processing. If potentially negative information is obtained from the background checks, we provide the candidate an opportunity to dispute any inaccurate or incomplete information, as required by FCRA. An applicant who disputes their background check results will have the Consent status while Turn reinvestigates. Also, applicants whose confirmation of their results is pending shall remain in Consent status.
+
+### Compliance Review
+![image.png](https://stoplight.io/api/v1/projects/cHJqOjcyNTE0/images/3KrUsk4aK30)
+
+The background check has been completed with records found and is undergoing a compliance review.
 
 ### Pending
 ![alt text](https://www.turning.io/static/status/pending.jpg)
