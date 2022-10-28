@@ -1241,6 +1241,7 @@ paths:
 
         1. The full UUID of the worker eg:  d54eb469-d74d-450a-b7f9-b0d98f55ac9e
         2. The shortened version, also called turn id:  C1704355400
+        3. Your provided reference_id
       operationId: /person/worker_id/status
       parameters:
         - name: worker_id
@@ -1384,6 +1385,7 @@ paths:
 
         1. The full UUID of the worker eg:  d54eb469-d74d-450a-b7f9-b0d98f55ac9e
         2. The shortened version, also called turn id:  C1704355400
+        3. Your provided reference_id
 
         ## 422 Background Check not ready
 
