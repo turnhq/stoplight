@@ -576,3 +576,21 @@ Both endpoints use a `callback_url` input parameter which will be used to delive
   "worker_uuid": "07960b8b-0987-4cb6-ac1b-f0d26654d013"
 }
 ```
+
+## c) Consent Notification Webhook
+
+When an applicant has finished the consent form this webhook will be triggered as a notification for the Partner.
+
+To receive this notification Partner must have the **CONSENT_NOTIFICATION** webhook enabled. (Through Flask admin in Partner tab)
+
+
+### Webhook content
+
+```javascript
+{
+    "hook_type": "CONSENT_CONFIRMATION",
+    "turn_id": "C1931414576",
+    "reference_id":  null,
+    "consent_date": "2020-08-27 15:07:27.409802",
+}
+```
