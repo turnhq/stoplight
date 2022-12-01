@@ -591,6 +591,7 @@ To receive this notification Partner must have the **CONSENT_NOTIFICATION** webh
     "hook_type": "CONSENT_CONFIRMATION",
     "turn_id": "C1931414576",
     "reference_id":  null,
+    "worker_id": "516c5d27-6d1e-4562-8c4c-03ec5faa65fe",
     "consent_date": "2020-08-27 15:07:27.409802",
 }
 ```
