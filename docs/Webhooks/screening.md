@@ -581,7 +581,7 @@ Both endpoints use a `callback_url` input parameter which will be used to delive
 
 When an applicant has finished the consent form this webhook will be triggered as a notification for the Partner.
 
-To receive this notification Partner must have the **CONSENT_NOTIFICATION** webhook enabled. (Through Flask admin in Partner tab)
+This notification webhook must be enabled on your account. Please reach out to our Support team to request it be enabled or disabled.
 
 
 ### Webhook content
