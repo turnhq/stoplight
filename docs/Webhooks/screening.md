@@ -577,12 +577,11 @@ Both endpoints use a `callback_url` input parameter which will be used to delive
 }
 ```
 
-## c) Consent Notification Webhook
+## c) Consent Confirmation Webhook
 
-When an applicant has finished the consent form this webhook will be triggered as a notification for the Partner.
+When an applicant has successfully consented to their Background Check, you'll receive this webhook notification, this is particularly helpful when your flow involves storing applicants to be run at a later time. 
 
 This notification webhook must be enabled on your account. Please reach out to our Support team to request it be enabled or disabled.
-
 
 ### Webhook content
 
