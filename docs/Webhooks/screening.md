@@ -576,3 +576,21 @@ Both endpoints use a `callback_url` input parameter which will be used to delive
   "worker_uuid": "07960b8b-0987-4cb6-ac1b-f0d26654d013"
 }
 ```
+
+## c) Consent Confirmation Webhook
+
+When an applicant has successfully consented to their Background Check, you'll receive this webhook notification, this is particularly helpful when your flow involves storing applicants to be run at a later time. 
+
+This notification webhook must be enabled on your account. Please reach out to our Support team to request it be enabled or disabled.
+
+### Webhook content
+
+```javascript
+{
+    "hook_type": "CONSENT_CONFIRMATION",
+    "turn_id": "C1931414576",
+    "reference_id":  null,
+    "worker_id": "516c5d27-6d1e-4562-8c4c-03ec5faa65fe",
+    "consent_date": "2020-08-27 15:07:27.409802",
+}
+```
