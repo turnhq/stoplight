@@ -38,8 +38,6 @@ This table maps out the Dashboard background check status with it's correspondin
 | Verifying         | review__identity       |
 | Consent           | consent                |
 | Consider          | pending                |
-|                   | pending__dispute       |
-|                   | pending__resolved      |
 | Approved          | approved               |
 | Compliance Review | review__qa             |
 |                   | review__mvr            |
