@@ -2288,6 +2288,8 @@ components:
         - do_checks
         - timestamps
         - metadata
+      description: |+
+
     Timestamps:
       title: Timestamps
       required:
