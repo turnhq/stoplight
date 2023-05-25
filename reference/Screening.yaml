@@ -1641,14 +1641,6 @@ paths:
           schema:
             type: string
             example: C1234567890
-        - name: Content-Type
-          in: header
-          description: ''
-          required: true
-          style: simple
-          schema:
-            type: string
-            example: application/json
       responses:
         '200':
           description: OK
@@ -1704,9 +1696,13 @@ paths:
           content:
             application/json:
               schema:
-                type: string
-                example: '"Success"'
-              example: '"Success"'
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: Success
         '404':
           description: NOT FOUND
           headers:
