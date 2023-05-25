@@ -1590,7 +1590,7 @@ paths:
       tags:
         - Recheck
       summary: /fcra_check/<turn_id>/recheck
-      description: |-
+      description: |
         # Introduction
 
         When this endpoint is called, it will immediatly kick off a recheck for the specified already existing background check. A Recheck runs a complete re-execution of a previously completed Background Check, to get updated results, without needing an applicant to go over the complete consent process all over again.
