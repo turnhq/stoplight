@@ -1697,12 +1697,13 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
                 x-examples:
                   Example 1:
                     message: Success
+                properties:
+                  message:
+                    type: string
+                    example: Success
         '404':
           description: NOT FOUND
           headers:
