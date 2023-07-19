@@ -5,6 +5,7 @@ Recheck allows the request of a brand new background check on an already screene
 
 Conditions: The worker should already have a completed background check (Approved, Consider or Rejected).
 
+\n
 
 # CA Recheck
 Recheck in California works different because this state requires a new consent every time a background check is requested on a worker, regardless of them having a completed background check.
