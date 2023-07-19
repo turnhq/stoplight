@@ -1625,7 +1625,7 @@ paths:
 
         # Identifying when a Background Check is Rechecked
 
-        To correctly identify the origin of a Background Check, either it being the original request, or a request, webhooks and query endpoints make available the `consent_date` and the `recheck_date` of any Background Check.
+        To correctly identify the origin of a Background Check, either it being the original request, or a recheck, webhooks and query endpoints make available the `consent_date` and the `recheck_date` of any Background Check.
 
         - `consent_date` - Is the original date, the Background Check was requested.
         - `recheck_date` - Is the last date, the Background Check was rechecked.
