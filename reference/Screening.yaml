@@ -1606,11 +1606,6 @@ paths:
         - Consider
         - Rejected
 
-        ## Applicant Location
-
-        The Recheck feature is not available for applicants that live in California. 
-        If a Recheck is needed for an applicant living in California, requesting a brand new Background Check is recomended. Requesting a Rechek under a California applicant will result in a `412` error message.
-
         # About Turn ID
 
         A recheck can be requested specifying a Turn Id (as received in all Background Check API requests), a Worker ID as received in API Levels 1 and 2, or if a `reference_id` was provided to tag the Background Check request, then that `reference_id` can be used to start a recheck.
@@ -1761,22 +1756,6 @@ paths:
                 $ref: '#/components/schemas/404Workernotfound1'
               example:
                 message: Worker not found
-        '412':
-          description: Precondition Failed (California Applicant)
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                x-examples:
-                  Example 1:
-                    message: 'Per FCRA, a recheck in California requires a fresh consent'
-              examples:
-                Example 1:
-                  value:
-                    message: 'Per FCRA, a recheck in California requires a fresh consent'
         '422':
           description: UNPROCESSABLE ENTITY
           headers:
