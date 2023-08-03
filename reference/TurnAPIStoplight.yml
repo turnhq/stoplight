@@ -3404,6 +3404,279 @@ paths:
                   status: ''
                   step: Handoff
       deprecated: false
+  '/monitoring/criminal/{reference_turn_id}/enroll':
+    put:
+      tags:
+        - Continuous Monitoring
+      summary: /monitoring/criminal/<reference_turn_id>/enroll
+      description: This endpoint will submit the information for a monitored individual to enroll them in the Continuous Criminal Monitoring service. This will allow us to receive monitoring alerts for the enrolled individuals.
+      operationId: /monitoring/criminal/reference_turn_id/enroll
+      parameters: []      
+      requestBody:
+        description: ''      
+        content:             
+          text/plain:
+            schema:
+              type: string
+              example:
+                reference_turn_id: C2983071100
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: gunicorn/19.6.0
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
+            Content-Type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'application/json'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '29'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=31536000
+            X-Protected-By:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sqreen
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1.1 vegur
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200CM'
+              example:
+                message:
+                  message: Success
+        '201':
+          description: OK
+          headers:
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: gunicorn/19.6.0
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
+            Content-Type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'application/json'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '29'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'max-age=31536000'
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1.1 vegur
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/201CM'
+              example:
+                message:
+                  message: Worker has already been enrolled
+        '404':
+          description: NOT FOUND
+          headers:
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: gunicorn/19.6.0
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
+            Content-Type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'application/json'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '38'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'max-age=31536000'
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1.1 vegur
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404CM'
+              example:
+                message: Worker not found
+        '422':
+          description: UNPROCESSABLE ENTITY
+          headers:
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: gunicorn/19.6.0
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
+            Content-Type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'application/json'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '38'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'max-age=31536000'
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1.1 vegur
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422M'
+              example:
+                message: the candidate status not allow to be enrolled.
+      deprecated: false
 components:
   schemas:
     200Sucess:
@@ -5213,6 +5486,129 @@ components:
       example:
         message: Resource not found
       x-internal: true
+    200CM:
+      title: 200CM
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          $ref: '#/components/schemas/CMMessage'
+      example:
+        message:
+          message: Success.
+      x-internal: true
+    200CM1:
+      title: 200CM1
+      required:
+        - data
+      type: object
+      properties:
+        active_workers:          
+          type: object
+          items:
+            $ref: '#/components/schemas/active_workers1'
+          description: ''
+        counts:
+          type: integer
+      example:
+        active_workers:
+          - turn_id: C2983071100
+            reference_id: 123-abc-123456
+            enrrolled_at: 2023-07-28
+        counts: 1
+      x-internal: true
+    201CM:
+      title: 201CM
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          $ref: '#/components/schemas/CMMessage'
+      example:
+        message:
+          message: Worker has already been enrolled.
+      x-internal: true
+    404CM:
+      title: 404CM1
+      required:
+        - error
+      type: object
+      properties:
+        error:
+          type: string
+      example:
+        error: Worker not found
+    404CM1:
+      title: 404CM1
+      required:
+        - error
+      type: object
+      properties:
+        error:
+          type: string
+      example:
+        error: Worker has not been enrolled.
+      x-internal: true
+    404CM2:
+      title: 404CM2
+      required:
+        - error
+      type: object
+      properties:
+        error:
+          type: string
+      example:
+        error: Resource not found.
+    422CM:
+      title: 422CM
+      required:
+        - json.reference_turn_id
+      type: object
+      properties:
+        json.reference_turn_id:
+          type: string
+          description: ''
+      example:              
+        message:
+          message: the candidate status not allow to be enrolled.
+      x-internal: true
+    active_workers1:
+      title: active_workers1
+      required:   
+        - turn_id
+        - reference_id
+        - enrrolled_at
+      type: object
+      properties:
+        turn_id:
+          type: string
+        reference_id:
+          type: string
+        enrrolled_at:
+          type: string
+      example:
+        turn_id: C2983071100
+        reference_id: 123-abc-123456
+        enrrolled_at: 2023-07-28
+      x-internal: true
+    CMMessage:
+      title: SmsStatus
+      required:
+        - message
+        - status
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: integer
+          format: int32
+      example:
+        message: Success
+        status: 200
+      x-internal: true
   securitySchemes:
     httpBearer:
       type: http
@@ -5224,6 +5620,7 @@ tags:
   - name: Person Search
   - name: End to End
   - name: Candidates
+  - name: Continuous Monitoring
   - name: Workforce
     description: |-
       Turn centralizes data on each worker to define a unique job profile consisting of identity and performance data.
