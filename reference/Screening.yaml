@@ -1817,7 +1817,7 @@ paths:
   '/monitoring/criminal/{reference_turn_id}/enroll':
     put:
       tags:
-        - Recheck
+        - Continuous Monitoring
       summary: /monitoring/criminal/<reference_turn_id>/enroll
       description: |
         # Introduction
