@@ -1814,13 +1814,13 @@ paths:
               example:
                 message: the candidate status not allow to be recheck.
       deprecated: false
-  '/monitoring/criminal/<reference_turn_id>/enroll':
+  '/monitoring/criminal/{reference_turn_id}/enroll':
     put:
       tags:
         - Continuous Monitoring
       summary: /monitoring/criminal/<reference_turn_id>/enroll
       description: This endpoint will submit the information for a monitored individual to enroll them in the Continuous Criminal Monitoring service. This will allow us to receive monitoring alerts for the enrolled individuals.
-      operationId: /monitoring/criminal/<reference_turn_id>/enroll
+      operationId: /monitoring/criminal/reference_turn_id/enroll
       parameters: []
       requestBody:
         description: ''
@@ -2087,13 +2087,13 @@ paths:
               example:
                 message: the candidate status not allow to be enrolled.
       deprecated: false
-  '/monitoring/criminal/<reference_turn_id>/unenroll':    
+  '/monitoring/criminal/{reference_turn_id}/unenroll':    
     put:
       tags:
         - Continuous Monitoring
       summary: /monitoring/criminal/<reference_turn_id>/unenroll
       description: This endpoint is available for removing a monitored individual from the Continuous Criminal Monitoring service. After unenrolling, no more alerts will be received for the monitored individual.
-      operationId: /monitoring/criminal/<reference_turn_id>/unenroll
+      operationId: /monitoring/criminal/reference_turn_id/unenroll
       parameters: []
       requestBody:
         description: ''
@@ -2296,7 +2296,7 @@ paths:
               example:
                 message: Worker has not been enrolled.
       deprecated: false
-  '/monitoring/criminal/enrolled_individuals':
+  /monitoring/criminal/enrolled_individuals:
     get:
       tags:
         - Continuous Monitoring

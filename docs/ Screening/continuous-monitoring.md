@@ -11,9 +11,9 @@ Upon enrollment, Continuous Criminal Monitoring will deliver fresh background ch
 
 This feature allows users to request the following actions via API:
 
-  \- Enroll: Add to the Continuous Criminal Monitoring service.
-  \- Unenroll: Remove from the Continuous Criminal Monitoring service.
-  \- Query Enrollees: Query our system for currently enrolled individuals. 
+- Enroll: Add to the Continuous Criminal Monitoring service.
+- Unenroll: Remove from the Continuous Criminal Monitoring service.
+- Query Enrollees: Query our system for currently enrolled individuals. 
 
 In the event a monitored individual is flagged by Turn for an arrest, Turn will wait 7 business days (this is the recommended lead time for data to be discoverable at the courthouse level) to conduct a criminal recheck at the corresponding County Courthouse.
 
