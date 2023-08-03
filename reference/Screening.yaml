@@ -2902,6 +2902,151 @@ components:
         name: Handoff
         order: 0
       x-internal: true
+    enroll_request:
+      title: /monitoring/criminal/<reference_turn_id>/enroll
+      required:
+        - reference_turn_id
+      type: object
+      properties:
+        reference_turn_id:
+          type: string
+      example:
+        reference_turn_id: C2983071100
+      x-internal: true
+    unenroll_request:
+      title: /monitoring/criminal/<reference_turn_id>/unenroll
+      required:
+        - reference_turn_id
+      type: object
+      properties:
+        reference_turn_id:
+          type: string
+      example:
+        email_candidate: C2983071100
+      x-internal: true
+    200CM:
+      title: 200CM
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          $ref: '#/components/schemas/CMMessage'
+      example:
+        message:
+          message: Success.
+      x-internal: true
+    200CM1:
+      title: 200CM1
+      required:
+        - data
+      type: object
+      properties:
+        active_workers:          
+          type: object
+          items:
+            $ref: '#/components/schemas/active_workers1'
+          description: ''
+        counts:
+          type: integer
+      example:
+        active_workers:
+          - turn_id: C2983071100
+            reference_id: 123-abc-123456
+            enrrolled_at: 2023-07-28
+        counts: 1
+      x-internal: true
+    201CM:
+      title: 201CM
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          $ref: '#/components/schemas/CMMessage'
+      example:
+        message:
+          message: Worker has already been enrolled.
+      x-internal: true
+    404CM:
+      title: 404CM1
+      required:
+        - error
+      type: object
+      properties:
+        error:
+          type: string
+      example:
+        error: Worker not found
+    404CM1:
+      title: 404CM1
+      required:
+        - error
+      type: object
+      properties:
+        error:
+          type: string
+      example:
+        error: Worker has not been enrolled.
+      x-internal: true
+    404CM2:
+      title: 404CM2
+      required:
+        - error
+      type: object
+      properties:
+        error:
+          type: string
+      example:
+        error: Resource not found.
+    422CM:
+      title: 422CM
+      required:
+        - json.reference_turn_id
+      type: object
+      properties:
+        json.reference_turn_id:
+          type: string
+          description: ''
+      example:              
+        message:
+          message: the candidate status not allow to be enrolled.
+      x-internal: true
+    active_workers1:
+      title: active_workers1
+      required:   
+        - turn_id
+        - reference_id
+        - enrrolled_at
+      type: object
+      properties:
+        turn_id:
+          type: string
+        reference_id:
+          type: string
+        enrrolled_at:
+          type: string
+      example:
+        turn_id: C2983071100
+        reference_id: 123-abc-123456
+        enrrolled_at: 2023-07-28
+      x-internal: true
+    CMMessage:
+      title: SmsStatus
+      required:
+        - message
+        - status
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: integer
+          format: int32
+      example:
+        message: Success
+        status: 200
+      x-internal: true
   securitySchemes:
     httpBearer:
       type: http
@@ -2912,6 +3057,7 @@ tags:
   - name: Person Search
   - name: End to End
   - name: Candidates
+  - name: Continuous Monitoring
   - name: Recheck
     description: |-
       Recheck enables you to re-run the background check for any specific worker. Worker's consent won't be required again, so the background check will be initiated right away.
