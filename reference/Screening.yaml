@@ -3680,6 +3680,7 @@ tags:
   - name: Person Search
   - name: End to End
   - name: Candidates
+  - name: Continuous Monitoring
   - name: Recheck
     description: |-
       Recheck enables you to re-run the background check for any specific worker. Worker's consent won't be required again, so the background check will be initiated right away.

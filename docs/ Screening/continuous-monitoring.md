@@ -11,17 +11,17 @@ Upon enrollment, Continuous Criminal Monitoring will deliver fresh background ch
 
 This feature allows users to request the following actions via API:
 
-\t\- Enroll: Add to the Continuous Criminal Monitoring service.
-\t\- Unenroll: Remove from the Continuous Criminal Monitoring service.
-\t\- Query Enrollees: Query our system for currently enrolled individuals. 
+  \- Enroll: Add to the Continuous Criminal Monitoring service.
+  \- Unenroll: Remove from the Continuous Criminal Monitoring service.
+  \- Query Enrollees: Query our system for currently enrolled individuals. 
 
 In the event a monitored individual is flagged by Turn for an arrest, Turn will wait 7 business days (this is the recommended lead time for data to be discoverable at the courthouse level) to conduct a criminal recheck at the corresponding County Courthouse.
 
 - IF a corresponding charge and disposition IS discovered, Turn will send the recheck results via status update webhooks with a continuous monitoring tag.
 - IF a corresponding charge and disposition IS NOT discovered, Turn will send the recheck results to the partner via status update webhooks WITHOUT a continuous monitoring tag and run a subsequent background check 30 days later.
 
-Notes:
+_Notes_:
 
-<u>CA Exclusion</u>: Because California is not an evergreen state, Turn will need to collect additional consent from the monitored individual in the event of a monitoring hit in order to run the background check.
+**CA Exclusion**: Because California is not an evergreen state, Turn will need to collect additional consent from the monitored individual in the event of a monitoring hit in order to run the background check.
 
-<u>No Alerts for Booking Events</u>: Due to FCRA regulations, Turn can only notify partners of a booking event if a corresponding charge was found at the courthouse. Turn cannot notify partners solely upon obtaining an arrest record.
+**No Alerts for Booking Events**: Due to FCRA regulations, Turn can only notify partners of a booking event if a corresponding charge was found at the courthouse. Turn cannot notify partners solely upon obtaining an arrest record.
