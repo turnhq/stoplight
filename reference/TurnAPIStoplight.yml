@@ -3683,7 +3683,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/422Invalidcandidatestatus1'
               example:
-                message: the candidate status not allow to be recheck.
+                message: the candidate status not allow to be enrolled.
       deprecated: false
   '/monitoring/criminal/{reference_turn_id}/unenroll':
     put:
@@ -3766,79 +3766,11 @@ paths:
                 type: object
                 x-examples:
                   Example 1:
-                    message: Success
+                    message: Worker not found
                 properties:
                   message:
                     type: string
-                    example: Success
-        '201':
-          description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
-            Content-Type:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'application/json'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '29'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'max-age=31536000'
-            Set-Cookie:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
-          content:
-            application/json:
-              schema:
-                type: object
-                x-examples:
-                  Example 1:
-                    message: Success
-                properties:
-                  message:
-                    type: string
-                    example: Worker has already been enrolled
+                    example: Worker not found
         '404':
           description: NOT FOUND
           headers:
@@ -3901,88 +3833,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/404Workernotfound1'
               example:
-                message: Worker not found
-        '422':
-          description: UNPROCESSABLE ENTITY
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
-            Content-Type:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'application/json'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '38'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'max-age=31536000'
-            Set-Cookie:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/422Invalidcandidatestatus1'
-              example:
-                message: the candidate status not allow to be recheck.
+                message: Worker has not been enrolled.
       deprecated: false
   /monitoring/criminal/enrolled_individuals:
-    put:
+    get:
       tags:
         - Continuous Monitoring
       summary: /monitoring/criminal/enrolled_individuals
       description: |
-        This endpoint is available for removing a monitored individual from the Continuous Criminal Monitoring service. After unenrolling, no more alerts will be received for the monitored individual.
+        This endpoint will allow users to confirm the total number of monitored individuals enrolled in the Continuous Criminal Monitoring service, and will return the listed data points for each enrolled individual:\n\nactive_workers:\n\t- turn_id\n\t- reference_id\n\tenrrolled_at\count.
       operationId: /monitoring/criminal/enrolled_individuals
-      parameters:
-        - name: turn_id
-          in: path
-          description: Turn ID
-          required: true
-          style: simple
-          schema:
-            type: string
-            example: C1234567890
+      parameters: []
       responses:
         '200':
           description: OK
@@ -4046,80 +3907,21 @@ paths:
               schema:
                 type: object
                 x-examples:
-                  Example 1:
-                    message: Success
+                  Example 1: 
+                      active_workers:
+                      - turn_id: C2983071100
+                        reference_id: 123-abc-123456
+                        enrrolled_at: 2023-07-28           
+                      counts: 10
                 properties:
                   message:
                     type: string
-                    example: Success
-        '201':
-          description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
-            Content-Type:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'application/json'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '29'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'max-age=31536000'
-            Set-Cookie:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
-          content:
-            application/json:
-              schema:
-                type: object
-                x-examples:
-                  Example 1:
-                    message: Success
-                properties:
-                  message:
-                    type: string
-                    example: Worker has already been enrolled
+                    example: 
+                      active_workers:
+                      - turn_id: C2983071100
+                        reference_id: 123-abc-123456
+                        enrrolled_at: 2023-07-28           
+                      counts: 10
         '404':
           description: NOT FOUND
           headers:
@@ -4182,70 +3984,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/404Workernotfound1'
               example:
-                message: Worker not found
-        '422':
-          description: UNPROCESSABLE ENTITY
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
-            Content-Type:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'application/json'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '38'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'max-age=31536000'
-            Set-Cookie:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/422Invalidcandidatestatus1'
-              example:
-                message: the candidate status not allow to be recheck.
+                message: Resource not found
       deprecated: false
 components:
   schemas:
