@@ -3841,7 +3841,12 @@ paths:
         - Continuous Monitoring
       summary: /monitoring/criminal/enrolled_individuals
       description: |
-        This endpoint will allow users to confirm the total number of monitored individuals enrolled in the Continuous Criminal Monitoring service, and will return the listed data points for each enrolled individual:\n\nactive_workers:\n\t- turn_id\n\t- reference_id\n\tenrrolled_at\count.
+        This endpoint will allow users to confirm the total number of monitored individuals enrolled in the Continuous Criminal Monitoring service, and will return the listed data points for each enrolled individual:
+        active_workers:
+        - turn_id
+        - reference_id
+        - tenrrolled_a
+        count.
       operationId: /monitoring/criminal/enrolled_individuals
       parameters: []
       responses:
