@@ -2095,6 +2095,215 @@ paths:
               example:
                 message: the candidate status not allow to be recheck.
       deprecated: false
+  '/monitoring/criminal/{reference_turn_id}/unenroll':    
+    put:
+      tags:
+        - Continuous Monitoring
+      summary: /monitoring/criminal/<reference_turn_id>/unenroll
+      description: This endpoint is available for removing a monitored individual from the Continuous Criminal Monitoring service. After unenrolling, no more alerts will be received for the monitored individual.
+      operationId: /monitoring/criminal/reference_turn_id/unenroll
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/unenroll_request'
+            example:
+              reference_turn_id: C2983071100
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: gunicorn/19.6.0
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
+            Content-Type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'application/json'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '29'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=31536000
+            X-Protected-By:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sqreen
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1.1 vegur
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200CM'
+              example:
+                message:
+                  message: Success
+        '404':
+          description: NOT FOUND
+          headers:
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: gunicorn/19.6.0
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
+            Content-Type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'application/json'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '38'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'max-age=31536000'
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1.1 vegur
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404CM'
+              example:
+                message: Worker not found
+        '404':
+          description: NOT FOUND
+          headers:
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: gunicorn/19.6.0
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
+            Content-Type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'application/json'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '38'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'max-age=31536000'
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1.1 vegur
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404CM1'
+              example:
+                message: Worker has not been enrolled.
+      deprecated: false
 components:
   schemas:
     /person/search_async_request:
