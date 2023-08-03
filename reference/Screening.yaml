@@ -1817,20 +1817,54 @@ paths:
   '/monitoring/criminal/{reference_turn_id}/enroll':
     put:
       tags:
-        - Continuous Monitoring
+        - Recheck
       summary: /monitoring/criminal/<reference_turn_id>/enroll
-      description: This endpoint will submit the information for a monitored individual to enroll them in the Continuous Criminal Monitoring service. This will allow us to receive monitoring alerts for the enrolled individuals.
+      description: |
+        # Introduction
+
+        When this endpoint is called, it will immediatly kick off a recheck for the specified already existing background check. A Recheck runs a complete re-execution of a previously completed Background Check, to get updated results, without needing an applicant to go over the complete consent process all over again.
+
+        When a Recheck is requested, Turn holds everything together under the same Turn ID. The Background Check is put back in the `processing` status, and afterwards it flows naturally as any other Background Check does, and webhooks are sent for subsequent status updates.
+
+
+        # Preconditions
+
+        ## Background Check Status 
+        The specified background check must be in one of the following status: 
+        - Approved
+        - Consider
+        - Rejected
+
+        # About Turn ID
+
+        A recheck can be requested specifying a Turn Id (as received in all Background Check API requests), a Worker ID as received in API Levels 1 and 2, or if a `reference_id` was provided to tag the Background Check request, then that `reference_id` can be used to start a recheck.
+
+        Note: If using the `reference_id` approach, and more than one Background Check has ben tagged with the same reference, then the most recent discovered Background Check will be targeted.
+
+        ## IDs accepted to start a Recheck
+        1. The full UUID of the worker eg: `d54eb469-d74d-450a-b7f9-b0d98f55ac9e`
+        2. The shortened version, also called turn id: `C1704355400`
+        3. Your provided reference_id, eg: `abc-123-internal`
+
+
+        # Identifying when a Background Check is Rechecked
+
+        To correctly identify the origin of a Background Check, either it being the original request, or a recheck, webhooks and query endpoints make available the `consent_date` and the `recheck_date` of any Background Check.
+
+        - `consent_date` - Is the original date, the Background Check was requested.
+        - `recheck_date` - Is the last date, the Background Check was rechecked.
+
+        Both data points are available in [Status Update Webooks](/docs/turn-api/9b22ed33bf5d2-screening#a-candidate-status-update), and both [Status](/docs/turn-api/77681a1739f13-person-worker-id-status) and [Details](/docs/turn-api/1a0557277b86a-person-worker-id-details) query endpoints.
       operationId: /monitoring/criminal/reference_turn_id/enroll
-      parameters: []
-      requestBody:
-        description: ''      
-        content:             
-          text/plain:
-            schema:
-              type: string
-              example:
-                reference_turn_id: C2983071100
-        required: true
+      parameters:
+        - name: turn_id
+          in: path
+          description: Turn ID
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: C1234567890
       responses:
         '200':
           description: OK
@@ -1852,19 +1886,13 @@ paths:
                 text/plain:
                   schema:
                     type: string
-                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
-            Content-Type:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'application/json'
+                  example: 'Thu, 01 Oct 2020 18:21:16 GMT'
             Content-Length:
               content:
                 text/plain:
                   schema:
                     type: string
-                  example: '29'
+                  example: '10'
             Access-Control-Allow-Origin:
               content:
                 text/plain:
@@ -1892,74 +1920,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/200CM'
-              example:
-                message:
-                  message: Success
-        '201':
-          description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    message: Success
+                properties:
+                  message:
                     type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
-            Content-Type:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'application/json'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '29'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'max-age=31536000'
-            Set-Cookie:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/201CM'
-              example:
-                message:
-                  message: Worker has already been enrolled
+                    example: Success
         '404':
           description: NOT FOUND
           headers:
@@ -1980,13 +1948,7 @@ paths:
                 text/plain:
                   schema:
                     type: string
-                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
-            Content-Type:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'application/json'
+                  example: 'Thu, 01 Oct 2020 18:23:42 GMT'
             Content-Length:
               content:
                 text/plain:
@@ -2004,13 +1966,13 @@ paths:
                 text/plain:
                   schema:
                     type: string
-                  example: 'max-age=31536000'
-            Set-Cookie:
+                  example: max-age=31536000
+            X-Protected-By:
               content:
                 text/plain:
                   schema:
                     type: string
-                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
+                  example: Sqreen
             Via:
               content:
                 text/plain:
@@ -2020,7 +1982,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/404CM'
+                $ref: '#/components/schemas/404Workernotfound1'
               example:
                 message: Worker not found
         '422':
@@ -2043,19 +2005,13 @@ paths:
                 text/plain:
                   schema:
                     type: string
-                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
-            Content-Type:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'application/json'
+                  example: 'Thu, 01 Oct 2020 18:28:16 GMT'
             Content-Length:
               content:
                 text/plain:
                   schema:
                     type: string
-                  example: '38'
+                  example: '67'
             Access-Control-Allow-Origin:
               content:
                 text/plain:
@@ -2067,13 +2023,13 @@ paths:
                 text/plain:
                   schema:
                     type: string
-                  example: 'max-age=31536000'
-            Set-Cookie:
+                  example: max-age=31536000
+            X-Protected-By:
               content:
                 text/plain:
                   schema:
                     type: string
-                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
+                  example: Sqreen
             Via:
               content:
                 text/plain:
@@ -2083,9 +2039,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/422M'
+                $ref: '#/components/schemas/422Invalidcandidatestatus1'
               example:
-                message: the candidate status not allow to be enrolled.
+                message: the candidate status not allow to be recheck.
       deprecated: false
 components:
   schemas:
@@ -3170,20 +3126,10 @@ components:
           type: string
         order:
           type: integer
-          format: int32enroll_request
+          format: int32
       example:
         name: Handoff
         order: 0
-      x-internal: true
-      title: /monitoring/criminal/<reference_turn_id>/unenroll
-      required:
-        - reference_turn_id
-      type: object
-      properties:
-        reference_turn_id:
-          type: string
-      example:
-        email_candidate: C2983071100
       x-internal: true
     200CM:
       title: 200CM
