@@ -3692,16 +3692,15 @@ paths:
       summary: /monitoring/criminal/<reference_turn_id>/unenroll
       description: This endpoint is available for removing a monitored individual from the Continuous Criminal Monitoring service. After unenrolling, no more alerts will be received for the monitored individual.
       operationId: /monitoring/criminal/reference_turn_id/unenroll
-      parameters: []
-      requestBody:
-        description: ''
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/unenroll_request'
-            example:
-              reference_turn_id: C2983071100
-        required: true
+      parameters:
+        - name: turn_id
+          in: path
+          description: Turn ID
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: C1234567890
       responses:
         '200':
           description: OK
