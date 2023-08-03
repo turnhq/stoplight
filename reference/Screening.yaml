@@ -2173,10 +2173,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/200CM'
-              example:
-                message:
-                  message: Success
+                type: object
+                x-examples:
+                  Example 1:
+                    message: Success
+                properties:
+                  message:
+                    type: string
+                    example: Success
         '404':
           description: NOT FOUND
           headers:
@@ -2237,7 +2241,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/404CM'
+                $ref: '#/components/schemas/404Workernotfound1'
               example:
                 message: Worker not found
         '404':
@@ -2300,9 +2304,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/404CM1'
+                $ref: '#/components/schemas/404Workernotfound1'
               example:
-                message: Worker has not been enrolled.
+                message: Worker not found
       deprecated: false
 components:
   schemas:
