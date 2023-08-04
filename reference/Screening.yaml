@@ -2268,7 +2268,7 @@ paths:
       summary: /monitoring/criminal/enrolled_individuals
       description: |
         This endpoint will allow users to confirm the total number of monitored individuals enrolled in the Continuous Criminal Monitoring service, and will return the listed data points for each enrolled individual:
-        active_workers:
+        active_enrolls:
         - turn_id
         - reference_id
         - tenrrolled_a
@@ -2332,88 +2332,17 @@ paths:
                 text/plain:
                   schema:
                     type: string
-                  example: 1.1 vegur
+                  example: 1.1 vegur          
           content:
             application/json:
               schema:
-                type: object
-                x-examples:
-                  Example 1: 
-                      active_workers:
-                      - turn_id: C2983071100
-                        reference_id: 123-abc-123456
-                        enrrolled_at: 2023-07-28           
-                      count: 10
-                properties:
-                  example: 
-                    active_workers:
-                    - turn_id: C2983071100
-                      reference_id: 123-abc-123456
-                      enrrolled_at: 2023-07-28           
-                    count: 10
-        '404':
-          description: NOT FOUND
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
-            Content-Type:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'application/json'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '38'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'max-age=31536000'
-            Set-Cookie:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/404Workernotfound1'
+                $ref: '#/components/schemas/200CM1'
               example:
-                message: Resource not found
+                active_enrolls:
+                  - turn_id: C2983071100
+                    reference_id: 123-abc-123456
+                    enrrolled_at: 2023-07-28           
+                  count: 10
       deprecated: false
 components:
   schemas:
@@ -3518,22 +3447,23 @@ components:
     200CM1:
       title: 200CM1
       required:
-        - data
+        - active_enrolls
+        - count
       type: object
       properties:
-        active_workers:          
+        active_enrolls:          
           type: object
           items:
-            $ref: '#/components/schemas/active_workers1'
+            $ref: '#/components/schemas/active_enrolls1'
           description: ''
-        counts:
+        count:
           type: integer
       example:
-        active_workers:
+        active_enrolls:
           - turn_id: C2983071100
             reference_id: 123-abc-123456
             enrrolled_at: 2023-07-28
-        counts: 1
+        count: 1
       x-internal: true
     201CM:
       title: 201CM
@@ -3591,8 +3521,8 @@ components:
         message:
           message: the candidate status not allow to be enrolled.
       x-internal: true
-    active_workers1:
-      title: active_workers1
+    active_enrolls1:
+      title: active_enrolls1
       required:   
         - turn_id
         - reference_id

@@ -3414,21 +3414,21 @@ paths:
 
         # About Turn ID
 
-        Unenroll from Continuous Monitoring service can be requested specifying a Turn Id (as received in all Background Check API requests), or you can use a `reference_id`.
+        Enroll for Continuous Monitoring service can be requested specifying a Turn Id (as received in all Background Check API requests), or you can use a `reference_id`.
 
         ## IDs accepted to start a Recheck
         1. The shortened version, also called turn id: `C1704355400`
         2. Your provided reference_id, eg: `abc-123-internal`
       operationId: /monitoring/criminal/reference_turn_id/enroll
       parameters:
-        - name: turn_id
+        - name: reference_turn_id
           in: path
           description: Turn ID
           required: true
           style: simple
           schema:
             type: string
-            example: C1234567890
+            example: C1234567890 / abc-123-internal
       responses:
         '200':
           description: OK
@@ -3700,7 +3700,7 @@ paths:
       summary: /monitoring/criminal/<reference_turn_id>/unenroll
       description: |
         This endpoint is available for removing a monitored individual from the Continuous Criminal Monitoring service. After unenrolling, no more alerts will be received for the monitored individual.
-
+        
         # About Turn ID
 
         Unenroll from Continuous Monitoring service can be requested specifying a Turn Id (as received in all Background Check API requests), or you can use a `reference_id`.
@@ -3710,14 +3710,14 @@ paths:
         2. Your provided reference_id, eg: `abc-123-internal`
       operationId: /monitoring/criminal/reference_turn_id/unenroll
       parameters:
-        - name: turn_id
+        - name: reference_turn_id
           in: path
           description: Turn ID
           required: true
           style: simple
           schema:
             type: string
-            example: C1234567890
+            example: C1234567890 / abc-123-internal
       responses:
         '200':
           description: OK
@@ -3858,7 +3858,7 @@ paths:
       summary: /monitoring/criminal/enrolled_individuals
       description: |
         This endpoint will allow users to confirm the total number of monitored individuals enrolled in the Continuous Criminal Monitoring service, and will return the listed data points for each enrolled individual:
-        active_workers:
+        active_enrolls:
         - turn_id
         - reference_id
         - tenrrolled_a
@@ -3929,20 +3929,18 @@ paths:
                 type: object
                 x-examples:
                   Example 1: 
-                      active_workers:
+                      active_enrolls:
                       - turn_id: C2983071100
                         reference_id: 123-abc-123456
                         enrrolled_at: 2023-07-28           
-                      counts: 10
+                      count: 10
                 properties:
-                  message:
-                    type: string
-                    example: 
-                      active_workers:
-                      - turn_id: C2983071100
-                        reference_id: 123-abc-123456
-                        enrrolled_at: 2023-07-28           
-                      counts: 10
+                  example: 
+                    active_enrolls:
+                    - turn_id: C2983071100
+                      reference_id: 123-abc-123456
+                      enrrolled_at: 2023-07-28           
+                    count: 10
         '404':
           description: NOT FOUND
           headers:
@@ -5831,22 +5829,23 @@ components:
     200CM1:
       title: 200CM1
       required:
-        - data
+        - active_enrolls
+        - count
       type: object
       properties:
-        active_workers:          
+        active_enrolls:          
           type: object
           items:
-            $ref: '#/components/schemas/active_workers1'
+            $ref: '#/components/schemas/active_enrolls1'
           description: ''
-        counts:
+        count:
           type: integer
       example:
-        active_workers:
+        active_enrolls:
           - turn_id: C2983071100
             reference_id: 123-abc-123456
             enrrolled_at: 2023-07-28
-        counts: 1
+        count: 1
       x-internal: true
     201CM:
       title: 201CM
@@ -5904,8 +5903,8 @@ components:
         message:
           message: the candidate status not allow to be enrolled.
       x-internal: true
-    active_workers1:
-      title: active_workers1
+    active_enrolls1:
+      title: active_enrolls1
       required:   
         - turn_id
         - reference_id
