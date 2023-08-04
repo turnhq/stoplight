@@ -2337,10 +2337,10 @@ paths:
             application/json:
               example:
                 enrolls:
-                  - turn_id: C2983071100
-                    reference_id: 123-abc-123456
-                    enrrolled_at: 2023-07-28           
-                  count: 10
+                  turn_id: C2983071100
+                  reference_id: 123-abc-123456
+                  enrrolled_at: 2023-07-28           
+                count: 10
       deprecated: false
 components:
   schemas:
