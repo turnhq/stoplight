@@ -1821,6 +1821,14 @@ paths:
       summary: /monitoring/criminal/<reference_turn_id>/enroll
       description: |
         This endpoint will submit the information for a monitored individual to enroll them in the Continuous Criminal Monitoring service. This will allow us to receive monitoring alerts for the enrolled individuals.
+
+        # About Turn ID
+
+        Unenroll from Continuous Monitoring service can be requested specifying a Turn Id (as received in all Background Check API requests), or you can use a `reference_id`.
+
+        ## IDs accepted to start a Recheck
+        1. The shortened version, also called turn id: `C1704355400`
+        2. Your provided reference_id, eg: `abc-123-internal`
       operationId: /monitoring/criminal/reference_turn_id/enroll
       parameters:
         - name: turn_id
@@ -2093,7 +2101,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/422Invalidcandidatestatus1'
               example:
-                message: the candidate status not allow to be enrolled.
+                message: The current status of the candidate does not permit enrollment.
       deprecated: false
   '/monitoring/criminal/{reference_turn_id}/unenroll':
     put:
@@ -2102,6 +2110,14 @@ paths:
       summary: /monitoring/criminal/<reference_turn_id>/unenroll
       description: |
         This endpoint is available for removing a monitored individual from the Continuous Criminal Monitoring service. After unenrolling, no more alerts will be received for the monitored individual.
+        
+        # About Turn ID
+
+        Unenroll from Continuous Monitoring service can be requested specifying a Turn Id (as received in all Background Check API requests), or you can use a `reference_id`.
+
+        ## IDs accepted to start a Recheck
+        1. The shortened version, also called turn id: `C1704355400`
+        2. Your provided reference_id, eg: `abc-123-internal`
       operationId: /monitoring/criminal/reference_turn_id/unenroll
       parameters:
         - name: turn_id
@@ -2327,7 +2343,7 @@ paths:
                       - turn_id: C2983071100
                         reference_id: 123-abc-123456
                         enrrolled_at: 2023-07-28           
-                      counts: 10
+                      count: 10
                 properties:
                   message:
                     type: string
@@ -2336,7 +2352,7 @@ paths:
                       - turn_id: C2983071100
                         reference_id: 123-abc-123456
                         enrrolled_at: 2023-07-28           
-                      counts: 10
+                      count: 10
         '404':
           description: NOT FOUND
           headers:
