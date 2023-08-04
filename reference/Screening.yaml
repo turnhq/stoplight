@@ -1824,21 +1824,21 @@ paths:
 
         # About Turn ID
 
-        Unenroll from Continuous Monitoring service can be requested specifying a Turn Id (as received in all Background Check API requests), or you can use a `reference_id`.
+        Enroll for Continuous Monitoring service can be requested specifying a Turn Id (as received in all Background Check API requests), or you can use a `reference_id`.
 
         ## IDs accepted to start a Recheck
         1. The shortened version, also called turn id: `C1704355400`
         2. Your provided reference_id, eg: `abc-123-internal`
       operationId: /monitoring/criminal/reference_turn_id/enroll
       parameters:
-        - name: turn_id
+        - name: reference_turn_id
           in: path
           description: Turn ID
           required: true
           style: simple
           schema:
             type: string
-            example: C1234567890
+            example: C1234567890 / abc-123-internal
       responses:
         '200':
           description: OK
@@ -2120,14 +2120,14 @@ paths:
         2. Your provided reference_id, eg: `abc-123-internal`
       operationId: /monitoring/criminal/reference_turn_id/unenroll
       parameters:
-        - name: turn_id
+        - name: reference_turn_id
           in: path
           description: Turn ID
           required: true
           style: simple
           schema:
             type: string
-            example: C1234567890
+            example: C1234567890 / abc-123-internal
       responses:
         '200':
           description: OK
@@ -2345,14 +2345,12 @@ paths:
                         enrrolled_at: 2023-07-28           
                       count: 10
                 properties:
-                  message:
-                    type: string
-                    example: 
-                      active_workers:
-                      - turn_id: C2983071100
-                        reference_id: 123-abc-123456
-                        enrrolled_at: 2023-07-28           
-                      count: 10
+                  example: 
+                    active_workers:
+                    - turn_id: C2983071100
+                      reference_id: 123-abc-123456
+                      enrrolled_at: 2023-07-28           
+                    count: 10
         '404':
           description: NOT FOUND
           headers:
