@@ -3858,7 +3858,7 @@ paths:
       summary: /monitoring/criminal/enrolled_individuals
       description: |
         This endpoint will allow users to confirm the total number of monitored individuals enrolled in the Continuous Criminal Monitoring service, and will return the listed data points for each enrolled individual:
-        active_enrolls:
+        enrolls:
         - turn_id
         - reference_id
         - tenrrolled_a
@@ -3929,14 +3929,14 @@ paths:
                 type: object
                 x-examples:
                   Example 1: 
-                      active_enrolls:
+                      enrolls:
                       - turn_id: C2983071100
                         reference_id: 123-abc-123456
                         enrrolled_at: 2023-07-28           
                       count: 10
                 properties:
                   example: 
-                    active_enrolls:
+                    enrolls:
                     - turn_id: C2983071100
                       reference_id: 123-abc-123456
                       enrrolled_at: 2023-07-28           
@@ -5829,19 +5829,19 @@ components:
     200CM1:
       title: 200CM1
       required:
-        - active_enrolls
+        - enrolls
         - count
       type: object
       properties:
-        active_enrolls:          
+        enrolls:          
           type: object
           items:
-            $ref: '#/components/schemas/active_enrolls1'
+            $ref: '#/components/schemas/enrolls1'
           description: ''
         count:
           type: integer
       example:
-        active_enrolls:
+        enrolls:
           - turn_id: C2983071100
             reference_id: 123-abc-123456
             enrrolled_at: 2023-07-28
@@ -5903,8 +5903,8 @@ components:
         message:
           message: the candidate status not allow to be enrolled.
       x-internal: true
-    active_enrolls1:
-      title: active_enrolls1
+    enrolls1:
+      title: enrolls1
       required:   
         - turn_id
         - reference_id
