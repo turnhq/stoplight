@@ -3930,6 +3930,7 @@ paths:
                   turn_id: C2983071100
                   reference_id: 123-abc-123456
                   enrrolled_at: 2023-07-28
+                count: 10
       deprecated: false
 components:
   schemas:
@@ -5759,17 +5760,14 @@ components:
         - enrolls
       type: object
       properties:
-        count:
-          type: integer
         enrolls:
           type: object
           items:
-            $ref: '#/components/schemas/Enrolls'
+            $ref: '#/components/schemas/enrolls1'
           description: ''
+        count:
+          type: integer
       example:
-        limit: 10
-        count: 100
-        offset: 1
         enrolls:
           - turn_id: C2983071100
             reference_id: 123-abc-123456
@@ -5832,8 +5830,8 @@ components:
         message:
           message: the candidate status not allow to be enrolled.
       x-internal: true
-    Enrolls:
-      title: Enrolls
+    enrolls1:
+      title: enrolls1
       required:
         - turn_id
         - reference_id
