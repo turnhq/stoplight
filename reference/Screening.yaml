@@ -2336,10 +2336,6 @@ paths:
           content:
             application/json:
               example:
-                limit: 10
-                count: 10
-                offset: 10
-                limit: 10
                 enrolls:
                   turn_id: C2983071100
                   reference_id: 123-abc-123456
@@ -3448,23 +3444,14 @@ components:
     200CM1:
       title: 200CM1
       required:
-        - limit
         - count
-        - offset
         - enrolls
       type: object
       properties:
-        limit:
-          type: integer
-          format: int32
         count:
           type: integer
-          format: int32
-        offset:
-          type: integer
-          format: int32
         enrolls:
-          type: array
+          type: object
           items:
             $ref: '#/components/schemas/Enrolls'
           description: ''
@@ -3476,6 +3463,7 @@ components:
           - turn_id: C2983071100
             reference_id: 123-abc-123456
             enrrolled_at: 2023-07-28
+        count: 1
       x-internal: true
     201CM:
       title: 201CM
