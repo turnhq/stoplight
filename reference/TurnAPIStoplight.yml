@@ -3864,7 +3864,23 @@ paths:
         - tenrrolled_a
         count.
       operationId: /monitoring/criminal/enrolled_individuals
-      parameters: []
+      parameters:
+        - name: per_page
+          in: path
+          description: ""
+          required: false
+          style: simple
+          schema:
+            type: string
+            example: 10
+        - name: page
+          in: path
+          description: ""
+          required: false
+          style: simple
+          schema:
+            type: string
+            example: 1
       responses:
         '200':
           description: OK
