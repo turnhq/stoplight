@@ -3865,12 +3865,6 @@ paths:
                   message:
                     type: string
                     example: Worker not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/404Workernotfound1'
-              example:
-                message: Worker has not been enrolled.
       deprecated: false
   /monitoring/criminal/enrolled_individuals:
     get:
