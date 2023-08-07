@@ -3626,14 +3626,9 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                x-examples:
-                  Example 1:
-                    message: Worker not found
-                properties:
-                  message:
-                    type: string
-                    example: Worker not found
+                $ref: '#/components/schemas/404Workernotfound1'
+              example:
+                message: Worker not found
         '422':
           description: UNPROCESSABLE ENTITY
           headers:
@@ -3694,14 +3689,9 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                x-examples:
-                  Example 1:
-                    message: The current status of the candidate does not permit enrollment.
-                properties:
-                  message:
-                    type: string
-                    example: The current status of the candidate does not permit enrollment.
+                $ref: '#/components/schemas/422Invalidcandidatestatus1'
+              example:
+                message: The current status of the candidate does not permit enrollment.
       deprecated: false
   '/monitoring/criminal/{reference_turn_id}/unenroll':
     put:
@@ -3857,14 +3847,9 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                x-examples:
-                  Example 1:
-                    message: Worker not found
-                properties:
-                  message:
-                    type: string
-                    example: Worker not found
+                $ref: '#/components/schemas/404Workernotfound1'
+              example:
+                message: Worker not found.
       deprecated: false
   /monitoring/criminal/enrolled_individuals:
     get:
