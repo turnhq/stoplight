@@ -2336,10 +2336,15 @@ paths:
           content:
             application/json:
               example:
+                limit: 10
+                offset: 1
                 enrolls:
-                  turn_id: C2983071100
-                  reference_id: 123-abc-123456
-                  enrrolled_at: 2023-07-28
+                  - turn_id: C2983071100
+                    reference_id: 123-abc-123456
+                    enrrolled_at: 2023-07-28
+                  - turn_id: C9785074239
+                    reference_id: 987-abc-987654
+                    enrrolled_at: 2023-06-18
                 count: 10
       deprecated: false
 components:
