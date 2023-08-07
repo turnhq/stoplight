@@ -3561,7 +3561,7 @@ paths:
                 type: object
                 x-examples:
                   Example 1:
-                    message: Success
+                    message: Worker has already been enrolled
                 properties:
                   message:
                     type: string
@@ -3626,9 +3626,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/404Workernotfound1'
-              example:
-                message: Worker not found
+                type: object
+                x-examples:
+                  Example 1:
+                    message: Worker not found
+                properties:
+                  message:
+                    type: string
+                    example: Worker not found
         '422':
           description: UNPROCESSABLE ENTITY
           headers:
@@ -3689,9 +3694,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/422Invalidcandidatestatus1'
-              example:
-                message: The current status of the candidate does not permit enrollment.
+                type: object
+                x-examples:
+                  Example 1:
+                    message: The current status of the candidate does not permit enrollment.
+                properties:
+                  message:
+                    type: string
+                    example: The current status of the candidate does not permit enrollment.
       deprecated: false
   '/monitoring/criminal/{reference_turn_id}/unenroll':
     put:
@@ -3782,11 +3792,11 @@ paths:
                 type: object
                 x-examples:
                   Example 1:
-                    message: Worker not found
+                    message: Success
                 properties:
                   message:
                     type: string
-                    example: Worker not found
+                    example: Success
         '404':
           description: NOT FOUND
           headers:
@@ -3844,6 +3854,17 @@ paths:
                   schema:
                     type: string
                   example: 1.1 vegur
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    message: Worker not found
+                properties:
+                  message:
+                    type: string
+                    example: Worker not found
           content:
             application/json:
               schema:
@@ -3925,12 +3946,17 @@ paths:
                   example: 1.1 vegur          
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/200CM1'
               example:
-                enrolls:
-                  turn_id: C2983071100
-                  reference_id: 123-abc-123456
-                  enrrolled_at: 2023-07-28           
+                limit: 10
                 count: 10
+                offset: 10
+                limit: 10
+                enrolls:
+                  - turn_id: C2983071100
+                    reference_id: 123-abc-123456
+                    enrrolled_at: 2023-07-28
       deprecated: false
 components:
   schemas:
@@ -5754,25 +5780,36 @@ components:
           message: Success.
       x-internal: true
     200CM1:
-      title: 200CM1
+      title: 201Success
       required:
-        - enrolls
+        - limit
         - count
+        - offset
+        - enrolls
       type: object
       properties:
-        enrolls:          
-          type: object
+        limit:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int32
+        enrolls:
+          type: array
           items:
             $ref: '#/components/schemas/enrolls1'
           description: ''
-        count:
-          type: integer
       example:
+        limit: 10
+        count: 100
+        offset: 1
         enrolls:
           - turn_id: C2983071100
             reference_id: 123-abc-123456
             enrrolled_at: 2023-07-28
-        count: 1
       x-internal: true
     201CM:
       title: 201CM
@@ -5832,7 +5869,7 @@ components:
       x-internal: true
     enrolls1:
       title: enrolls1
-      required:   
+      required:
         - turn_id
         - reference_id
         - enrrolled_at
