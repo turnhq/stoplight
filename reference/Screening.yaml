@@ -2356,6 +2356,8 @@ paths:
                   example: 1.1 vegur          
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/200CM1'
               example:
                 limit: 10
                 count: 10
@@ -2365,6 +2367,9 @@ paths:
                   - turn_id: C2983071100
                     reference_id: 123-abc-123456
                     enrrolled_at: 2023-07-28
+                  - turn_id: C9873071563
+                    reference_id: 987-abc-654321
+                    enrrolled_at: 2023-06-21
       deprecated: false
 components:
   schemas:
