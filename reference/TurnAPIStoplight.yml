@@ -3925,6 +3925,8 @@ paths:
                   example: 1.1 vegur          
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/200CM1'
               example:
                 limit: 10
                 offset: 1
@@ -5761,10 +5763,16 @@ components:
     200CM1:
       title: 200CM1
       required:
-        - count
+        - limit
+        - offset
         - enrolls
+        - count
       type: object
       properties:
+        limit:
+          type: integer
+        offset:
+          type: integer
         enrolls:
           type: object
           items:
