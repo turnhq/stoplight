@@ -5800,7 +5800,7 @@ components:
         enrolls:
           type: array
           items:
-            $ref: '#/components/schemas/enrolls1'
+            $ref: '#/components/schemas/Enrolls'
           description: ''
       example:
         limit: 10
@@ -5867,8 +5867,8 @@ components:
         message:
           message: the candidate status not allow to be enrolled.
       x-internal: true
-    enrolls1:
-      title: enrolls1
+    Enrolls:
+      title: Enrolls
       required:
         - turn_id
         - reference_id
