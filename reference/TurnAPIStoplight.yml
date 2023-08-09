@@ -3876,7 +3876,7 @@ paths:
       operationId: /monitoring/criminal/enrolled_individuals
       parameters:
         - name: query
-          in: query path
+          in: path
           description: ""
           required: false
           style: simple
@@ -5855,13 +5855,15 @@ components:
           type: integer
         offset:
           type: integer
+        count:
+          type: integer
+        max_limit:
+          type: integer
         enrolls:
           type: array
           items:
             $ref: '#/components/schemas/Enrolls'
           description: ''
-        count:
-          type: integer
       example:
         limit: 10
         offset: 1

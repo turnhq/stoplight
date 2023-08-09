@@ -25,3 +25,5 @@ _Notes_:
 **CA Exclusion**: Because California is not an evergreen state, Turn will need to collect additional consent from the monitored individual in the event of a monitoring hit in order to run the background check.
 
 **No Alerts for Booking Events**: Due to FCRA regulations, Turn can only notify partners of a booking event if a corresponding charge was found at the courthouse. Turn cannot notify partners solely upon obtaining an arrest record.
+
+### _Continuous Criminal Monitoring is currently a BETA opt-in feature. If you are interested, please contact support@turn.ai_
