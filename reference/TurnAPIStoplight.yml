@@ -3858,10 +3858,14 @@ paths:
       summary: /monitoring/criminal/enrolled_individuals
       description: |
         This endpoint will allow users to confirm the total number of monitored individuals enrolled in the Continuous Criminal Monitoring service, and will return the listed data points for each enrolled individual:
+        limit
+        offset
+        count
+        max_limit,
         enrolls:
         - turn_id
         - reference_id
-        - tenrrolled_a
+        - enrrolled_at
         count.        
 
         # About query in parameters
@@ -3948,6 +3952,8 @@ paths:
               example:
                 limit: 10
                 offset: 1
+                count: 10
+                max_limit: 100
                 enrolls:
                   - turn_id: C2983071100
                     reference_id: 123-abc-123456
@@ -3955,7 +3961,6 @@ paths:
                   - turn_id: C9785074239
                     reference_id: 987-abc-987654
                     enrrolled_at: 2023-06-18
-                count: 10
         '422':
           description: UNPROCESSABLE ENTITY
           headers:
@@ -5862,6 +5867,10 @@ components:
         count:
           type: integer
       example:
+        limit: 10
+        offset: 1
+        count: 10
+        max_limit: 100
         enrolls:
           - turn_id: C2983071100
             reference_id: 123-abc-123456
@@ -5869,7 +5878,6 @@ components:
           - turn_id: C9785074239
             reference_id: 987-abc-987654
             enrrolled_at: 2023-06-18
-        count: 1
       x-internal: true
     201CM:
       title: 201CM
