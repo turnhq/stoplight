@@ -3416,7 +3416,7 @@ paths:
 
         Enroll for Continuous Monitoring service can be requested specifying a Turn Id (as received in all Background Check API requests), or you can use a `reference_id`.
 
-        ## IDs accepted to start a Recheck
+        ## IDs accepted to start an enrollment
         1. The shortened version, also called turn id: `C1704355400`
         2. Your provided reference_id, eg: `abc-123-internal`
       operationId: /monitoring/criminal/reference_turn_id/enroll
@@ -3626,7 +3626,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/404Workernotfound1'
+                $ref: '#/components/schemas/404CM'
               example:
                 message: Worker not found
         '422':
@@ -3689,7 +3689,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/422Invalidcandidatestatus1'
+                $ref: '#/components/schemas/422CM'
               example:
                 message: The current status of the candidate does not permit enrollment.
       deprecated: false
@@ -3705,7 +3705,7 @@ paths:
 
         Unenroll from Continuous Monitoring service can be requested specifying a Turn Id (as received in all Background Check API requests), or you can use a `reference_id`.
 
-        ## IDs accepted to start a Recheck
+        ## IDs accepted to unenroll
         1. The shortened version, also called turn id: `C1704355400`
         2. Your provided reference_id, eg: `abc-123-internal`
       operationId: /monitoring/criminal/reference_turn_id/unenroll
@@ -3847,7 +3847,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/404Workernotfound1'
+                $ref: '#/components/schemas/404CM'
               example:
                 message: Worker not found.
       deprecated: false
@@ -3862,25 +3862,27 @@ paths:
         - turn_id
         - reference_id
         - tenrrolled_a
-        count.
+        count.        
+
+        # About query in parameters
+
+        ## per_page (integer, optional)
+        The per_page parameter allows you to specify the number of results to be displayed per page in the API response. If not provided, a default value may be used.
+
+        ## page (integer, optional)
+        The page parameter is used to indicate the page number of the results you want to retrieve. If omitted, the default page may be assumed.
+
+        ## filters (object, optional)
+        The filters parameter enables you to refine your query by providing specific filtering criteria. This parameter should be an object containing create_timestamp__gt (start date) and create_timestamp__lt (end date) for the date range.
       operationId: /monitoring/criminal/enrolled_individuals
       parameters:
-        - name: per_page
-          in: path
+        - name: query
+          in: query path
           description: ""
           required: false
           style: simple
           schema:
-            type: string
-            example: 10
-        - name: page
-          in: path
-          description: ""
-          required: false
-          style: simple
-          schema:
-            type: string
-            example: 1
+            $ref: '#/components/schemas/CMEnrolledIndividualsQuery'              
       responses:
         '200':
           description: OK
@@ -3954,6 +3956,69 @@ paths:
                     reference_id: 987-abc-987654
                     enrrolled_at: 2023-06-18
                 count: 10
+        '422':
+          description: UNPROCESSABLE ENTITY
+          headers:
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: gunicorn/19.6.0
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
+            Content-Type:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'application/json'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '38'
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'max-age=31536000'
+            Set-Cookie:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1.1 vegur
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/422CM1'
+              example:
+                message: "query:{} is not a valid json and should look like {'per_page': 10, 'page': 0, 'filters': {'create_timestamp__gt': '2023-06-01', 'create_timestamp__lt': '2023-07-01'}}."
       deprecated: false
 components:
   schemas:
@@ -5790,7 +5855,7 @@ components:
         offset:
           type: integer
         enrolls:
-          type: object
+          type: array
           items:
             $ref: '#/components/schemas/Enrolls'
           description: ''
@@ -5821,46 +5886,59 @@ components:
     404CM:
       title: 404CM1
       required:
-        - error
+        - message
       type: object
       properties:
-        error:
+        message:
           type: string
       example:
-        error: Worker not found
+        message: Worker not found
     404CM1:
       title: 404CM1
       required:
-        - error
+        - message
       type: object
       properties:
-        error:
+        message:
           type: string
       example:
-        error: Worker has not been enrolled.
+        message: Worker has not been enrolled.
       x-internal: true
     404CM2:
       title: 404CM2
       required:
-        - error
+        - message
       type: object
       properties:
-        error:
+        message:
           type: string
       example:
-        error: Resource not found.
+        message: Resource not found.
     422CM:
       title: 422CM
       required:
-        - json.reference_turn_id
+        - message
       type: object
       properties:
-        json.reference_turn_id:
+        message:
           type: string
           description: ''
       example:              
         message:
-          message: the candidate status not allow to be enrolled.
+          message: The current status of the candidate does not permit enrollment.
+      x-internal: true
+    422CM1:
+      title: 422CM1
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: ''
+      example:              
+        message:
+          message: "query:{} is not a valid json and should look like {'per_page': 10, 'page': 0, 'filters': {'create_timestamp__gt': '2023-06-01', 'create_timestamp__lt': '2023-07-01'}}."
       x-internal: true
     Enrolls:
       title: Enrolls
@@ -5880,6 +5958,41 @@ components:
         turn_id: C2983071100
         reference_id: 123-abc-123456
         enrrolled_at: 2023-07-28
+      x-internal: true
+    CMEnrolledIndividualsQuery:
+      title: CMEnrolledIndividualsQuery
+      required: []
+      type: object
+      properties:
+        per_page:
+          type: integer
+        page:
+          type: integer
+        filters:
+          type: object
+          schema:
+            $ref: '#/components/schemas/CMFilters'
+      example:
+        per_page: 5
+        page: 1
+        filters:
+          create_timestamp__gt: 2023-06-01
+          create_timestamp__lt: 2023-07-01
+      x-internal: true
+    CMFilters:
+      title: CMFilters
+      required:
+        - message
+        - status
+      type: object
+      properties:
+        create_timestamp__gt:
+          type: string
+        create_timestamp__lt:
+          type: string
+      example:
+        create_timestamp__gt: 2023-06-01
+        create_timestamp__lt: 2023-07-01
       x-internal: true
     CMMessage:
       title: SmsStatus
