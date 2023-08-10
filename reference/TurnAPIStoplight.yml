@@ -3475,12 +3475,6 @@ paths:
                   schema:
                     type: string
                   example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
             Via:
               content:
                 text/plain:
@@ -3764,12 +3758,6 @@ paths:
                   schema:
                     type: string
                   example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
             Via:
               content:
                 text/plain:
@@ -3928,12 +3916,6 @@ paths:
                   schema:
                     type: string
                   example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
             Via:
               content:
                 text/plain:
@@ -5890,7 +5872,7 @@ components:
           message: Worker has already been enrolled.
       x-internal: true
     404CM:
-      title: 404CM1
+      title: 404CM
       required:
         - message
       type: object
