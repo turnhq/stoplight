@@ -26,4 +26,4 @@ _Notes_:
 
 **No Alerts for Booking Events**: Due to FCRA regulations, Turn can only notify partners of a booking event if a corresponding charge was found at the courthouse. Turn cannot notify partners solely upon obtaining an arrest record.
 
-### _Continuous Criminal Monitoring is currently a BETA opt-in feature. If you are interested, please contact support@turn.ai_
+_**Continuous Criminal Monitoring is currently a BETA opt-in feature. If you are interested, please contact** support@turn.ai_
