@@ -35,6 +35,11 @@
       "uri": "docs/ Screening/compliance.md"
     },
     {
+     "type": "item",
+     "title": "Continuous Monitoring",
+     "uri": "docs/ Screening/continuous-monitoring.md"
+   },
+    {
       "type": "divider",
       "title": "Security"
     },
