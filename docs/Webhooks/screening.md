@@ -43,6 +43,7 @@ This table maps out the Dashboard background check status with it's correspondin
 | Approved          | approved               |
 | Compliance Review | review__qa             |
 | Compliance Review | review__mvr            |
+| Compliance Review | review__cm             |
 | Rejected          | rejected               |
 | First Notice      | pending__first_notice  |
 | Second Notice     | pending__second_notice |
