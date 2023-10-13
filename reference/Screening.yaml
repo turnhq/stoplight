@@ -1318,6 +1318,7 @@ paths:
                 worker_id: d46d4365-a895-4bc9-9dce-09d24b790d30
                 consent_date: '2022-09-15'
                 recheck_date: '2023-01-10'
+                cm_criminal_enroll: '2023-07-19'
         '422':
           description: UNPROCESSABLE ENTITY
           headers:
@@ -1527,6 +1528,7 @@ paths:
                 worker_uuid: 6c72b249-d1c1-4a1e-9697-650948171739
                 consent_date: '2022-09-15'
                 recheck_date: '2023-01-10'
+                cm_criminal_enroll: '2023-07-19'
         '422':
           description: UNPROCESSABLE ENTITY
           headers:
