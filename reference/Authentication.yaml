@@ -22,7 +22,7 @@ paths:
     get:
       tags:
         - Authentication
-      summary: /public_api/me
+      summary: My Account
       description: Issue a simple request to validate your JWT Token. This endpoint will give back your correct Account name if the provided token is valid. In no Authorization header is present a 401 http response will be issued. If the token is invalid a 400 http response will be issued.
       operationId: /public_api/me
       parameters: []
