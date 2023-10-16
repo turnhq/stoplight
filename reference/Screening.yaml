@@ -3570,6 +3570,7 @@ components:
           type: string
       example:
         message: Worker not found
+      x-internal: true
     404CM1:
       title: 404CM1
       required:
