@@ -1234,7 +1234,7 @@ paths:
     get:
       tags:
         - Candidates
-      summary: /person/<worker_id>/status
+      summary: Status
       description: |-
         This endpoint gives back the current status of the specified candidate.
 
@@ -1380,7 +1380,7 @@ paths:
     get:
       tags:
         - Candidates
-      summary: /person/<worker_id>/details
+      summary: Details
       description: |-
         Use this endpoint to get the complete detailed background check, it's status along all candidate's information and check results.
 
@@ -1589,7 +1589,7 @@ paths:
     put:
       tags:
         - Recheck
-      summary: /fcra_check/<turn_id>/recheck
+      summary: Recheck
       description: |
         # Introduction
 
