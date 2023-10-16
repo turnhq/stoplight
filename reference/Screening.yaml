@@ -3581,16 +3581,6 @@ components:
       example:
         message: Worker has not been enrolled.
       x-internal: true
-    404CM2:
-      title: 404CM2
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: Resource not found.
     422CM:
       title: 422CM
       required:
