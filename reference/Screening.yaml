@@ -25,8 +25,8 @@ paths:
   /person/search_async:
     post:
       tags:
-        - Person Search
-      summary: /person/search_async
+        - Invite
+      summary: Invite
       description: "The Asynchronous Person Search endpoint is the most basic way to initiate a background check. It's a two way process:\n\n1. This endpoint is called with the necesary details to invite a candidate to do a background check.\n\n2. When the background check is completed, the results will be posted back to your provided URL. \n\nRather than returning an inline response, requests made to this endpoint will return a unique UUID as a response. The full person response will then be returned asynchronously via HTTP POST to an endpoint that is specified as an additional callback_url parameter in the original requrest.\n\nThe UUID will be included as an additional key:value pair in the response, in order to tie requests back to their responses.\n\n|Parameter\t\t\t|Required\t|Type\t\t\t|Description\n|:-----------\t\t|---------  |------\t\t\t|-----------\n|first_name\t\t\t|true\t\t|`string`\t\t|Legal first name of the person to check\n|last_name\t\t\t|true\t\t|`string`\t\t|Legal last name of the person to check\n|email\t\t\t\t|true\t\t|`string`\t\t|The email of the person to check\n|phone_number\t\t|false\t\t|`string`\t\t|Mobile phone number of the person to check\n|email_candidate\t|false\t(defaults to `true`)|`boolean`\t|Boolean value to indicate whether Turn should initiate the invitation via email (and via sms if a phone number was provided)\n|callback_url\t\t|true\t\t|`string`\t\t|A URL endpoint to which the background results will be POSTed asynchronously\n|reference_id\t\t|false\t\t|`string`\t\t|An arbitrary metadata value that can be passed. It will be returned in the response and also visible on the background report in your Turn Dashboard\n|package_id\t\t\t|false\t\t|`string`\t\t|The id of the package this check will use\n|redirect_url\t\t|false\t\t|`string` \t\t|After completion of the background check flow, the candidate will be redirected to the provided URL\n|do_checks\t\t|false\t(defaults to `true`)|`boolean` \t\t|If true starts the background check right away after the candidate consents, if false puts the check in a standby mode to be started at a later date using the `worker_id` provided in the response.\n\n\n\n## About *email_candidate*\nIf you want Turn to initiate the communication with the candidate to start the background check, specify this flag in `true`. Marking this flag as `false` means you want to control the communication with your candidate. Use the `candidate_consent_url` response parameter to show your candidate the personalized consent form to start the background check, you can send this link using an internal communication channel (email, slack, etc) or embed the link inside a web application of your own or even a mobile app.\n\n## About *do_checks*\nIf *do_checks* is specified as `false` the background check won't be started right away after the candidate consents. The check will be in an _initiated_ status which means:\n\n* The check won't appear in your Turn Dashboard (until it's requested)\n* You won't be charged for this check if it's never initiated\n* The candidate won't be notified/sent any communication\n\nIf not specified, do_checks will always be `true`\n\nTo request the execution of the background check the /person/\\<worker_id\\>/run endpoint.\n\n\n## About *phone_number*\nIf a phone number is specified and `email_candidate` is set to `true`, we'll also send a TEXT invitation (alongside the email). We'll send reminders as well, if we detect that the background check hasn't been started. \n\n## About *package_id*\nIf you are configured with multiple packages, you can pass in the ID of the package here. The package_id is an 11 character string starting with a ‘P’ and followed by 10 digits. If no package_id is passed, the configured default package will be used.\n\n## Consent Form Prepopulation\nfirst_name, last_name, email and phone_number will be used to prepopulate the candidate_consent_url the candidate will receive to start the background check form."
       operationId: /person/search_async
       parameters: []
@@ -193,8 +193,8 @@ paths:
   '/person/{worker_id}/run':
     post:
       tags:
-        - Person Search
-      summary: /person/<worker_id>/run
+        - Invite
+      summary: Invite - Release
       description: |-
         For candidates that have already been invited to start a background check, but hasn't completed the initial consent form where they provide all their information and legal consent to kick off the background check, this endpoint resends the original invitation with the personalized link to complete the consent form.
 
@@ -395,8 +395,8 @@ paths:
   '/fcra/{turn_id}/email/consent/resend':
     post:
       tags:
-        - Person Search
-      summary: /fcra/<turn_id>/email/consent/resend
+        - Invite
+      summary: Invite - Resend
       description: |-
         For candidates that have already been invited to start a background check, but hasn't completed the initial consent form where they provide all their information and legal consent to kick off the background check, this endpoint resends the original invitation with the personalized link to complete the consent form.
 
@@ -3694,7 +3694,7 @@ components:
 security:
   - httpBearer: []
 tags:
-  - name: Person Search
+  - name: Invite
   - name: End to End
   - name: Candidates
   - name: Continuous Monitoring
