@@ -2347,6 +2347,7 @@ components:
           transaction_uuid: 3ea933c7-1e2f-4245-8d80-2c31709a09ff
         rcmp_redirect_url: ''
         turn_id: C1259272294
+      x-internal: true
     Message1:
       title: Message1
       required:
@@ -2366,6 +2367,7 @@ components:
         code: 9200
         message: The operation completed successfully.
         transaction_uuid: 3ea933c7-1e2f-4245-8d80-2c31709a09ff
+      x-internal: true
     422checkidhasalreadybeenused1:
       title: 422checkidhasalreadybeenused1
       required:
