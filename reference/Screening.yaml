@@ -387,9 +387,6 @@ paths:
                 properties:
                   error:
                     type: string
-                x-examples:
-                  example-1:
-                    error: a4b9b53e-b665-4a11-8872-2005bb15165d has already been used
               examples:
                 example 422 - check id has already been used:
                   value:
