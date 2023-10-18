@@ -371,9 +371,6 @@ paths:
                 properties:
                   message:
                     type: string
-                x-examples:
-                  example-1:
-                    message: We are unable to validate your identity with the Social Security Number you entered. Please check your SSN is correct and try again.
               examples:
                 example-1:
                   value:
