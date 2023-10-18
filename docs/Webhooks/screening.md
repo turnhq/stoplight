@@ -603,3 +603,23 @@ This notification webhook must be enabled on your account. Please reach out to o
     "consent_date": "2020-08-27 15:07:27.409802",
 }
 ```
+
+## d) Identity Review - SSN Update
+
+During the Identity Review process, an applicant may have their originally provided Social Security Number (SSN) corrected or updated to ensure accurate identity verification. This critical update is performed by a Turn QA agent. To keep your system notified on such changes, we provide a real-time notification via this webhook.
+
+By default, this specific notification webhook is ***NOT*** enabled on our client accounts. To activate or deactivate this feature, you must make a request through our Support team at <support@turn.ai>
+
+Please note that SSN information is not revealed as part of this webhook notification.
+
+### Webhook content
+
+```javascript
+{
+    "hook_type": "SSN_UPDATED",
+    "turn_id": "C1931414576",
+    "reference_id":  null,
+    "worker_id": "516c5d27-6d1e-4562-8c4c-03ec5faa65fe",
+    "timestamp": "2023-08-18 15:07:27.409802",
+}
+```
