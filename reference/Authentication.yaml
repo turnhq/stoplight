@@ -15,7 +15,7 @@ info:
   contact: {}
   version: '1.0'
 servers:
-  - url: 'https://api.turning.io/v1'
+  - url: 'https://api.turn.ai/v1'
     variables: {}
 paths:
   /public_api/me:
