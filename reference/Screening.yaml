@@ -35,7 +35,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/~1person~1search_async_request'
+              $ref: '#/components/schemas/personsearch_async_request'
             example:
               email_candidate: true
               first_name: Alec
@@ -2312,8 +2312,8 @@ paths:
       deprecated: false
 components:
   schemas:
-    /person/search_async_request:
-      title: /person/search_async_request
+    personsearch_async_request:
+      title: personsearch_async_request
       required:
         - email_candidate
         - first_name
