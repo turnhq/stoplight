@@ -37,8 +37,6 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/400InvalidToken1'
               example:
                 code: invalid_header
                 description: Unable to parse authentication token
@@ -46,8 +44,6 @@ paths:
           description: UNAUTHORIZED
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/401NoTokenProvided1'
               example:
                 code: authorization_header_missing
                 description: Authorization header is expected
