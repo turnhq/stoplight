@@ -34,6 +34,8 @@ paths:
         description: ''
         content:
           application/json:
+            schema:
+              $ref: '#/components/schemas/~1person~1search_async_request'
             example:
               email_candidate: true
               first_name: Alec
