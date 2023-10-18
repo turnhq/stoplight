@@ -335,8 +335,6 @@ paths:
         description: ''
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/~1fcra_check~1form_request'
             example:
               package_id: P1051539566
               zipcode: '95476'
@@ -344,59 +342,8 @@ paths:
       responses:
         '201':
           description: CREATED
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Wed, 18 Dec 2019 02:04:51 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '20350'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/201Success'
               example:
                 check_id: dd7d8e3e-d852-475d-945d-da998d7707f7
                 data:
@@ -454,59 +401,8 @@ paths:
                     title: Authorization of Background Investigation
         '422':
           description: UNPROCESSABLE ENTITY
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Wed, 18 Dec 2019 02:05:54 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '150'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/422Missingrequiredfield3'
               example:
                 json.package_id:
                   - Missing data for required field.
