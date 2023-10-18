@@ -34,6 +34,8 @@ paths:
         description: ''
         content:
           application/json:
+            schema:
+              $ref: '#/components/schemas/~1person~1search_async_request'
             example:
               email_candidate: true
               first_name: Alec
@@ -43,7 +45,7 @@ paths:
               package_id: P1234567890
               callback_url: 'https://somedomain.com/response'
               reference_id: ABC12345
-              redirect_url: 'https://turning.io'
+              redirect_url: 'https://turn.ai'
               do_checks: true
         required: true
       responses:
@@ -56,13 +58,13 @@ paths:
                   code: '9200'
                   message: The operation completed successfully.
                   request_uuid: 21aac715-ada2-409a-952d-7610873ebfde
-                candidate_consent_url: 'https://partners.turning.io/consent/HG6qlUzrxv5jEXhqmeywDRL_zpRQ9pe9?first_name=Alec&last_name=Sadler&phone_number=18884998876&email=contact%40turning.io&email_candidate=True&reference_id=ABC12345&redirect_url=https%3A%2F%2Fturning.io'
+                candidate_consent_url: 'https://partners.turn.ai/consent/HG6qlUzrxv5jEXhqmeywDRL_zpRQ9pe9?first_name=Alec&last_name=Sadler&phone_number=18884998876&email=contact%40turning.io&email_candidate=True&reference_id=ABC12345&redirect_url=https%3A%2F%2Fturning.io'
                 email: contact@turning.io
                 email_candidate: true
                 first_name: Alec
                 last_name: Sadler
                 phone_number: '18884998876'
-                redirect_url: 'https://turning.io'
+                redirect_url: 'https://turn.ai'
                 reference_id: ABC12345
                 email_status:
                   message: 'The notification email is on our queue, it will be delivered shortly'
