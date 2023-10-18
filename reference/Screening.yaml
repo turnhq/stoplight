@@ -2367,8 +2367,6 @@ components:
       x-internal: true
     404InvalidCheckId1:
       title: 404InvalidCheckId1
-      required:
-        - error
       type: object
       properties:
         error:
