@@ -324,13 +324,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/200Success1'
-              example:
-                message:
-                  code: 9200
-                  message: The operation completed successfully.
-                  transaction_uuid: 3ea933c7-1e2f-4245-8d80-2c31709a09ff
-                rcmp_redirect_url: ''
-                turn_id: C1259272294
               examples:
                 example 200 success:
                   value:
