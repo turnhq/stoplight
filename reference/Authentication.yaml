@@ -29,12 +29,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/200Sucess'
-              example:
-                name: ACME
         '400':
           description: BAD REQUEST
           content:
