@@ -352,10 +352,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                  properties:
-                    error:
-                      type: string
+                $ref: '#/components/schemas/404InvalidCheckId1'
               examples:
                 example 404 invalid check id:
                   value:
@@ -2368,6 +2365,11 @@ components:
         message: The operation completed successfully.
         transaction_uuid: 3ea933c7-1e2f-4245-8d80-2c31709a09ff
       x-internal: true
+    404InvalidCheckId1:
+      type: object
+      properties:
+        error:
+          type: string
     422checkidhasalreadybeenused1:
       title: 422checkidhasalreadybeenused1
       required:
