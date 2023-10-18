@@ -2373,8 +2373,6 @@ components:
       properties:
         error:
           type: string
-      example:
-        error: FOOBAR is not valid id
       x-internal: true
     422checkidhasalreadybeenused1:
       title: 422checkidhasalreadybeenused1
