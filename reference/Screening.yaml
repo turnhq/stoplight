@@ -422,7 +422,7 @@ paths:
                     type: string
                 x-examples:
                   example-1:
-                    message: SSN trace limit reached. (Max number of attempts is 3).
+                    message: SSN trace limit reached. (Max number of attempts - 3).
               examples:
                 example-1:
                   value:
