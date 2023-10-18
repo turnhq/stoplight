@@ -390,28 +390,6 @@ paths:
                 x-examples:
                   example-1:
                     error: a4b9b53e-b665-4a11-8872-2005bb15165d has already been used
-                  example-2:
-                    error: missing required field
-                      value:
-                        json.callback_url:
-                          - Missing data for required field.
-                        json.consent_document:
-                          - Missing data for required field.
-                        json.date_of_birth:
-                          - Missing data for required field.
-                        json.email:
-                          - Missing data for required field.
-                        json.first_name:
-                          - Missing data for required field.
-                        json.last_name:
-                          - Missing data for required field.
-                        json.phone:
-                          - Missing data for required field.
-                        json.ssn:
-                          - SSN should be 9 digits long
-                        json.zipcode:
-                          - Missing data for required field.
-                          - Zipcodes do not match
               examples:
                 example 422 - check id has already been used:
                   value:
