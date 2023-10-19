@@ -1496,13 +1496,11 @@ paths:
                 type: integer
               filters:
                 type: object
-                schema:
-                  type: object
-                  properties:
-                    create_timestamp__gt:
-                      type: string
-                    create_timestamp__lt:
-                      type: string
+                properties:
+                  create_timestamp__gt:
+                    type: string
+                  create_timestamp__lt:
+                    type: string
             example:
               per_page: 5
               page: 1
