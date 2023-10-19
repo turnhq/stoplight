@@ -346,14 +346,6 @@ paths:
                 do_checks:
                   type: boolean
                 timestamps:
-                  title: Timestamps
-                  required:
-                    - welcome
-                    - summary_of_rights
-                    - disclosure
-                    - summary_of_state_rights
-                    - authorization_of_background_investigation
-                    - signature
                   type: object
                     properties:
                       welcome:
