@@ -279,7 +279,6 @@ paths:
         content:
           application/json:
             schema:
-              title: /fcra_check/form/<check_id>_request
               type: object
               properties:
                 first_name:
