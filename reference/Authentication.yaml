@@ -42,6 +42,13 @@ paths:
           description: BAD REQUEST
           content:
             application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  description:
+                    type: string
               example:
                 code: invalid_header
                 description: Unable to parse authentication token
@@ -49,6 +56,13 @@ paths:
           description: UNAUTHORIZED
           content:
             application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  description:
+                    type: string
               example:
                 code: authorization_header_missing
                 description: Authorization header is expected
