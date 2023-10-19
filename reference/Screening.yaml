@@ -766,59 +766,133 @@ paths:
       responses:
         '200':
           description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Wed, 18 Dec 2019 21:31:14 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '3957'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/200Success4'
+                type: object
+                properties:
+                  checks:
+                    type: object
+                    properties:
+                      addresses:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            address1:
+                              type: string
+                            city:
+                              type: string
+                            county:
+                              type: string
+                            state:
+                              type: string
+                            zip:
+                              type: string
+                            zip4:
+                              type: string
+                              nullable: true
+                      aliases:
+                        type: string
+                        nullable: true
+                      candidate_provided_date_of_birth:
+                        type: string
+                      candidate_provided_name:
+                        type: string
+                      candidate_provided_ssn:
+                        type: string
+                        nullable: true
+                      criminal:
+                        type: string
+                      dob_status:
+                        type: string
+                      location:
+                        type: string
+                        nullable: true
+                      mvr:
+                        type: string
+                        nullable: true
+                      name_status:
+                        type: string
+                      partner_provided_name:
+                        type: string
+                      partner_provided_ssn:
+                        type: string
+                        nullable: true
+                      public_name_status:
+                        type: string
+                      public_provided_name:
+                        type: string
+                      public_record_date_of_birth:
+                        type: string
+                      sex_offender:
+                        type: string
+                      ssn:
+                        type: object
+                        properties:
+                          deceased_date:
+                            type: string
+                            nullable: true
+                          dob_status:
+                            type: string
+                          is_deceased:
+                            type: boolean
+                          is_random:
+                            type: boolean
+                          issue_date:
+                            type: string
+                          issue_state:
+                            type: string
+                          name_status:
+                            type: string
+                          number:
+                            type: string
+                          status:
+                            type: string
+                      ssn_status:
+                        type: string
+                      watchlist:
+                        type: string
+                  complete:
+                    type: boolean
+                  current_address:
+                    type: object
+                    properties:
+                      address1:
+                        type: string
+                      address2:
+                        type: string
+                        nullable: true
+                      city:
+                        type: string
+                      first_seen:
+                        type: string
+                      last_seen:
+                        type: string
+                      state:
+                        type: string
+                      zip:
+                        type: string
+                  dashboard_url:
+                    type: string
+                  date_of_birth:
+                    type: string
+                  email:
+                    type: string
+                  license_number:
+                    type: string
+                  license_state:
+                    type: string
+                  name:
+                    type: string
+                  partner_worker_status:
+                    type: string
+                  reference_id:
+                    type: string
+                  turn_id:
+                    type: string
+                  worker_uuid:
+                    type: string
               example:
                 checks:
                   addresses:
@@ -1921,336 +1995,6 @@ components:
           type: string
       example:
         message: Worker with id C0000000000 was not found
-      x-internal: true
-    200Success4:
-      title: 200Success4
-      required:
-        - checks
-        - complete
-        - current_address
-        - dashboard_url
-        - date_of_birth
-        - email
-        - license_number
-        - license_state
-        - name
-        - partner_worker_status
-        - reference_id
-        - turn_id
-        - worker_uuid
-      type: object
-      properties:
-        checks:
-          $ref: '#/components/schemas/Checks'
-        complete:
-          type: boolean
-        current_address:
-          $ref: '#/components/schemas/CurrentAddress'
-        dashboard_url:
-          type: string
-        date_of_birth:
-          type: string
-        email:
-          type: string
-        license_number:
-          type: string
-        license_state:
-          type: string
-        name:
-          type: string
-        partner_worker_status:
-          type: string
-        reference_id:
-          type: string
-        turn_id:
-          type: string
-        worker_uuid:
-          type: string
-      example:
-        checks:
-          addresses:
-            - address1: 123 Main St
-              city: CHICAGO
-              county: COOK
-              state: IL
-              zip: '12345'
-              zip4: ''
-            - address1: 123 Main St
-              city: NEW YORK
-              county: NEW YORK
-              state: NY
-              zip: '6789'
-              zip4: ''
-          aliases: ''
-          candidate_provided_date_of_birth: '1987-09-15'
-          candidate_provided_name: Hari Seldon
-          candidate_provided_ssn: ''
-          criminal: clear
-          dob_status: matched
-          location: ''
-          mvr: ''
-          name_status: matched
-          partner_provided_name: Hari Seldon
-          partner_provided_ssn: ''
-          public_name_status: matched
-          public_provided_name: HARI SELDON
-          public_record_date_of_birth: '1987-09-15'
-          sex_offender: clear
-          ssn:
-            deceased_date: ''
-            dob_status: ''
-            is_deceased: false
-            is_random: false
-            issue_date: IN THE YEAR 1994-1996
-            issue_state: OH
-            name_status: ''
-            number: '*****1234'
-            status: valid
-          ssn_status: none
-          watchlist: clear
-        complete: true
-        current_address:
-          address1: 123 Main St
-          address2: ''
-          city: CHICAGO
-          first_seen: '2016-11-01'
-          last_seen: '2019-08-01'
-          state: IL
-          zip: '12345'
-        dashboard_url: 'https://partners.turning.io/workers/6c72b249-d1c1-4a1e-9697-650948171738'
-        date_of_birth: '1987-09-15'
-        email: someone@gmail.com
-        license_number: ''
-        license_state: ''
-        name: Hari Seldon
-        partner_worker_status: approved
-        reference_id: ''
-        turn_id: C1108624821
-        worker_uuid: 6c72b249-d1c1-4a1e-9697-650948171739
-      x-internal: true
-    Checks:
-      title: Checks
-      required:
-        - addresses
-        - aliases
-        - candidate_provided_date_of_birth
-        - candidate_provided_name
-        - candidate_provided_ssn
-        - criminal
-        - dob_status
-        - location
-        - mvr
-        - name_status
-        - partner_provided_name
-        - partner_provided_ssn
-        - public_name_status
-        - public_provided_name
-        - public_record_date_of_birth
-        - sex_offender
-        - ssn
-        - ssn_status
-        - watchlist
-      type: object
-      properties:
-        addresses:
-          type: array
-          items:
-            $ref: '#/components/schemas/Address'
-          description: ''
-        aliases:
-          type: string
-          nullable: true
-        candidate_provided_date_of_birth:
-          type: string
-        candidate_provided_name:
-          type: string
-        candidate_provided_ssn:
-          type: string
-          nullable: true
-        criminal:
-          type: string
-        dob_status:
-          type: string
-        location:
-          type: string
-          nullable: true
-        mvr:
-          type: string
-          nullable: true
-        name_status:
-          type: string
-        partner_provided_name:
-          type: string
-        partner_provided_ssn:
-          type: string
-          nullable: true
-        public_name_status:
-          type: string
-        public_provided_name:
-          type: string
-        public_record_date_of_birth:
-          type: string
-        sex_offender:
-          type: string
-        ssn:
-          $ref: '#/components/schemas/Ssn'
-        ssn_status:
-          type: string
-        watchlist:
-          type: string
-      example:
-        addresses:
-          - address1: 123 Main St
-            city: CHICAGO
-            county: COOK
-            state: IL
-            zip: '12345'
-            zip4: ''
-          - address1: 123 Main St
-            city: NEW YORK
-            county: NEW YORK
-            state: NY
-            zip: '6789'
-            zip4: ''
-        aliases: ''
-        candidate_provided_date_of_birth: '1987-09-15'
-        candidate_provided_name: Hari Seldon
-        candidate_provided_ssn: ''
-        criminal: clear
-        dob_status: matched
-        location: ''
-        mvr: ''
-        name_status: matched
-        partner_provided_name: Hari Seldon
-        partner_provided_ssn: ''
-        public_name_status: matched
-        public_provided_name: HARI SELDON
-        public_record_date_of_birth: '1987-09-15'
-        sex_offender: clear
-        ssn:
-          deceased_date: ''
-          dob_status: ''
-          is_deceased: false
-          is_random: false
-          issue_date: IN THE YEAR 1994-1996
-          issue_state: OH
-          name_status: ''
-          number: '*****1234'
-          status: valid
-        ssn_status: none
-        watchlist: clear
-      x-internal: true
-    Address:
-      title: Address
-      required:
-        - address1
-        - city
-        - county
-        - state
-        - zip
-        - zip4
-      type: object
-      properties:
-        address1:
-          type: string
-        city:
-          type: string
-        county:
-          type: string
-        state:
-          type: string
-        zip:
-          type: string
-        zip4:
-          type: string
-          nullable: true
-      example:
-        address1: 123 Main St
-        city: CHICAGO
-        county: COOK
-        state: IL
-        zip: '12345'
-        zip4: ''
-      x-internal: true
-    Ssn:
-      title: Ssn
-      required:
-        - deceased_date
-        - dob_status
-        - is_deceased
-        - is_random
-        - issue_date
-        - issue_state
-        - name_status
-        - number
-        - status
-      type: object
-      properties:
-        deceased_date:
-          type: string
-          nullable: true
-        dob_status:
-          type: string
-        is_deceased:
-          type: boolean
-        is_random:
-          type: boolean
-        issue_date:
-          type: string
-        issue_state:
-          type: string
-        name_status:
-          type: string
-        number:
-          type: string
-        status:
-          type: string
-      example:
-        deceased_date: ''
-        dob_status: ''
-        is_deceased: false
-        is_random: false
-        issue_date: IN THE YEAR 1994-1996
-        issue_state: OH
-        name_status: ''
-        number: '*****1234'
-        status: valid
-      x-internal: true
-    CurrentAddress:
-      title: CurrentAddress
-      required:
-        - address1
-        - address2
-        - city
-        - first_seen
-        - last_seen
-        - state
-        - zip
-      type: object
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-          nullable: true
-        city:
-          type: string
-        first_seen:
-          type: string
-        last_seen:
-          type: string
-        state:
-          type: string
-        zip:
-          type: string
-      example:
-        address1: 123 Main St
-        address2: ''
-        city: CHICAGO
-        first_seen: '2016-11-01'
-        last_seen: '2019-08-01'
-        state: IL
-        zip: '12345'
       x-internal: true
     404Workernotfound1:
       title: 404Workernotfound1
