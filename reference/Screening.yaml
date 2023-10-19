@@ -893,6 +893,10 @@ paths:
                     type: string
                   worker_uuid:
                     type: string
+                  consent_date:
+                    type: string
+                  recheck_date:
+                    type: string
               example:
                 checks:
                   addresses:
