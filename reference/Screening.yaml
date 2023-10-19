@@ -1551,7 +1551,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/422CM1'
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                  example:
+                    message:
+                      message: 'query:{} is not a valid json and should look like {''per_page'': 10, ''page'': 0, ''filters'': {''create_timestamp__gt'': ''2023-06-01'', ''create_timestamp__lt'': ''2023-07-01''}}.'
               example:
                 message: 'query:{} is not a valid json and should look like {''per_page'': 10, ''page'': 0, ''filters'': {''create_timestamp__gt'': ''2023-06-01'', ''create_timestamp__lt'': ''2023-07-01''}}.'
       deprecated: false
@@ -2726,19 +2733,6 @@ components:
       example:
         message:
           message: The current status of the candidate does not permit enrollment.
-      x-internal: true
-    422CM1:
-      title: 422CM1
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: ''
-      example:
-        message:
-          message: 'query:{} is not a valid json and should look like {''per_page'': 10, ''page'': 0, ''filters'': {''create_timestamp__gt'': ''2023-06-01'', ''create_timestamp__lt'': ''2023-07-01''}}.'
       x-internal: true
     Enrolls:
       title: Enrolls
