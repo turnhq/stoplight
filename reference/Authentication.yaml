@@ -65,7 +65,6 @@ paths:
                 properties:
                   code:
                     type: string
-                    example: authorization_header_missing
                   description:
                     type: string
                 example:
