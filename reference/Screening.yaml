@@ -323,17 +323,9 @@ paths:
           content:
             application/json:
               schema:
-                required:
-                  - message
-                  - rcmp_redirect_url
-                  - turn_id
                 type: object
                 properties:
                   message:
-                    required:
-                      - code
-                      - message
-                      - transaction_uuid
                     type: object
                     properties:
                       code:
