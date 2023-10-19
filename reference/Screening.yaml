@@ -338,14 +338,12 @@ paths:
                       properties:
                         code:
                           type: integer
-                          format: int32
                         message:
                           type: string
                         transaction_uuid:
                           type: string
                     rcmp_redirect_url:
                       type: string
-                      nullable: true
                     turn_id:
                       type: string
               examples:
