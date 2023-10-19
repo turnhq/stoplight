@@ -582,6 +582,7 @@ paths:
                 properties:
                   message:
                     type: string
+                    example: Checks of this worker have already run.
               example:
                 message: Checks of this worker have already run.
       deprecated: false
