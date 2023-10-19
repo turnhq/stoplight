@@ -1503,15 +1503,6 @@ paths:
                         type: string
                       create_timestamp__lt:
                         type: string
-                    example:
-                      create_timestamp__gt: '2023-06-01'
-                      create_timestamp__lt: '2023-07-01'
-              example:
-                per_page: 5
-                page: 1
-                filters:
-                  create_timestamp__gt: '2023-06-01'
-                  create_timestamp__lt: '2023-07-01'
       responses:
         '200':
           description: OK
