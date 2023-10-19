@@ -998,9 +998,6 @@ paths:
             application/json:
               schema:
                 type: object
-                x-examples:
-                  Example 1:
-                    message: Success
                 properties:
                   message:
                     type: string
@@ -1014,9 +1011,7 @@ paths:
                 properties:
                   message:
                     type: string
-                x-examples:
-                  Example 1:
-                    message: Worker not found
+                    example: Worker not found
         '422':
           description: UNPROCESSABLE ENTITY
           content:
@@ -1026,9 +1021,7 @@ paths:
                 properties:
                   message:
                     type: string
-                x-examples:
-                  Example 1:
-                    message: the candidate status not allow to be recheck.
+                    example: the candidate status not allow to be recheck.
       deprecated: false
   '/monitoring/criminal/{reference_turn_id}/enroll':
     put:
