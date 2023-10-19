@@ -969,7 +969,7 @@ paths:
                 properties:
                   message:
                     type: string
-                  example: Worker with id C0000000000 was not found
+                    example: Worker with id C0000000000 was not found
               example:
                 message: Worker with id C0000000000 was not found
       deprecated: false
