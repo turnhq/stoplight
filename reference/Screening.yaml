@@ -218,6 +218,35 @@ paths:
           description: CREATED
           content:
             application/json:
+              schema:
+                type: object
+                properties:
+                  check_id:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                        required:
+                          type: boolean
+                  disclosures:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        checkboxes:
+                          type: array
+                          items:
+                            type: string
+                        copy_html:
+                          type: string
+                        order:
+                          type: integer
+                        title:
+                          type: string
               example:
                 check_id: dd7d8e3e-d852-475d-945d-da998d7707f7
                 data:
@@ -277,6 +306,8 @@ paths:
           description: UNPROCESSABLE ENTITY
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/422Missingrequiredfield3'
               example:
                 json.package_id:
                   - Missing data for required field.
@@ -1465,126 +1496,6 @@ components:
       example:
         package_id: P1051539566
         zipcode: '95476'
-      x-internal: true
-    201Success:
-      title: 201Success
-      required:
-        - check_id
-        - data
-        - disclosures
-      type: object
-      properties:
-        check_id:
-          type: string
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Datum'
-          description: ''
-        disclosures:
-          type: array
-          items:
-            $ref: '#/components/schemas/Disclosure'
-          description: ''
-      example:
-        check_id: dd7d8e3e-d852-475d-945d-da998d7707f7
-        data:
-          - field: first_name
-            required: true
-          - field: last_name
-            required: true
-          - field: middle_name
-            required: false
-          - field: email
-            required: true
-          - field: has_middle_name
-            required: true
-          - field: phone_number
-            required: true
-          - field: date_of_birth
-            required: true
-          - field: ssn
-            required: true
-          - field: gender
-            required: true
-          - field: zipcode
-            required: true
-          - field: drivers_license_number
-            required: true
-          - field: drivers_license_state
-            required: true
-        disclosures:
-          - checkboxes:
-              - I do not have a middle name
-              - 'I certify that this is me, and that the information provided in the present fields is true, valid, accurate, and complete. By clicking Continue you agree to Turn Technologies <a href="http://www.turn.ai/termsofuse.html" target="_blank">Terms and Conditions</a> and <a href="http://www.turn.ai/privacy.html" target="_blank">Privacy Policy</a>'
-            copy_html: 'Turn Technologies (the "Company") has engaged Turn Technologies, Inc. to obtain a consumer report and/or investigative consumer report, as defined in California, for contracted services or employment purposes. Turn Technologies Inc. will provide a background investigation as a pre-condition of your engagement with the Company and in compliance with applicable law.'
-            order: 1
-            title: Welcome
-          - checkboxes:
-              - I have read and understood the summary of my rights
-            copy_html: '<p><span>Para informaci&oacute;n en espa&ntilde;ol, visite <a href="http://www.consumerfinance.gov/learnmore"><span>www.consumerfinance.gov/learnmore</span></a> o escribe a la Consumer Financial Protection Bureau, 1700 G Street N.W., Washington, DC 20552.</span></p> <p><span><strong>A Summary of Your Rights Under the Fair Credit Reporting Act</strong></span></p> <p><span>The federal Fair Credit Reporting Act (FCRA) promotes the accuracy, fairness, and privacy of information in the files of consumer reporting agencies. There are many types of consumer reporting agencies, including credit bureaus and specialty agencies (such as agencies that sell information about check writing histories, medical records, and rental history records). Here is a summary of your major rights under the FCRA. <strong>For more information, including information about additional rights, go to </strong><a href="http://www.consumerfinance.gov/learnmore"><span><strong>www.consumerfinance.gov/learnmore</strong></span></a><strong> or write to: Consumer Financial Protection Bureau, 1700 G Street N.W., Washington, DC 20552.</strong></span></p> <p><span><strong>You must be told if information in your file has been used against you.</strong> Anyone who uses a credit report or another type of consumer report to deny your application for credit, insurance, or employment - or to take another adverse action against you - must tell you, and must give you the name, address, and phone number of the agency that provided the information.</span></p> <p><span><strong>You have the right to know what is in your file.</strong> You may request and obtain all the information about you in the files of a consumer reporting agency (your &ldquo;file disclosure&rdquo;). You will be required to provide proper identification, which may include your Social Security number. In many cases, the disclosure will be free. You are entitled to a free file disclosure if: - a person has taken adverse action against you because of information in your credit report; - you are the victim of identify theft and place a fraud alert in your file; - your file contains inaccurate information as a result of fraud; - you are on public assistance; - you are unemployed but expect to apply for employment within 60 days.</span></p> <p><span>In addition, all consumers are entitled to one free disclosure every 12 months upon request from each nationwide credit bureau and from nationwide specialty consumer reporting agencies. See <a href="http://www.consumerfinance.gov/learnmore"><span>www.consumerfinance.gov/learnmore</span></a> for additional information.</span></p> <p><span><strong>You have the right to ask for a credit score.</strong> Credit scores are numerical summaries of your credit-worthiness based on information from credit bureaus. You may request a credit score from consumer reporting agencies that create scores or distribute scores used in residential real property loans, but you will have to pay for it. In some mortgage transactions, you will receive credit score information for free from the mortgage lender.</span></p> <p><span><strong>You have the right to dispute incomplete or inaccurate information.</strong> If you identify information in your file that is incomplete or inaccurate, and report it to the consumer reporting agency, the agency must investigate unless your dispute is frivolous. See <a href="http://www.consumerfinance.gov/learnmore"><span>www.consumerfinance.gov/learnmore</span></a> for an explanation of dispute procedures.</span></p> <p><span><strong>Consumer reporting agencies must correct or delete inaccurate, incomplete, or unverifiable information.</strong> Inaccurate, incomplete, or unverifiable information must be removed or corrected, usually within 30 days. However, a consumer reporting agency may continue to report information it has verified as accurate.</span></p> <p><span><strong>Consumer reporting agencies may not report outdated negative information.</strong> In most cases, a consumer reporting agency may not report negative information that is more than seven years old, or bankruptcies that are more than 10 years old.</span></p> <p><span><strong>Access to your file is limited.</strong> A consumer reporting agency may provide information about you only to people with a valid need &ndash; usually to consider an application with a creditor, insurer, employer, landlord, or other business. The FCRA specifies those with a valid need for access.</span></p> <p><span><strong>You must give your consent for reports to be provided to employers.</strong> A consumer reporting agency may not give out information about you to your employer, or a potential employer, without your written consent given to the employer. Written consent generally is not required in the trucking industry. For more information, go to <a href="http://www.consumerfinance.gov/learnmore"><span>www.consumerfinance.gov/learnmore</span></a>.</span></p> <p><span><strong>You may limit &ldquo;prescreened&rdquo; offers of credit and insurance you get based on information in your credit report.</strong> Unsolicited &ldquo;prescreened&rdquo; offers for credit and insurance must include a toll-free phone number you can call if you choose to remove your name and address from the lists these offers are based on. You may opt out with the nationwide credit bureaus at 1-888-5-OPTOUT (1-888-567-8688).</span></p> <p><span><strong>You may seek damages from violators.</strong> If a consumer reporting agency, or, in some cases, a user of consumer reports or a furnisher of information to a consumer reporting agency violates the FCRA, you may be able to sue in state or federal court.</span></p> <p><span><strong>Identity theft victims and active duty military personnel have additional rights.</strong> For more information, visit <a href="http://www.consumerfinance.gov/learnmore"><span>www.consumerfinance.gov/learnmore</span></a>.</span></p> <p><span><strong>States may enforce the FCRA, and many states have their own consumer reporting laws. In some cases, you may have more rights under state law. For more information, contact your state or local consumer protection agency or your state Attorney General. For information about your federal rights, contact:</strong></span></p> <table style="width: 100%; height: 100%;" cellspacing="0" cellpadding="0"> <tbody> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>TYPE OF BUSINESS:</span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>CONTACT:</span></p> </td> </tr> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>1. a. Banks, savings associations, and credit unions with total assets of over $10 billion and their affiliates.</span></p> <p><span>b. Such affiliates that are not banks, savings associations, or credit unions also should list, in addition to the CFPB:</span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>a. Consumer Financial Protection Bureau <br />1700 G Street N.W.<br />Washington, DC 20552</span></p> <p>&nbsp;</p> <p><span>b. Federal Trade Commission: Consumer Response Center -- FCRA<br />Washington, DC 20580<br />(877) 382-4357</span></p> </td> </tr> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>2. To the extent not included in item 1 above:</span></p> <p>&nbsp;</p> <p><span>a. National banks, federal savings associations, and federal branches and federal agencies of foreign banks</span></p> <p>&nbsp;</p> <p><span>b. State member banks, branches and agencies of foreign banks (other than federal branches, federal agencies, and Insured State Branches of Foreign Banks), commercial lending companies owned or controlled by foreign banks, and organizations operating under section 25 or 25A of the Federal Reserve Act</span></p> <p>&nbsp;</p> <p><span>c. Nonmember Insured Banks, Insured State Branches of Foreign Banks, and insured state savings associations</span></p> <p>&nbsp;</p> <p><span>d. Federal Credit Unions</span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>a. Office of the Controller of the Currency<br />Customer Assistance Group<br />1301 McKinney Street, Suite 3450<br />Houston, TX 77010-9050</span></p> <p>&nbsp;</p> <p><span>b. Federal Reserve Consumer Help Center<br />P.O. Box 1200<br />Minneapolis, MN 55480</span></p> <p>&nbsp;</p> <p><span>c. FDIC Consumer Response Center<br />1100 Walnut Street, Box #11<br />Kansas City, MO 64106</span></p> <p>&nbsp;</p> <p><span>d. National Credit Union Administration<br />Office of Consumer Protection (OCP)<br />Division of Consumer Compliance and Outreach (DCCO)<br />1775 Duke Street<br />Alexandria, VA 22314</span></p> </td> </tr> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>3. Air carriers </span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>Asst. General Counsel for Aviation Enforcement &amp; Proceedings<br />Aviation Consumer Protection Division<br />Department of Transportation<br />1200 New Jersey Avenue, S.E.<br />Washington, DC 20590</span></p> </td> </tr> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>4. Creditors Subject to Surface Transportation Board </span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>Office of Proceedings, Surface Transportation Board<br />Department of Transportation<br />395 E Street, S.W.<br />Washington, DC 20423</span></p> </td> </tr> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>5. Creditors Subject to Packers and Stockyards Act </span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>Nearest Packers and Stockyards Administration area supervisor </span></p> </td> </tr> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>6. Small Business Investment Companies </span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>Associate Deputy Administrator for Capital Access <br />United States Small Business Administration <br />409 Third Street, S.W., 8th Floor <br />Washington, DC 20416</span></p> </td> </tr> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>7. Brokers and Dealers </span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>Securities and Exchange Commission<br />100 F St NE<br />Washington, DC 20549</span></p> </td> </tr> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>8. Federal Land Banks, Federal Land Bank Associations, Federal Intermediate Credit Banks, and Production Credit Associations </span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>Farm Credit Administration<br />1501 Farm Credit Drive<br />McLean, VA 22102-5090</span></p> </td> </tr> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>9. Retailers, Finance Companies, and All Other Creditors Not Listed Above </span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>FTC Regional Office for region in which the creditor operates or Federal Trade Commission: <br />Consumer Response Center - FCRA <br />Washington, DC 20580 <br />(877) 382-4357</span></p> </td> </tr> </tbody> </table>'
-            order: 2
-            title: A Summary of your rights
-          - checkboxes:
-              - I have read and understood the disclosure regarding background information
-            copy_html: '<p><b>Turn Technologies</b> (“the Company”) may obtain information about you from a third party consumer reporting agency in connection with your performance of services.  Thus, you may be the subject of a “consumer report” which may include information about your character, general reputation, personal characteristics, and/or mode of living.  These reports may contain information regarding your criminal history, social security verification, motor vehicle records (“driving records”), verification of your education or employment history, or other background checks.</p>'
-            order: 3
-            title: Disclosure
-          - checkboxes:
-              - I want to receive a copy of my Background Report
-              - I have read and understood the summary of my rights
-            copy_html: '<p>Turn Technologies, (the “Company”) intends to obtain information about you from a consumer reporting agency in connection with your performance of services.    Thus, you can expect to be the subject of “investigative consumer reports” obtained for employment purposes. Such reports may include information about your character, general reputation, personal characteristics and mode of living.     With respect to any investigative consumer report from an investigative consumer reporting agency (“ICRA”), the Company may investigate the information contained in your employment application and other background information about you, including but not limited to obtaining a criminal record report, verifying references, work history, your social security number, your educational achievements, licensure, and certifications, your driving record, and other information about you, and interviewing people who are knowledgeable about you.     The results of this report may be used as a factor in making employment decisions.     The source of any investigative consumer report (as that term is defined under California law) will be <strong>Turn Technologies, Inc., 20 West Kinzie Street, 17th Floor, Chicago, IL 60654; Tel. # 1.888.499.TURN (8876); <a href=''http://www.turn.ai'' target=''_blank''>www.turn.ai</a>.</strong>   The Company agrees to provide you with a copy of an investigative consumer report when required to do so under California law.    </p> <p>   Under California Civil Code section 1786.22, you are entitled to find out what is in the ICRA’s file on you with proper identification, as follows:   <ul>     <li>In person, by visual inspection of your file during normal business hours and on reasonable notice. You also may request     a copy of the information in person. The ICRA may not charge you more than the actual copying costs for providing you with     a copy of your file.</li>     <li>A summary of all information contained in the ICRA’s file on you that is required to be provided by the California Civil     Code will be provided to you via telephone, if you have made a written request, with proper identification, for telephone     disclosure, and the toll charge, if any, for the telephone call is prepaid by or charged directly to you.</li>     <li>By requesting a copy be sent to a specified addressee by certified mail. ICRAs complying with requests for certified mailings     shall not be liable for disclosures to third parties caused by mishandling of mail after such mailings leave the ICRAs.</li>   </ul>   “Proper Identification” includes documents such as a valid driver’s license, social security account number, military identification card, and credit cards.     Only if you cannot identify yourself with such information may the ICRA require additional information concerning your employment and personal or family history in order to verify your identity.     The ICRA will provide trained personnel to explain any information furnished to you and will provide a written explanation of any coded information contained in files maintained on you.     This written explanation will be provided whenever a file is provided to you for visual inspection.     You may be accompanied by one other person of your choosing, who must furnish reasonable identification.     An ICRA may require you to furnish a written statement granting permission to the ICRA to discuss your file in such person’s presence.</p> <p> <b>San Francisco applicants only:</b> Please click below for the San Francisco Fair Chance Act Notice. - <a href="https://turn-hq.s3.amazonaws.com/SFFairChanceNotice.pdf">English</a> - <a href="https://turn-hq.s3.amazonaws.com/SFOrdinance-Spanish.pdf">Spanish</a> - <a href="https://turn-hq.s3.amazonaws.com/SFOrdinance-Tagalog.pdf">Tagalog</a> - <a href="https://turn-hq.s3.amazonaws.com/SFOrdinance-Chinese.pdf">Chinese</a> - </p> <p> <b>Los Angeles applicants only:</b> Please click <a href="https://turn-hq.s3.amazonaws.com/Notice+to+Applicants+and+Employees+for+Private+Employers.pdf">here</a> for the Los Angeles Notice to Applicants and Employees for Private Employers.'
-            order: 4
-            title: A Summary of Your State Rights
-          - checkboxes:
-              - 'By clicking this checkbox, I indicate my agreement to all of the above.'
-            copy_html: '<p>I acknowledge receipt of the separate document entitled DISCLOSURE REGARDING BACKGROUND INVESTIGATION and A SUMMARY OF YOUR RIGHTS UNDER THE FAIR CREDIT REPORTING ACT and certify that I have read and understand both of those documents.  I hereby authorize the obtaining of “consumer reports” and/or “investigative consumer reports” by Turn Technologies (“Company”) at any time after receipt of this authorization and throughout the performance of services.  To this end, I hereby authorize, without reservation, any law enforcement agency, administrator, state or federal agency, institution, school or university (public or private), information service bureau, Company, or insurance company to furnish any and all background information requested by <b>Turn Technologies, Inc., 20 West Kinzie Street, 17th Floor, Chicago, IL 60654; Tel. # 1.888.499.TURN (8876)</b>; <a href="http://www.turn.ai" target="_blank">www.turn.ai</a> and/or Company.  I agree that a facsimile (“fax”), electronic or photographic copy of this Authorization shall be as valid as the original.</p>'
-            order: 5
-            title: Authorization of Background Investigation
-      x-internal: true
-    Datum:
-      title: Datum
-      required:
-        - field
-        - required
-      type: object
-      properties:
-        field:
-          type: string
-        required:
-          type: boolean
-      example:
-        field: first_name
-        required: true
-      x-internal: true
-    Disclosure:
-      title: Disclosure
-      required:
-        - checkboxes
-        - copy_html
-        - order
-        - title
-      type: object
-      properties:
-        checkboxes:
-          type: array
-          items:
-            type: string
-          description: ''
-        copy_html:
-          type: string
-        order:
-          type: integer
-          format: int32
-        title:
-          type: string
-      example:
-        checkboxes:
-          - I do not have a middle name
-          - 'I certify that this is me, and that the information provided in the present fields is true, valid, accurate, and complete. By clicking Continue you agree to Turn Technologies <a href="http://www.turn.ai/termsofuse.html" target="_blank">Terms and Conditions</a> and <a href="http://www.turn.ai/privacy.html" target="_blank">Privacy Policy</a>'
-        copy_html: 'Turn Technologies (the "Company") has engaged Turn Technologies, Inc. to obtain a consumer report and/or investigative consumer report, as defined in California, for contracted services or employment purposes. Turn Technologies Inc. will provide a background investigation as a pre-condition of your engagement with the Company and in compliance with applicable law.'
-        order: 1
-        title: Welcome
       x-internal: true
     422Missingrequiredfield3:
       title: 422Missingrequiredfield3
