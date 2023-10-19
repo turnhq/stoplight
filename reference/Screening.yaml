@@ -307,7 +307,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/422Missingrequiredfield3'
+                type: object
+                properties:
+                  json.package_id:
+                    type: array
+                    items:
+                      type: string
+                  json.zipcode:
+                    type: array
+                    items:
+                      type: string
               example:
                 json.package_id:
                   - Missing data for required field.
@@ -1496,29 +1505,6 @@ components:
       example:
         package_id: P1051539566
         zipcode: '95476'
-      x-internal: true
-    422Missingrequiredfield3:
-      title: 422Missingrequiredfield3
-      required:
-        - json.package_id
-        - json.zipcode
-      type: object
-      properties:
-        json.package_id:
-          type: array
-          items:
-            type: string
-          description: ''
-        json.zipcode:
-          type: array
-          items:
-            type: string
-          description: ''
-      example:
-        json.package_id:
-          - Missing data for required field.
-        json.zipcode:
-          - Missing data for required field.
       x-internal: true
     /fcra_check/form/<check_id>_request:
       title: /fcra_check/form/<check_id>_request
