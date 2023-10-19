@@ -461,6 +461,7 @@ paths:
                 properties:
                   error:
                     type: string
+                    example: a4b9b53e-b665-4a11-8872-2005bb151652 does not exist
               examples:
                 example 404 invalid check id:
                   value:
@@ -477,6 +478,7 @@ paths:
                 properties:
                   message:
                     type: string
+                    example: We are unable to validate your identity with the Social Security Number you entered. Please check your SSN is correct and try again.
               examples:
                 example-1:
                   value:
@@ -490,6 +492,7 @@ paths:
                 properties:
                   error:
                     type: string
+                    example : a4b9b53e-b665-4a11-8872-2005bb15165d has already been used
               examples:
                 example 422 - check id has already been used:
                   value:
