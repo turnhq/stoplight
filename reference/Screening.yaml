@@ -612,61 +612,23 @@ paths:
       responses:
         '200':
           description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Wed, 18 Dec 2019 20:04:30 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '253'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/200Success3'
+                type: object
+                properties:
+                  dashboard_url:
+                    type: string
+                  state:
+                    type: string
+                  turn_id:
+                    type: string
+                  worker_email:
+                    type: string
+                  worker_id:
+                    type: string
               example:
-                dashboard_url: 'https://partners.turning.io/workers/d46d4365-a895-4bc9-9dce-09d24b790d30'
+                dashboard_url: 'https://partners.turn.ai/workers/d46d4365-a895-4bc9-9dce-09d24b790d30'
                 state: approved
                 turn_id: C1234567890
                 worker_email: contact@turning.io
@@ -675,59 +637,14 @@ paths:
                 recheck_date: '2023-01-10'
         '422':
           description: UNPROCESSABLE ENTITY
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Wed, 18 Dec 2019 20:14:05 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '62'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/422Workernotfound1'
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Worker with id C0000000000 was not found
               example:
                 message: Worker with id C0000000000 was not found
       deprecated: false
@@ -948,7 +865,7 @@ paths:
                   last_seen: '2019-08-01'
                   state: IL
                   zip: '12345'
-                dashboard_url: 'https://partners.turning.io/workers/6c72b249-d1c1-4a1e-9697-650948171738'
+                dashboard_url: 'https://partners.turn.ai/workers/6c72b249-d1c1-4a1e-9697-650948171738'
                 date_of_birth: '1987-09-15'
                 email: someone@gmail.com
                 license_number: ''
@@ -1916,66 +1833,6 @@ components:
           type: string
       example:
         message: Checks of this worker have already run.
-      x-internal: true
-    200Success3:
-      title: 200Success3
-      required:
-        - dashboard_url
-        - state
-        - turn_id
-        - worker_email
-        - worker_id
-      type: object
-      properties:
-        dashboard_url:
-          type: string
-        state:
-          type: string
-        turn_id:
-          type: string
-        worker_email:
-          type: string
-        worker_id:
-          type: string
-      example:
-        dashboard_url: 'https://partners.turning.io/workers/d46d4365-a895-4bc9-9dce-09d24b790d30'
-        state: approved
-        turn_id: C1234567890
-        worker_email: contact@turning.io
-        worker_id: d46d4365-a895-4bc9-9dce-09d24b790d30
-      x-internal: true
-    422Workernotfound1:
-      title: 422Workernotfound1
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: Worker with id C0000000000 was not found
-      x-internal: true
-    404Workernotfound1:
-      title: 404Workernotfound1
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: Worker not found
-      x-internal: true
-    422Invalidcandidatestatus1:
-      title: 422Invalidcandidatestatus1
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: the candidate status not allow to be recheck.
       x-internal: true
     /onboardingsrequest:
       title: /onboardingsrequest
