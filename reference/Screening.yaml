@@ -1010,68 +1010,21 @@ paths:
           content:
             application/json:
               schema:
-                schema:
-                  type: object
-                  properties:
-                    message:
-                      type: string
+                type: object
+                properties:
+                  message:
+                    type: string
               example:
                 message: Worker not found
         '422':
           description: UNPROCESSABLE ENTITY
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Thu, 01 Oct 2020 18:28:16 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '67'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/422Invalidcandidatestatus1'
+                type: object
+                properties:
+                  message:
+                    type: string
               example:
                 message: the candidate status not allow to be recheck.
       deprecated: false
