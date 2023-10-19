@@ -178,12 +178,22 @@ paths:
           description: NOT FOUND
           content:
             application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
               example:
                 message: Worker not found
         '422':
           description: UNPROCESSABLE ENTITY
           content:
             application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
               example:
                 message: The email was accepted
       deprecated: false
