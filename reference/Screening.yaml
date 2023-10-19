@@ -461,7 +461,7 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: a4b9b53e-b665-4a11-8872-2005bb151652 does not exist
+                    example: FOOBAR is not valid id
               examples:
                 example 404 invalid check id:
                   value:
