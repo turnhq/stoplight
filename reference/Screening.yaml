@@ -347,7 +347,12 @@ paths:
                         type: string
                       description: ''
                 metadata:
-                  type: string
+                  type: object
+                  properties:
+                    ip_address:
+                      type: string
+                    user_agent:
+                      type: string
             example:
               first_name: Alec
               last_name: Sadler
