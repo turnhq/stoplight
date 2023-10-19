@@ -524,6 +524,7 @@ paths:
                 properties:
                   message:
                     type: string
+                    example : SSN trace limit reached. (Max number of attempts is 3).
               examples:
                 example-1:
                   value:
