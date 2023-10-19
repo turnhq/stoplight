@@ -152,7 +152,6 @@ paths:
                     type: array
                     items:
                       type: string
-                    description: 'abc'
                   json.first_name:
                     type: array
                     items:
