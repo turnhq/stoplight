@@ -36,6 +36,7 @@ paths:
                 properties:
                   name:
                     type: string
+                    example: ACME
               example:
                 name: ACME
         '400':
@@ -49,6 +50,9 @@ paths:
                     type: string
                   description:
                     type: string
+                example:
+                  code: invalid_header
+                  description: Unable to parse authentication token
               example:
                 code: invalid_header
                 description: Unable to parse authentication token
