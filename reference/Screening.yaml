@@ -114,18 +114,33 @@ paths:
           description: OK
           content:
             application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
               example:
                 message: the AsyncPersonSearch /run was requested successfully
         '205':
           description: RESET CONTENT
           content:
             application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
               example:
                 message: Checks of this worker have already run.
         '422':
           description: UNPROCESSABLE ENTITY
           content:
             application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
               example:
                 message: Worker with id 00000000-0000-0000-0000-000000000000 was not found
       deprecated: false
