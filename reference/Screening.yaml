@@ -1555,8 +1555,6 @@ paths:
                 properties:
                   message:
                     type: string
-                    description: ''
-                    example: 'query:{} is not a valid json and should look like {''per_page'': 10, ''page'': 0, ''filters'': {''create_timestamp__gt'': ''2023-06-01'', ''create_timestamp__lt'': ''2023-07-01''}}.'
               example:
                 message: 'query:{} is not a valid json and should look like {''per_page'': 10, ''page'': 0, ''filters'': {''create_timestamp__gt'': ''2023-06-01'', ''create_timestamp__lt'': ''2023-07-01''}}.'
       deprecated: false
