@@ -183,6 +183,7 @@ paths:
                 properties:
                   message:
                     type: string
+                    example: Worker not found
               example:
                 message: Worker not found
         '422':
@@ -194,6 +195,7 @@ paths:
                 properties:
                   message:
                     type: string
+                    example: The email was accepted
               example:
                 message: The email was accepted
       deprecated: false
