@@ -67,9 +67,9 @@ paths:
                     type: string
                   description:
                     type: string
-              example:
-                code: authorization_header_missing
-                description: Authorization header is expected
+                example:
+                  code: authorization_header_missing
+                  description: Authorization header is expected
       deprecated: false
 components:
   securitySchemes:
