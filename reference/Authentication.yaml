@@ -68,48 +68,6 @@ paths:
                 description: Authorization header is expected
       deprecated: false
 components:
-  schemas:
-    200Sucess:
-      title: 200Sucess
-      required:
-        - name
-      type: object
-      properties:
-        name:
-          type: string
-      example:
-        name: ACME
-      x-internal: true
-    400InvalidToken1:
-      title: 400InvalidToken1
-      required:
-        - code
-        - description
-      type: object
-      properties:
-        code:
-          type: string
-        description:
-          type: string
-      example:
-        code: invalid_header
-        description: Unable to parse authentication token
-      x-internal: true
-    401NoTokenProvided1:
-      title: 401NoTokenProvided1
-      required:
-        - code
-        - description
-      type: object
-      properties:
-        code:
-          type: string
-        description:
-          type: string
-      example:
-        code: authorization_header_missing
-        description: Authorization header is expected
-      x-internal: true
   securitySchemes:
     httpBearer:
       type: http
