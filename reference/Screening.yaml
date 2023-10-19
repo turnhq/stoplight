@@ -281,37 +281,6 @@ paths:
             schema:
               title: /fcra_check/form/<check_id>_request
               type: object
-                example:
-                  first_name: Alec
-                  last_name: Sadler
-                  no_middle_name: false
-                  middle_name: M
-                  date_of_birth: '1980-11-30'
-                  zipcode: '95476'
-                  phone: '18884998876'
-                  ssn: '123456789'
-                  email: contact@turning.io
-                  drivers_license_number: U1234567
-                  drivers_license_state: CA
-                  consent_document: 'data:image/png;base64,'
-                  callback_url: 'https://somedomain.com/response'
-                  do_checks: true
-                  timestamps:
-                    welcome:
-                      - '2021-06-13T21:40:04.766Z'
-                    summary_of_rights:
-                      - '2021-06-13T21:40:05.766Z'
-                    disclosure:
-                      - '2021-06-13T21:40:06.766Z'
-                    summary_of_state_rights:
-                      - '2021-06-13T21:40:07.766Z'
-                    authorization_of_background_investigation:
-                      - '2021-06-13T21:40:08.766Z'
-                    signature:
-                      - '2021-06-13T21:40:09.766Z'
-                  metadata:
-                    ip_address: 73.9.149.180
-                    user_agent: Turn Mobile 1/1.4
               properties:
                 first_name:
                   type: string
