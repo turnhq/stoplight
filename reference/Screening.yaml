@@ -119,6 +119,7 @@ paths:
                 properties:
                   message:
                     type: string
+                    example: the AsyncPersonSearch /run was requested successfully
               example:
                 message: the AsyncPersonSearch /run was requested successfully
         '205':
@@ -130,6 +131,7 @@ paths:
                 properties:
                   message:
                     type: string
+                    example: Checks of this worker have already run.
               example:
                 message: Checks of this worker have already run.
         '422':
@@ -141,6 +143,7 @@ paths:
                 properties:
                   message:
                     type: string
+                    example: Worker with id 00000000-0000-0000-0000-000000000000 was not found
               example:
                 message: Worker with id 00000000-0000-0000-0000-000000000000 was not found
       deprecated: false
