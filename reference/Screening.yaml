@@ -1489,20 +1489,20 @@ paths:
           style: simple
           schema:
             type: object
-              properties:
-                per_page:
-                  type: integer
-                page:
-                  type: integer
-                filters:
+            properties:
+              per_page:
+                type: integer
+              page:
+                type: integer
+              filters:
+                type: object
+                schema:
                   type: object
-                  schema:
-                    type: object
-                    properties:
-                      create_timestamp__gt:
-                        type: string
-                      create_timestamp__lt:
-                        type: string
+                  properties:
+                    create_timestamp__gt:
+                      type: string
+                    create_timestamp__lt:
+                      type: string
       responses:
         '200':
           description: OK
