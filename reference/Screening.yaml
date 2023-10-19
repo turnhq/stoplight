@@ -994,55 +994,6 @@ paths:
       responses:
         '200':
           description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Thu, 01 Oct 2020 18:21:16 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '10'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
@@ -1056,59 +1007,14 @@ paths:
                     example: Success
         '404':
           description: NOT FOUND
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Thu, 01 Oct 2020 18:23:42 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '38'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/404Workernotfound1'
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
               example:
                 message: Worker not found
         '422':
