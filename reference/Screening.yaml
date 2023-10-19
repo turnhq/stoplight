@@ -330,7 +330,19 @@ paths:
                   type: object
                   properties:
                     message:
-                      $ref: '#/components/schemas/Message1'
+                      required:
+                        - code
+                        - message
+                        - transaction_uuid
+                      type: object
+                      properties:
+                        code:
+                          type: integer
+                          format: int32
+                        message:
+                          type: string
+                        transaction_uuid:
+                          type: string
                     rcmp_redirect_url:
                       type: string
                       nullable: true
