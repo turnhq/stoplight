@@ -314,7 +314,38 @@ paths:
                 do_checks:
                   type: boolean
                 timestamps:
-                  type: string
+                  type: object
+                  properties:
+                    welcome:
+                      type: array
+                      items:
+                        type: string
+                      description: ''
+                    summary_of_rights:
+                      type: array
+                      items:
+                        type: string
+                      description: ''
+                    disclosure:
+                      type: array
+                      items:
+                        type: string
+                      description: ''
+                    summary_of_state_rights:
+                      type: array
+                      items:
+                        type: string
+                      description: ''
+                    authorization_of_background_investigation:
+                      type: array
+                      items:
+                        type: string
+                      description: ''
+                    signature:
+                      type: array
+                      items:
+                        type: string
+                      description: ''
                 metadata:
                   type: string
             example:
