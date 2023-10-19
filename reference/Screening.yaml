@@ -346,53 +346,9 @@ paths:
                 do_checks:
                   type: boolean
                 timestamps:
-                  type: object
-                    properties:
-                      welcome:
-                        type: array
-                        items:
-                          type: string
-                        description: ''
-                      summary_of_rights:
-                        type: array
-                        items:
-                          type: string
-                        description: ''
-                      disclosure:
-                        type: array
-                        items:
-                          type: string
-                        description: ''
-                      summary_of_state_rights:
-                        type: array
-                        items:
-                          type: string
-                        description: ''
-                      authorization_of_background_investigation:
-                        type: array
-                        items:
-                          type: string
-                        description: ''
-                      signature:
-                        type: array
-                        items:
-                          type: string
-                        description: ''
-                    example:
-                      welcome:
-                        - '2021-06-13T21:40:04.766Z'
-                      summary_of_rights:
-                        - '2021-06-13T21:40:05.766Z'
-                      disclosure:
-                        - '2021-06-13T21:40:06.766Z'
-                      summary_of_state_rights:
-                        - '2021-06-13T21:40:07.766Z'
-                      authorization_of_background_investigation:
-                        - '2021-06-13T21:40:08.766Z'
-                      signature:
-                        - '2021-06-13T21:40:09.766Z'
+                  type: string
                 metadata:
-                  $ref: '#/components/schemas/Metadata'
+                  type: string
             example:
               first_name: Alec
               last_name: Sadler
