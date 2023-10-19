@@ -962,59 +962,14 @@ paths:
                 recheck_date: '2023-01-10'
         '422':
           description: UNPROCESSABLE ENTITY
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Wed, 18 Dec 2019 22:27:39 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '62'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/422Workernotfound1'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  example: Worker with id C0000000000 was not found
               example:
                 message: Worker with id C0000000000 was not found
       deprecated: false
