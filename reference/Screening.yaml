@@ -35,7 +35,28 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/personsearch_async_request'
+              type: object
+              properties:
+                email_candidate:
+                  type: boolean
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                phone_number:
+                  type: string
+                package_id:
+                  type: string
+                callback_url:
+                  type: string
+                reference_id:
+                  type: string
+                redirect_url:
+                  type: string
+                do_checks:
+                  type: boolean
             example:
               email_candidate: true
               first_name: Alec
@@ -1238,53 +1259,6 @@ paths:
       deprecated: false
 components:
   schemas:
-    personsearch_async_request:
-      title: personsearch_async_request
-      required:
-        - email_candidate
-        - first_name
-        - last_name
-        - email
-        - phone_number
-        - package_id
-        - callback_url
-        - reference_id
-        - redirect_url
-        - do_checks
-      type: object
-      properties:
-        email_candidate:
-          type: boolean
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-        phone_number:
-          type: string
-        package_id:
-          type: string
-        callback_url:
-          type: string
-        reference_id:
-          type: string
-        redirect_url:
-          type: string
-        do_checks:
-          type: boolean
-      example:
-        email_candidate: true
-        first_name: Alec
-        last_name: Sadler
-        email: contact@turn.ai
-        phone_number: '18884998876'
-        package_id: P1234567890
-        callback_url: 'https://somedomain.com/response'
-        reference_id: ABC12345
-        redirect_url: 'https://turn.ai'
-        do_checks: true
-      x-internal: true
     200Success:
       title: 200Success
       required:
