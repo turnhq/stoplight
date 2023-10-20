@@ -1381,6 +1381,18 @@ paths:
                   - turn_id: C9785074239
                     reference_id: 987-abc-987654
                     enrrolled_at: '2023-06-18'
+        '404':
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Resource not found
+              example:
+                message: Resource not found
         '422':
           description: UNPROCESSABLE ENTITY
           content:
