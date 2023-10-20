@@ -1090,10 +1090,10 @@ paths:
                     example: Worker with id C0000000000 was not found
               examples:
                 example 422 Worker not found:
-                  values:
+                  value:
                     message: Worker with id C0000000000 was not found
                 example 422 Background check not ready:
-                  values:
+                  value:
                     message: The background check for C1364903861 is not ready yet.
       deprecated: false
   '/fcra_check/{turn_id}/recheck':
