@@ -433,11 +433,11 @@ paths:
                     json.zipcode:
                       - Missing data for required field.
                 example 422 package does not exist:
-                  message:
-                    - Package P1051539566 doesn't exist.
+                  value:
+                    message: Package P1051539566 doesn't exist.
                 example 422 invalid zip code:
-                  message:
-                      - Invalid zip code 95476.
+                  value:
+                    message: Invalid zip code 95476.
       deprecated: false
   '/fcra_check/form/{check_id}':
     post:
