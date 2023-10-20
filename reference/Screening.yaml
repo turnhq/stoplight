@@ -758,7 +758,7 @@ paths:
               examples:
                 example 404 worker not found:
                   velue:
-                  message: Worker not found
+                    message: Worker not found
                 example 404 invalid check id:
                   value:
                     error: FOOBAR is not valid id
