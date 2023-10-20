@@ -208,6 +208,18 @@ paths:
                     example: the AsyncPersonSearch /run was requested successfully
               example:
                 message: the AsyncPersonSearch /run was requested successfully
+        '202':
+          description: ACCEPTED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The applicant has not consented to a background check. You can resend their invitation or contact us at support@turn.ai with their name and email address and we will follow up directly with them. Thank you!
+              example:
+                message: The applicant has not consented to a background check. You can resend their invitation or contact us at support@turn.ai with their name and email address and we will follow up directly with them. Thank you!
         '205':
           description: RESET CONTENT
           content:
