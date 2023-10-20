@@ -425,11 +425,21 @@ paths:
                     type: array
                     items:
                       type: string
-              example:
-                json.package_id:
-                  - Missing data for required field.
-                json.zipcode:
-                  - Missing data for required field.
+              examples:
+                example 422 missing required:
+                  value:
+                    json.package_id:
+                      - Missing data for required field.
+                    json.zipcode:
+                      - Missing data for required field.
+                example 422 package does not exist:
+                  value:
+                    message:
+                      - Package P1051539566 doesn't exist.
+                example 422 invalid zip code:
+                  value:
+                    json.package_id:
+                      - Invalid zip code 95476.
       deprecated: false
   '/fcra_check/form/{check_id}':
     post:
