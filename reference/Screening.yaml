@@ -297,8 +297,13 @@ paths:
                   message:
                     type: string
                     example: The email was accepted
-              example:
-                message: The email was accepted
+              examples:
+                example 422 email accepted:
+                  value:
+                    message: The email was accepted
+                example 422 No email sent:
+                  value:
+                    message: No email was sent to this candidate with this ssn already exists.
       deprecated: false
   /fcra_check/form:
     post:
