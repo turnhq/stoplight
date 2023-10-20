@@ -1071,7 +1071,7 @@ paths:
                 consent_date: '2022-09-15'
                 recheck_date: '2023-01-10'
         '204':
-          description: CONTENT
+          description: NO CONTENT
           content:
             application/json:
               schema:
