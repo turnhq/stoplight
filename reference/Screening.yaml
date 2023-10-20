@@ -1070,6 +1070,14 @@ paths:
                 worker_uuid: 6c72b249-d1c1-4a1e-9697-650948171739
                 consent_date: '2022-09-15'
                 recheck_date: '2023-01-10'
+        '204':
+          description: CONTENT
+          content:
+            application/json:
+              schema:
+                type: object
+                example: { }
+              example: { }
         '422':
           description: UNPROCESSABLE ENTITY
           content:
@@ -1080,8 +1088,13 @@ paths:
                   message:
                     type: string
                     example: Worker with id C0000000000 was not found
-              example:
-                message: Worker with id C0000000000 was not found
+              examples:
+                example 422 Worker not found:
+                  values:
+                    message: Worker with id C0000000000 was not found
+                example 422 Background check not ready:
+                  values:
+                    message: The background check for C1364903861 is not ready yet.
       deprecated: false
   '/fcra_check/{turn_id}/recheck':
     put:
