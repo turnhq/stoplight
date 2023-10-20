@@ -733,6 +733,18 @@ paths:
                   transaction_uuid: bbe339f8-2c49-49df-922f-5e3f12ca0943
                 rcmp_redirect_url: ''
                 turn_id: C5392268460
+        '205':
+          description: RESET CONTENT
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Checks of this worker have already run.
+              examples:
+                message: Checks of this worker have already run.
         '404':
           description: NOT FOUND
           content:
@@ -742,9 +754,29 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: Checks of this worker have already run.
+                    example: Worker not found
+              examples:
+                example 404 worker not found:
+                  velue:
+                  message: Worker not found
+                example 404 invalid check id:
+                  value:
+                    error: FOOBAR is not valid id
+                example 404 check id doesn't exist:
+                  value:
+                    error: a4b9b53e-b665-4a11-8872-2005bb151652 does not exist
+        '422':
+          description: UNPROCESSABLE ENTITY
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  package_id:
+                    type: string
+                    example: Package P1051539566 for partner 123 does not exist
               example:
-                message: Checks of this worker have already run.
+                package_id: Package P1051539566 for partner 123 does not exist
       deprecated: false
   '/person/{worker_id}/status':
     get:
