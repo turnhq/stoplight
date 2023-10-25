@@ -19,14 +19,14 @@ info:
   contact: {}
   version: '1.0'
 servers:
-  - url: 'https://api.turning.io/v1'
+  - url: 'https://api.turn.ai/v1'
     variables: {}
 paths:
   /person/search_async:
     post:
       tags:
-        - Person Search
-      summary: /person/search_async
+        - Invite
+      summary: Invite
       description: "The Asynchronous Person Search endpoint is the most basic way to initiate a background check. It's a two way process:\n\n1. This endpoint is called with the necesary details to invite a candidate to do a background check.\n\n2. When the background check is completed, the results will be posted back to your provided URL. \n\nRather than returning an inline response, requests made to this endpoint will return a unique UUID as a response. The full person response will then be returned asynchronously via HTTP POST to an endpoint that is specified as an additional callback_url parameter in the original requrest.\n\nThe UUID will be included as an additional key:value pair in the response, in order to tie requests back to their responses.\n\n|Parameter\t\t\t|Required\t|Type\t\t\t|Description\n|:-----------\t\t|---------  |------\t\t\t|-----------\n|first_name\t\t\t|true\t\t|`string`\t\t|Legal first name of the person to check\n|last_name\t\t\t|true\t\t|`string`\t\t|Legal last name of the person to check\n|email\t\t\t\t|true\t\t|`string`\t\t|The email of the person to check\n|phone_number\t\t|false\t\t|`string`\t\t|Mobile phone number of the person to check\n|email_candidate\t|false\t(defaults to `true`)|`boolean`\t|Boolean value to indicate whether Turn should initiate the invitation via email (and via sms if a phone number was provided)\n|callback_url\t\t|true\t\t|`string`\t\t|A URL endpoint to which the background results will be POSTed asynchronously\n|reference_id\t\t|false\t\t|`string`\t\t|An arbitrary metadata value that can be passed. It will be returned in the response and also visible on the background report in your Turn Dashboard\n|package_id\t\t\t|false\t\t|`string`\t\t|The id of the package this check will use\n|redirect_url\t\t|false\t\t|`string` \t\t|After completion of the background check flow, the candidate will be redirected to the provided URL\n|do_checks\t\t|false\t(defaults to `true`)|`boolean` \t\t|If true starts the background check right away after the candidate consents, if false puts the check in a standby mode to be started at a later date using the `worker_id` provided in the response.\n\n\n\n## About *email_candidate*\nIf you want Turn to initiate the communication with the candidate to start the background check, specify this flag in `true`. Marking this flag as `false` means you want to control the communication with your candidate. Use the `candidate_consent_url` response parameter to show your candidate the personalized consent form to start the background check, you can send this link using an internal communication channel (email, slack, etc) or embed the link inside a web application of your own or even a mobile app.\n\n## About *do_checks*\nIf *do_checks* is specified as `false` the background check won't be started right away after the candidate consents. The check will be in an _initiated_ status which means:\n\n* The check won't appear in your Turn Dashboard (until it's requested)\n* You won't be charged for this check if it's never initiated\n* The candidate won't be notified/sent any communication\n\nIf not specified, do_checks will always be `true`\n\nTo request the execution of the background check the /person/\\<worker_id\\>/run endpoint.\n\n\n## About *phone_number*\nIf a phone number is specified and `email_candidate` is set to `true`, we'll also send a TEXT invitation (alongside the email). We'll send reminders as well, if we detect that the background check hasn't been started. \n\n## About *package_id*\nIf you are configured with multiple packages, you can pass in the ID of the package here. The package_id is an 11 character string starting with a ‘P’ and followed by 10 digits. If no package_id is passed, the configured default package will be used.\n\n## Consent Form Prepopulation\nfirst_name, last_name, email and phone_number will be used to prepopulate the candidate_consent_url the candidate will receive to start the background check form."
       operationId: /person/search_async
       parameters: []
@@ -35,87 +35,103 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/~1person~1search_async_request'
+              type: object
+              properties:
+                email_candidate:
+                  type: boolean
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                phone_number:
+                  type: string
+                package_id:
+                  type: string
+                callback_url:
+                  type: string
+                reference_id:
+                  type: string
+                redirect_url:
+                  type: string
+                do_checks:
+                  type: boolean
             example:
               email_candidate: true
               first_name: Alec
               last_name: Sadler
-              email: contact@turning.io
+              email: contact@turn.ai
               phone_number: '18884998876'
               package_id: P1234567890
               callback_url: 'https://somedomain.com/response'
               reference_id: ABC12345
-              redirect_url: 'https://turning.io'
+              redirect_url: 'https://turn.ai'
               do_checks: true
         required: true
       responses:
         '200':
           description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Tue, 17 Dec 2019 19:12:58 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '1077'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/200Success'
+                type: object
+                properties:
+                  message:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+                      request_uuid:
+                        type: string
+                  candidate_consent_url:
+                    type: string
+                  email:
+                    type: string
+                  email_candidate:
+                    type: boolean
+                  first_name:
+                    type: string
+                  last_name:
+                    type: string
+                  phone_number:
+                    type: string
+                  redirect_url:
+                    type: string
+                  reference_id:
+                    type: string
+                  email_status:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                      status:
+                        type: integer
+                  sms_status:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                      status:
+                        type: integer
+                  uuid:
+                    type: string
+                  worker_id:
+                    type: string
               example:
                 message:
                   code: '9200'
                   message: The operation completed successfully.
                   request_uuid: 21aac715-ada2-409a-952d-7610873ebfde
-                candidate_consent_url: 'https://partners.turning.io/consent/HG6qlUzrxv5jEXhqmeywDRL_zpRQ9pe9?first_name=Alec&last_name=Sadler&phone_number=18884998876&email=contact%40turning.io&email_candidate=True&reference_id=ABC12345&redirect_url=https%3A%2F%2Fturning.io'
-                email: contact@turning.io
+                candidate_consent_url: 'https://partners.turn.ai/consent/HG6qlUzrxv5jEXhqmeywDRL_zpRQ9pe9?first_name=Alec&last_name=Sadler&phone_number=18884998876&email=contact%40turn.ai&email_candidate=True&reference_id=ABC12345&redirect_url=https%3A%2F%2Fturn.ai'
+                email: contact@turn.ai
                 email_candidate: true
                 first_name: Alec
                 last_name: Sadler
                 phone_number: '18884998876'
-                redirect_url: 'https://turning.io'
+                redirect_url: 'https://turn.ai'
                 reference_id: ABC12345
                 email_status:
                   message: 'The notification email is on our queue, it will be delivered shortly'
@@ -127,59 +143,27 @@ paths:
                 worker_id: 5c8f690c-0cc5-4063-beb8-8a140ff3abc6
         '422':
           description: UNPROCESSABLE ENTITY
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Tue, 17 Dec 2019 20:26:29 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '222'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/422Missingrequiredfield1'
+                type: object
+                properties:
+                  json.email:
+                    type: array
+                    items:
+                      type: string
+                  json.first_name:
+                    type: array
+                    items:
+                      type: string
+                  json.last_name:
+                    type: array
+                    items:
+                      type: string
+                  json.callback_url:
+                    type: array
+                    items:
+                      type: string
               example:
                 json.email:
                   - Missing data for required field.
@@ -193,8 +177,8 @@ paths:
   '/person/{worker_id}/run':
     post:
       tags:
-        - Person Search
-      summary: /person/<worker_id>/run
+        - Invite
+      summary: Invite - Release
       description: |-
         For candidates that have already been invited to start a background check, but hasn't completed the initial consent form where they provide all their information and legal consent to kick off the background check, this endpoint resends the original invitation with the personalized link to complete the consent form.
 
@@ -211,192 +195,61 @@ paths:
           schema:
             type: string
             example: 5e2a223b-be4c-406b-9ffb-7d2d7ebb5564
-        - name: Content-Type
-          in: header
-          description: ''
-          required: true
-          style: simple
-          schema:
-            type: string
-            example: application/json
       responses:
         '200':
           description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Sun, 13 Jun 2021 15:48:59 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '75'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/200Sucess1'
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: the AsyncPersonSearch /run was requested successfully
               example:
                 message: the AsyncPersonSearch /run was requested successfully
-        '205':
-          description: RESET CONTENT
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Sun, 13 Jun 2021 15:51:45 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '61'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
+        '202':
+          description: ACCEPTED
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/205Checkshavealreadyrun'
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The applicant has not consented to a background check. You can resend their invitation or contact us at support@turn.ai with their name and email address and we will follow up directly with them. Thank you!
+              example:
+                message: The applicant has not consented to a background check. You can resend their invitation or contact us at support@turn.ai with their name and email address and we will follow up directly with them. Thank you!
+        '205':
+          description: RESET CONTENT
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Checks of this worker have already run.
               example:
                 message: Checks of this worker have already run.
         '422':
           description: UNPROCESSABLE ENTITY
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Sun, 13 Jun 2021 15:54:31 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '87'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/422Wokernotfound1'
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Worker with id 00000000-0000-0000-0000-000000000000 was not found
               example:
                 message: Worker with id 00000000-0000-0000-0000-000000000000 was not found
       deprecated: false
   '/fcra/{turn_id}/email/consent/resend':
     post:
       tags:
-        - Person Search
-      summary: /fcra/<turn_id>/email/consent/resend
+        - Invite
+      summary: Invite - Resend
       description: |-
         For candidates that have already been invited to start a background check, but hasn't completed the initial consent form where they provide all their information and legal consent to kick off the background check, this endpoint resends the original invitation with the personalized link to complete the consent form.
 
@@ -416,55 +269,6 @@ paths:
       responses:
         '200':
           description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Tue, 17 Dec 2019 21:19:27 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '3'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
@@ -473,124 +277,39 @@ paths:
               example: {}
         '404':
           description: NOT FOUND
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Tue, 17 Dec 2019 21:22:29 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '38'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/404NotFound1'
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Worker not found
               example:
                 message: Worker not found
         '422':
           description: UNPROCESSABLE ENTITY
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Tue, 17 Dec 2019 21:23:44 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '44'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/422Emailedalreadyaccepted1'
-              example:
-                message: The email was accepted
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The email was accepted
+              examples:
+                example 422 email accepted:
+                  value:
+                    message: The email was accepted
+                example 422 No email sent:
+                  value:
+                    message: No email was sent to this candidate with this ssn already exists.
       deprecated: false
   /fcra_check/form:
     post:
       tags:
         - End to End
-      summary: /fcra_check/form
+      summary: Form
       description: "This is the first step in the End to End flow, hitting this endpoint means the intention of running a check, not the actual check. Two parameters are provided, zip code and package id, with those parameteres a comprehensive response is given, stating: \n\n1. All requiered inputs to start the background \n2. All visual elements (including legal disclosures) that should be displayed to the user\n\n\n|Parameter\t\t\t|Required\t|Type\t\t|Description\n|:-----------\t\t|:---------:|------:\t|:-----------\n|zipcode\t\t\t|true\t\t|`string`\t\t|The zip code of the candidate’s current address\n|package_id\t\t\t|true\t\t|`string`\t\t|The id of the package this check will use\n\n## Displaying Legal Texts and Gathering the Consent Document\n\nIn order for Turn to legally run the background check, you need to present all the legal text to the user, the disclosures are provided in the `disclosures` section of the first POST /fcra_check/form call.\n\nPlease also note that all sections under the `disclosures` element have a set of checkboxes that the user needs to agree with.\n\nUse this table as a reference on how to display the disclosures to your user, and the expected behaviour and flow control.\n\n| Section                                   | Checkbox                                                                     | Guide                                                                                                                                                                                                                                                                                     |\n|-------------------------------------------|------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| Welcome                                   | \"I certify that this is me,...\"                                              | Please make sure the links work correctly for TOCs and PP Don't let the user continue if this checkbox is not clicked.                                                                                                                                                                    |\n| Welcome                                   | \"I do not have a middle name\"                                                | Can be optional if you already cover this logic in your UI. Please set the correct value in the candidate inputs \"no_middle_name\" (true if the candidate doens't have a middle name, false if there is a middle name, note that the API requires a middle name, if no_middle_name==false) |\n| Sms Opt In                                   | \"I want to receive background check status ..... Reply HELP for help or STOP to cancel.\"                                                | The Boolean value of Sms_opt_in feature is stored in Partner Worker table. To avoid making this a breaking change, the value for this checkbox is assumed to be true if we don’t receive a result for this check,  meaning the applicant accepted to receive updates from Turn. Users can learn more or opt out of our services anytime by replying HELP or STOP respectively |\n| A Summary of your rights                  | I have read and understood the summary of my rights                          | Don't let the user continue if this checkbox is not clicked.                                                                                                                                                                                                                              |\n| Disclosure                                | \"I have read and understood the disclosure regarding background information\" | Don't let the user continue if this checkbox is not clicked.                                                                                                                                                                                                                              |\n| A Summary of Your State Rights            | \"I want to receive a copy of my Background Report\"                           | For some states, we are legally obligated to show this option, we always send a copy of the BGC, so we must show this box for compliance reasons, no need to pass this value back.                                                                                                        |\n| A Summary of Your State Rights            | \"I have read and understood the summary of my rights\"                        | Don't let the user continue if this checkbox is not clicked.                                                                                                                                                                                                                              |\n| Authorization of Background Investigation | \"By clicking this checkbox, I indicate my agreement to all of the above.\"    | Don't let the user continue if this checkbox is not clicked.                                                                                                                                                                                                                              |\n\nNote that the section \"A Summary of Your State Rights\" is only required by certain states, and specific language can vary from state to state, we encapsulate this complexity, the disclosures section of this endpoint response will include or not the section \"A Summary of Your State Rights\" and the correct language for each state.\n\n## About *package_id*\nIf you are configured with multiple packages, you can pass in the ID of the package here. The package_id is an 11 character string starting with a ‘P’ and followed by 10 digits. If no package_id is passed, the configured default package will be used."
       operationId: /fcra_check/form
       parameters: []
@@ -598,8 +317,6 @@ paths:
         description: ''
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/~1fcra_check~1form_request'
             example:
               package_id: P1051539566
               zipcode: '95476'
@@ -607,59 +324,37 @@ paths:
       responses:
         '201':
           description: CREATED
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Wed, 18 Dec 2019 02:04:51 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '20350'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/201Success'
+                type: object
+                properties:
+                  check_id:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                        required:
+                          type: boolean
+                  disclosures:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        checkboxes:
+                          type: array
+                          items:
+                            type: string
+                        copy_html:
+                          type: string
+                        order:
+                          type: integer
+                        title:
+                          type: string
               example:
                 check_id: dd7d8e3e-d852-475d-945d-da998d7707f7
                 data:
@@ -690,7 +385,7 @@ paths:
                 disclosures:
                   - checkboxes:
                       - I do not have a middle name
-                      - 'I certify that this is me, and that the information provided in the present fields is true, valid, accurate, and complete. By clicking Continue you agree to Turn Technologies <a href="http://www.turning.io/termsofuse.html" target="_blank">Terms and Conditions</a> and <a href="http://www.turning.io/privacy.html" target="_blank">Privacy Policy</a>'
+                      - 'I certify that this is me, and that the information provided in the present fields is true, valid, accurate, and complete. By clicking Continue you agree to Turn Technologies <a href="http://www.turn.ai/termsofuse.html" target="_blank">Terms and Conditions</a> and <a href="http://www.turn.ai/privacy.html" target="_blank">Privacy Policy</a>'
                     copy_html: 'Turn Technologies (the "Company") has engaged Turn Technologies, Inc. to obtain a consumer report and/or investigative consumer report, as defined in California, for contracted services or employment purposes. Turn Technologies Inc. will provide a background investigation as a pre-condition of your engagement with the Company and in compliance with applicable law.'
                     order: 1
                     title: Welcome
@@ -707,80 +402,48 @@ paths:
                   - checkboxes:
                       - I want to receive a copy of my Background Report
                       - I have read and understood the summary of my rights
-                    copy_html: '<p>Turn Technologies, (the “Company”) intends to obtain information about you from a consumer reporting agency in connection with your performance of services.    Thus, you can expect to be the subject of “investigative consumer reports” obtained for employment purposes. Such reports may include information about your character, general reputation, personal characteristics and mode of living.     With respect to any investigative consumer report from an investigative consumer reporting agency (“ICRA”), the Company may investigate the information contained in your employment application and other background information about you, including but not limited to obtaining a criminal record report, verifying references, work history, your social security number, your educational achievements, licensure, and certifications, your driving record, and other information about you, and interviewing people who are knowledgeable about you.     The results of this report may be used as a factor in making employment decisions.     The source of any investigative consumer report (as that term is defined under California law) will be <strong>Turn Technologies, Inc., 20 West Kinzie Street, 17th Floor, Chicago, IL 60654; Tel. # 1.888.499.TURN (8876); <a href=''http://www.turning.io'' target=''_blank''>www.turning.io</a>.</strong>   The Company agrees to provide you with a copy of an investigative consumer report when required to do so under California law.    </p> <p>   Under California Civil Code section 1786.22, you are entitled to find out what is in the ICRA’s file on you with proper identification, as follows:   <ul>     <li>In person, by visual inspection of your file during normal business hours and on reasonable notice. You also may request     a copy of the information in person. The ICRA may not charge you more than the actual copying costs for providing you with     a copy of your file.</li>     <li>A summary of all information contained in the ICRA’s file on you that is required to be provided by the California Civil     Code will be provided to you via telephone, if you have made a written request, with proper identification, for telephone     disclosure, and the toll charge, if any, for the telephone call is prepaid by or charged directly to you.</li>     <li>By requesting a copy be sent to a specified addressee by certified mail. ICRAs complying with requests for certified mailings     shall not be liable for disclosures to third parties caused by mishandling of mail after such mailings leave the ICRAs.</li>   </ul>   “Proper Identification” includes documents such as a valid driver’s license, social security account number, military identification card, and credit cards.     Only if you cannot identify yourself with such information may the ICRA require additional information concerning your employment and personal or family history in order to verify your identity.     The ICRA will provide trained personnel to explain any information furnished to you and will provide a written explanation of any coded information contained in files maintained on you.     This written explanation will be provided whenever a file is provided to you for visual inspection.     You may be accompanied by one other person of your choosing, who must furnish reasonable identification.     An ICRA may require you to furnish a written statement granting permission to the ICRA to discuss your file in such person’s presence.</p> <p> <b>San Francisco applicants only:</b> Please click below for the San Francisco Fair Chance Act Notice. - <a href="https://turn-hq.s3.amazonaws.com/SFFairChanceNotice.pdf">English</a> - <a href="https://turn-hq.s3.amazonaws.com/SFOrdinance-Spanish.pdf">Spanish</a> - <a href="https://turn-hq.s3.amazonaws.com/SFOrdinance-Tagalog.pdf">Tagalog</a> - <a href="https://turn-hq.s3.amazonaws.com/SFOrdinance-Chinese.pdf">Chinese</a> - </p> <p> <b>Los Angeles applicants only:</b> Please click <a href="https://turn-hq.s3.amazonaws.com/Notice+to+Applicants+and+Employees+for+Private+Employers.pdf">here</a> for the Los Angeles Notice to Applicants and Employees for Private Employers.'
+                    copy_html: '<p>Turn Technologies, (the “Company”) intends to obtain information about you from a consumer reporting agency in connection with your performance of services.    Thus, you can expect to be the subject of “investigative consumer reports” obtained for employment purposes. Such reports may include information about your character, general reputation, personal characteristics and mode of living.     With respect to any investigative consumer report from an investigative consumer reporting agency (“ICRA”), the Company may investigate the information contained in your employment application and other background information about you, including but not limited to obtaining a criminal record report, verifying references, work history, your social security number, your educational achievements, licensure, and certifications, your driving record, and other information about you, and interviewing people who are knowledgeable about you.     The results of this report may be used as a factor in making employment decisions.     The source of any investigative consumer report (as that term is defined under California law) will be <strong>Turn Technologies, Inc., 20 West Kinzie Street, 17th Floor, Chicago, IL 60654; Tel. # 1.888.499.TURN (8876); <a href=''http://www.turn.ai'' target=''_blank''>www.turn.ai</a>.</strong>   The Company agrees to provide you with a copy of an investigative consumer report when required to do so under California law.    </p> <p>   Under California Civil Code section 1786.22, you are entitled to find out what is in the ICRA’s file on you with proper identification, as follows:   <ul>     <li>In person, by visual inspection of your file during normal business hours and on reasonable notice. You also may request     a copy of the information in person. The ICRA may not charge you more than the actual copying costs for providing you with     a copy of your file.</li>     <li>A summary of all information contained in the ICRA’s file on you that is required to be provided by the California Civil     Code will be provided to you via telephone, if you have made a written request, with proper identification, for telephone     disclosure, and the toll charge, if any, for the telephone call is prepaid by or charged directly to you.</li>     <li>By requesting a copy be sent to a specified addressee by certified mail. ICRAs complying with requests for certified mailings     shall not be liable for disclosures to third parties caused by mishandling of mail after such mailings leave the ICRAs.</li>   </ul>   “Proper Identification” includes documents such as a valid driver’s license, social security account number, military identification card, and credit cards.     Only if you cannot identify yourself with such information may the ICRA require additional information concerning your employment and personal or family history in order to verify your identity.     The ICRA will provide trained personnel to explain any information furnished to you and will provide a written explanation of any coded information contained in files maintained on you.     This written explanation will be provided whenever a file is provided to you for visual inspection.     You may be accompanied by one other person of your choosing, who must furnish reasonable identification.     An ICRA may require you to furnish a written statement granting permission to the ICRA to discuss your file in such person’s presence.</p> <p> <b>San Francisco applicants only:</b> Please click below for the San Francisco Fair Chance Act Notice. - <a href="https://turn-hq.s3.amazonaws.com/SFFairChanceNotice.pdf">English</a> - <a href="https://turn-hq.s3.amazonaws.com/SFOrdinance-Spanish.pdf">Spanish</a> - <a href="https://turn-hq.s3.amazonaws.com/SFOrdinance-Tagalog.pdf">Tagalog</a> - <a href="https://turn-hq.s3.amazonaws.com/SFOrdinance-Chinese.pdf">Chinese</a> - </p> <p> <b>Los Angeles applicants only:</b> Please click <a href="https://turn-hq.s3.amazonaws.com/Notice+to+Applicants+and+Employees+for+Private+Employers.pdf">here</a> for the Los Angeles Notice to Applicants and Employees for Private Employers.'
                     order: 4
                     title: A Summary of Your State Rights
                   - checkboxes:
                       - 'By clicking this checkbox, I indicate my agreement to all of the above.'
-                    copy_html: '<p>I acknowledge receipt of the separate document entitled DISCLOSURE REGARDING BACKGROUND INVESTIGATION and A SUMMARY OF YOUR RIGHTS UNDER THE FAIR CREDIT REPORTING ACT and certify that I have read and understand both of those documents.  I hereby authorize the obtaining of “consumer reports” and/or “investigative consumer reports” by Turn Technologies (“Company”) at any time after receipt of this authorization and throughout the performance of services.  To this end, I hereby authorize, without reservation, any law enforcement agency, administrator, state or federal agency, institution, school or university (public or private), information service bureau, Company, or insurance company to furnish any and all background information requested by <b>Turn Technologies, Inc., 20 West Kinzie Street, 17th Floor, Chicago, IL 60654; Tel. # 1.888.499.TURN (8876)</b>; <a href="http://www.turning.io" target="_blank">www.turning.io</a> and/or Company.  I agree that a facsimile (“fax”), electronic or photographic copy of this Authorization shall be as valid as the original.</p>'
+                    copy_html: '<p>I acknowledge receipt of the separate document entitled DISCLOSURE REGARDING BACKGROUND INVESTIGATION and A SUMMARY OF YOUR RIGHTS UNDER THE FAIR CREDIT REPORTING ACT and certify that I have read and understand both of those documents.  I hereby authorize the obtaining of “consumer reports” and/or “investigative consumer reports” by Turn Technologies (“Company”) at any time after receipt of this authorization and throughout the performance of services.  To this end, I hereby authorize, without reservation, any law enforcement agency, administrator, state or federal agency, institution, school or university (public or private), information service bureau, Company, or insurance company to furnish any and all background information requested by <b>Turn Technologies, Inc., 20 West Kinzie Street, 17th Floor, Chicago, IL 60654; Tel. # 1.888.499.TURN (8876)</b>; <a href="http://www.turn.ai" target="_blank">www.turn.ai</a> and/or Company.  I agree that a facsimile (“fax”), electronic or photographic copy of this Authorization shall be as valid as the original.</p>'
                     order: 5
                     title: Authorization of Background Investigation
         '422':
           description: UNPROCESSABLE ENTITY
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Wed, 18 Dec 2019 02:05:54 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '150'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/422Missingrequiredfield3'
-              example:
-                json.package_id:
-                  - Missing data for required field.
-                json.zipcode:
-                  - Missing data for required field.
+                type: object
+                properties:
+                  json.package_id:
+                    type: array
+                    items:
+                      type: string
+                  json.zipcode:
+                    type: array
+                    items:
+                      type: string
+              examples:
+                example 422 missing required:
+                  value:
+                    json.package_id:
+                      - Missing data for required field.
+                    json.zipcode:
+                      - Missing data for required field.
+                example 422 package does not exist:
+                  value:
+                    message: Package P1051539566 doesn't exist.
+                example 422 invalid zip code:
+                  value:
+                    message: Invalid zip code 95476.
       deprecated: false
   '/fcra_check/form/{check_id}':
     post:
       tags:
         - End to End
-      summary: /fcra_check/form/<check_id>
+      summary: Form - Consent
       description: "This is the second step in the End to End flow, hitting this endpoint actually runs the background check with the provided inputs.\n\nAll inputs as named in the */fcra_check/form* endpoint are meant to be passed as parameters to this endpoint.\n\n\n|Parameter\t\t\t|Required\t|Type\t\t|Description\n|:-----------\t\t|:---------:|------:\t|:-----------\n|first_name\t\t\t\t\t| As specified in /fcra_check/form\t| `string`\t| Legal first name of the person to check\n|last_name\t\t\t\t\t| As specified in /fcra_check/form\t| `string`\t| Legal last name of the person to check\n|no_middle_name\t\t\t\t| As specified in /fcra_check/form\t| `boolean`\t| true if the person doesn't have a middle name, false if they do have one\n|middle_name\t\t\t\t| As specified in /fcra_check/form\t| `string`\t| Middle last name of the person to check\n|date_of_birth\t\t\t\t| As specified in /fcra_check/form\t| `string`\t| Date of birth of the person to check in ISO 8601 format YYYY-MM-DD\n|zipcode\t\t\t\t\t| As specified in /fcra_check/form\t| `string`\t| Zip code of the candidate’s current address\n|city\t\t\t\t\t| As specified in /fcra_check/form\t| `string`\t| City of the candidate’s current address, used to expedite PA MVRs\n|address\t\t\t\t\t| As specified in /fcra_check/form\t| `string`\t| Candidate’s current address, used to expedite PA MVRs\n|phone\t\t\t\t\t\t| As specified in /fcra_check/form\t| `string`\t| Mobile phone number of the person to check\n|ssn\t\t\t\t\t\t| As specified in /fcra_check/form\t| `string`\t| Social Security Number of the person to check\n|email\t\t\t\t\t\t| As specified in /fcra_check/form\t| `string`\t| Email of the person to check\n|gender\t\t\t\t\t\t| As specified in /fcra_check/form\t| `string`\t| M for male or F for female\n|drivers_license_number\t\t| As specified in /fcra_check/form\t| `string`\t| The driver's license number of the person to check\n|drivers_license_state\t\t| As specified in /fcra_check/form\t| `string`\t| The driver's license state of the person to check (CA, NY, etc)\n|drivers_license_image_front\t\t| As specified in /fcra_check/form\t| `string`\t| Base64 encoded png of the front of the applicant's DL.\n|drivers_license_image_back\t\t| As specified in /fcra_check/form\t| `string`\t| Base64 encoded png of the back of the applicant's DL.\n|sms_opt_in\t\t\t| As specified in /fcra_check/form\t| `boolean`\t| true on default if the user doesn't include sms_opt_in or if the checkbox is checked, meaning user's consent in receiving SMS updates from Turn. false if the user no longer wishes to receive updates\n|consent_document\t\t\t| mandatory\t\t\t\t\t\t\t| `string`\t| Base64 encoded png of the applicant's digital signature.\n|callback_url\t\t\t\t| mandatory\t\t\t\t\t\t\t| `string`\t| An URL endpoint to which the background results will be POSTed asynchronously\n|do_checks\t\t\t\t\t| optional (defaults to `true`)\t\t| `boolean`\t| If true starts the background check right away, if false puts the check in a standby mode\n|reference_id\t\t\t\t\t| optional\t\t| `string`\t| An arbitrary metadata value that can be passed. It will be returned in the response and also visible on the background report in your Turn Dashboard\n|timestamps\t| optional (will be required soon)\t\t| `json object`\t| A set of timestamps that define the exact point in time when a candidate interacts with the legal disclosures.\n|metadata| optional (will be required soon)\t\t| `json object`\t| Information about the device and location of the candidate consenting to the background check.\n|bypass_dupe| optional\t\t| `boolean`\t| If true it bypasses any duplicate prevention.\n\n## About *address* and *city*\nWhile not mandatory, we encourage you to provide this data. This can help us expedite MVR checks requested in Pennsylvania. This data is sent over to Pennsylvania DMV as is.\n\n## About *do_checks*\n\nIf *do_checks* is specified as `false` the background check won't be started right away. The check will be in an _initiated_ status which means:\n\n* The check won't appear in your Turn Dashboard (until it's initiated)\n* You won't be charged for this check if it's never initiated\n* The candidate won't be notified/sent any communication\n\nIf not specified, do_checks will always be `true`\n\n## About *reference_id*\n\nIf *reference_id* is provided, the background check will be tagged with that specific reference. This could be any arbitrary text reference, it can be used to identify any particular background check with an internal id or candidate. If a background check is tagged with a *reference_id* it will be displayed in the Turn Dashboard, it will be included in all webhook communications and invoicing.\n\n## About *timestamps* and *metadata*\n\nA strong consent process requires information about how and when a candidate provided consent to be screened. \n\n### timestamps\n\nA series of disclosures are presented in the the first call to POST /fcra_check/form. Every disclosure is a section that the candidate should consent to. Each section has a key (welcome, summary_of_rights..) and these same keys should be provided in the timestamps section along with the corresponding time of each event.\n\nThe timestamps provided should be UTC ISO-8601 and they reflect the time the candidate accepted each section of the disclosures.\n\n### metadata\n\nMetadata states information about the device and location of where the consent was required.\n\n* ip_address - Should be the one of the applicant consenting to the background check.\n* user_agent - Should be any string that identifies the browser user agent or the mobile application version.\n\n## About *consent_document*\n\nA base64 encoded representation of the applicant's signature must be embedded inline in the payload that is sent to us. We expect this to be a text composed of 2 parts:\n\n1. The prefix `data:image/png;base64,`\n2. The encoded image data itself.\n\nWe recommend that images do not exceed 8MB.\n\nImages must be PNG files.\n\nIn case the provided signature is not valid, a 422 status code will be returned, along with the error message.\n\nExample: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=`\n\n## About *drivers_license_image(s)*\n\nTurn supports the optional submission of both front and back images of a driver's license (via the `drivers_license_image_front` and `drivers_license_image_back` parameters). While not mandatory, providing these images can expedite the background check process and enhance the accuracy of the report.\n\nThe image should be provided as a base64-encoded string:\n\n1. The prefix `data:image/[MIMETYPE];base64,`\n2. The encoded image data itself.\n\n- Supported MIME types: jpeg, png, gif, bmp, heic, heif, webp and tiff\n- We recommend that images do not exceed 8MB\n\nExample: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=`\n"
       operationId: /fcra_check/form/check_id
       parameters:
@@ -797,7 +460,80 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/~1fcra_check~1form~1%3Ccheck_id%3E_request'
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                no_middle_name:
+                  type: boolean
+                middle_name:
+                  type: string
+                date_of_birth:
+                  type: string
+                zipcode:
+                  type: string
+                city:
+                  type: string
+                address:
+                  type: string
+                phone:
+                  type: string
+                ssn:
+                  type: string
+                email:
+                  type: string
+                drivers_license_number:
+                  type: string
+                drivers_license_state:
+                  type: string
+                consent_document:
+                  type: string
+                callback_url:
+                  type: string
+                do_checks:
+                  type: boolean
+                timestamps:
+                  type: object
+                  properties:
+                    welcome:
+                      type: array
+                      items:
+                        type: string
+                      description: ''
+                    summary_of_rights:
+                      type: array
+                      items:
+                        type: string
+                      description: ''
+                    disclosure:
+                      type: array
+                      items:
+                        type: string
+                      description: ''
+                    summary_of_state_rights:
+                      type: array
+                      items:
+                        type: string
+                      description: ''
+                    authorization_of_background_investigation:
+                      type: array
+                      items:
+                        type: string
+                      description: ''
+                    signature:
+                      type: array
+                      items:
+                        type: string
+                      description: ''
+                metadata:
+                  type: object
+                  properties:
+                    ip_address:
+                      type: string
+                    user_agent:
+                      type: string
             example:
               first_name: Alec
               last_name: Sadler
@@ -809,7 +545,7 @@ paths:
               address: 2600 Benjamin Franklin Pkwy
               phone: '18884998876'
               ssn: '123456789'
-              email: contact@turning.io
+              email: contact@turn.ai
               drivers_license_number: U1234567
               drivers_license_state: CA
               drivers_license_image_front: 'data:image/png;base64,'
@@ -838,66 +574,24 @@ paths:
       responses:
         '200':
           description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Wed, 18 Dec 2019 02:16:49 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '237'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/200Success1'
-              example:
-                message:
-                  code: 9200
-                  message: The operation completed successfully.
-                  transaction_uuid: 3ea933c7-1e2f-4245-8d80-2c31709a09ff
-                rcmp_redirect_url: ''
-                turn_id: C1259272294
+                type: object
+                properties:
+                  message:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+                      transaction_uuid:
+                        type: string
+                  rcmp_redirect_url:
+                    type: string
+                  turn_id:
+                    type: string
               examples:
                 example 200 success:
                   value:
@@ -916,61 +610,14 @@ paths:
                     turn_id: C1259272294
         '404':
           description: NOT FOUND
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Wed, 18 Dec 2019 02:49:40 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '42'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/404InvalidCheckId1'
-              example:
-                error: FOOBAR is not valid id
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: FOOBAR is not valid id
               examples:
                 example 404 invalid check id:
                   value:
@@ -987,70 +634,21 @@ paths:
                 properties:
                   message:
                     type: string
-                x-examples:
-                  example-1:
-                    message: We are unable to validate your identity with the Social Security Number you entered. Please check your SSN is correct and try again.
+                    example: We are unable to validate your identity with the Social Security Number you entered. Please check your SSN is correct and try again.
               examples:
                 example-1:
                   value:
                     message: We are unable to validate your identity with the Social Security Number you entered. Please check your SSN is correct and try again.
         '422':
           description: UNPROCESSABLE ENTITY
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Wed, 18 Dec 2019 03:22:31 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '78'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/422checkidhasalreadybeenused1'
-              example:
-                error: a4b9b53e-b665-4a11-8872-2005bb15165d has already been used
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example : a4b9b53e-b665-4a11-8872-2005bb15165d has already been used
               examples:
                 example 422 - check id has already been used:
                   value:
@@ -1085,9 +683,7 @@ paths:
                 properties:
                   message:
                     type: string
-                x-examples:
-                  example-1:
-                    message: SSN trace limit reached. (Max number of attempts is 3).
+                    example : SSN trace limit reached. (Max number of attempts is 3).
               examples:
                 example-1:
                   value:
@@ -1097,7 +693,7 @@ paths:
     post:
       tags:
         - End to End
-      summary: /fcra_check/form/<check_id>/run
+      summary: Form - Release
       description: 'If a background check was initiated via the _/fcra_check/form/:check_id_ endpoint and it was requested not to start right away using the _do_checks_ flag as `false`, use this endpoint to start the background check with the previously provided information.'
       operationId: /fcra_check/form/check_id/run
       parameters:
@@ -1112,59 +708,24 @@ paths:
       responses:
         '200':
           description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Wed, 18 Dec 2019 17:09:28 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '278'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/200Success1'
+                type: object
+                properties:
+                  message:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+                      transaction_uuid:
+                        type: string
+                  rcmp_redirect_url:
+                    type: string
+                  turn_id:
+                    type: string
               example:
                 message:
                   code: 9200
@@ -1172,69 +733,56 @@ paths:
                   transaction_uuid: bbe339f8-2c49-49df-922f-5e3f12ca0943
                 rcmp_redirect_url: ''
                 turn_id: C5392268460
-        '404':
-          description: NOT FOUND
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Wed, 18 Dec 2019 17:12:58 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '61'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
+        '205':
+          description: RESET CONTENT
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/404ChecksIdalreadyrunning1'
-              example:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Checks of this worker have already run.
+              examples:
                 message: Checks of this worker have already run.
+        '404':
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Worker not found
+              examples:
+                example 404 worker not found:
+                  value:
+                    message: Worker not found
+                example 404 invalid check id:
+                  value:
+                    error: FOOBAR is not valid id
+                example 404 check id doesn't exist:
+                  value:
+                    error: a4b9b53e-b665-4a11-8872-2005bb151652 does not exist
+        '422':
+          description: UNPROCESSABLE ENTITY
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  package_id:
+                    type: string
+                    example: Package P1051539566 for partner 123 does not exist
+              example:
+                package_id: Package P1051539566 for partner 123 does not exist
       deprecated: false
   '/person/{worker_id}/status':
     get:
       tags:
         - Candidates
-      summary: /person/<worker_id>/status
+      summary: Status
       description: |-
         This endpoint gives back the current status of the specified candidate.
 
@@ -1257,64 +805,26 @@ paths:
       responses:
         '200':
           description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Wed, 18 Dec 2019 20:04:30 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '253'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/200Success3'
+                type: object
+                properties:
+                  dashboard_url:
+                    type: string
+                  state:
+                    type: string
+                  turn_id:
+                    type: string
+                  worker_email:
+                    type: string
+                  worker_id:
+                    type: string
               example:
-                dashboard_url: 'https://partners.turning.io/workers/d46d4365-a895-4bc9-9dce-09d24b790d30'
+                dashboard_url: 'https://partners.turn.ai/workers/d46d4365-a895-4bc9-9dce-09d24b790d30'
                 state: approved
                 turn_id: C1234567890
-                worker_email: contact@turning.io
+                worker_email: contact@turn.ai
                 worker_id: d46d4365-a895-4bc9-9dce-09d24b790d30
                 consent_date: '2022-09-15'
                 recheck_date: '2023-01-10'
@@ -1322,59 +832,14 @@ paths:
                 criminal_monitoring: true
         '422':
           description: UNPROCESSABLE ENTITY
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Wed, 18 Dec 2019 20:14:05 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '62'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/422Workernotfound1'
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Worker with id C0000000000 was not found
               example:
                 message: Worker with id C0000000000 was not found
       deprecated: false
@@ -1382,7 +847,7 @@ paths:
     get:
       tags:
         - Candidates
-      summary: /person/<worker_id>/details
+      summary: Details
       description: |-
         Use this endpoint to get the complete detailed background check, it's status along all candidate's information and check results.
 
@@ -1413,59 +878,137 @@ paths:
       responses:
         '200':
           description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Wed, 18 Dec 2019 21:31:14 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '3957'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/200Success4'
+                type: object
+                properties:
+                  checks:
+                    type: object
+                    properties:
+                      addresses:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            address1:
+                              type: string
+                            city:
+                              type: string
+                            county:
+                              type: string
+                            state:
+                              type: string
+                            zip:
+                              type: string
+                            zip4:
+                              type: string
+                              nullable: true
+                      aliases:
+                        type: string
+                        nullable: true
+                      candidate_provided_date_of_birth:
+                        type: string
+                      candidate_provided_name:
+                        type: string
+                      candidate_provided_ssn:
+                        type: string
+                        nullable: true
+                      criminal:
+                        type: string
+                      dob_status:
+                        type: string
+                      location:
+                        type: string
+                        nullable: true
+                      mvr:
+                        type: string
+                        nullable: true
+                      name_status:
+                        type: string
+                      partner_provided_name:
+                        type: string
+                      partner_provided_ssn:
+                        type: string
+                        nullable: true
+                      public_name_status:
+                        type: string
+                      public_provided_name:
+                        type: string
+                      public_record_date_of_birth:
+                        type: string
+                      sex_offender:
+                        type: string
+                      ssn:
+                        type: object
+                        properties:
+                          deceased_date:
+                            type: string
+                            nullable: true
+                          dob_status:
+                            type: string
+                          is_deceased:
+                            type: boolean
+                          is_random:
+                            type: boolean
+                          issue_date:
+                            type: string
+                          issue_state:
+                            type: string
+                          name_status:
+                            type: string
+                          number:
+                            type: string
+                          status:
+                            type: string
+                      ssn_status:
+                        type: string
+                      watchlist:
+                        type: string
+                  complete:
+                    type: boolean
+                  current_address:
+                    type: object
+                    properties:
+                      address1:
+                        type: string
+                      address2:
+                        type: string
+                        nullable: true
+                      city:
+                        type: string
+                      first_seen:
+                        type: string
+                      last_seen:
+                        type: string
+                      state:
+                        type: string
+                      zip:
+                        type: string
+                  dashboard_url:
+                    type: string
+                  date_of_birth:
+                    type: string
+                  email:
+                    type: string
+                  license_number:
+                    type: string
+                  license_state:
+                    type: string
+                  name:
+                    type: string
+                  partner_worker_status:
+                    type: string
+                  reference_id:
+                    type: string
+                  turn_id:
+                    type: string
+                  worker_uuid:
+                    type: string
+                  consent_date:
+                    type: string
+                  recheck_date:
+                    type: string
               example:
                 checks:
                   addresses:
@@ -1517,7 +1060,7 @@ paths:
                   last_seen: '2019-08-01'
                   state: IL
                   zip: '12345'
-                dashboard_url: 'https://partners.turning.io/workers/6c72b249-d1c1-4a1e-9697-650948171738'
+                dashboard_url: 'https://partners.turn.ai/workers/6c72b249-d1c1-4a1e-9697-650948171738'
                 date_of_birth: '1987-09-15'
                 email: someone@gmail.com
                 license_number: ''
@@ -1531,69 +1074,37 @@ paths:
                 recheck_date: '2023-01-10'
                 cm_criminal_enroll: '2023-07-19'
                 criminal_monitoring: true
-        '422':
-          description: UNPROCESSABLE ENTITY
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Wed, 18 Dec 2019 22:27:39 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '62'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
+        '204':
+          description: NO CONTENT
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/422Workernotfound1'
-              example:
-                message: Worker with id C0000000000 was not found
+                type: object
+                example: { }
+              example: { }
+        '422':
+          description: UNPROCESSABLE ENTITY
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Worker with id C0000000000 was not found
+              examples:
+                example 422 Worker not found:
+                  value:
+                    message: Worker with id C0000000000 was not found
+                example 422 Background check not ready:
+                  value:
+                    message: The background check for C1364903861 is not ready yet.
       deprecated: false
   '/fcra_check/{turn_id}/recheck':
     put:
       tags:
         - Recheck
-      summary: /fcra_check/<turn_id>/recheck
+      summary: Recheck
       description: |
         # Introduction
 
@@ -1643,186 +1154,40 @@ paths:
       responses:
         '200':
           description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Thu, 01 Oct 2020 18:21:16 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '10'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
                 type: object
-                x-examples:
-                  Example 1:
-                    message: Success
                 properties:
                   message:
                     type: string
                     example: Success
         '404':
           description: NOT FOUND
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Thu, 01 Oct 2020 18:23:42 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '38'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/404Workernotfound1'
-              example:
-                message: Worker not found
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Worker not found
         '422':
           description: UNPROCESSABLE ENTITY
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Thu, 01 Oct 2020 18:28:16 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '67'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/422Invalidcandidatestatus1'
-              example:
-                message: the candidate status not allow to be recheck.
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: the candidate status not allow to be recheck.
       deprecated: false
   '/monitoring/criminal/{reference_turn_id}/enroll':
     put:
       tags:
         - Continuous Monitoring
-      summary: /monitoring/criminal/<reference_turn_id>/enroll
+      summary: Enroll
       description: |
         This endpoint will submit the information for a monitored individual to enroll them in the Continuous Criminal Monitoring service. This will allow us to receive monitoring alerts for the enrolled individuals.
 
@@ -1846,266 +1211,50 @@ paths:
       responses:
         '200':
           description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
-            Content-Type:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: application/json
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '29'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
                 type: object
-                x-examples:
-                  Example 1:
-                    message: Success
                 properties:
                   message:
                     type: string
                     example: Success
         '201':
           description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
-            Content-Type:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: application/json
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '29'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            Set-Cookie:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
                 type: object
-                x-examples:
-                  Example 1:
-                    message: Worker has already been enrolled
                 properties:
                   message:
                     type: string
                     example: Worker has already been enrolled
         '404':
           description: NOT FOUND
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
-            Content-Type:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: application/json
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '38'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            Set-Cookie:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/404CM'
-              example:
-                message: Worker not found
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Worker not found
         '422':
           description: UNPROCESSABLE ENTITY
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
-            Content-Type:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: application/json
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '38'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            Set-Cookie:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/422CM'
-              example:
-                message: The current status of the candidate does not permit enrollment.
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The current status of the candidate does not permit enrollment.
       deprecated: false
   '/monitoring/criminal/{reference_turn_id}/unenroll':
     put:
       tags:
         - Continuous Monitoring
-      summary: /monitoring/criminal/<reference_turn_id>/unenroll
+      summary: Unenroll
       description: |
         This endpoint is available for removing a monitored individual from the Continuous Criminal Monitoring service. After unenrolling, no more alerts will be received for the monitored individual.
 
@@ -2129,135 +1278,30 @@ paths:
       responses:
         '200':
           description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
-            Content-Type:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: application/json
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '29'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
                 type: object
-                x-examples:
-                  Example 1:
-                    message: Success
                 properties:
                   message:
                     type: string
                     example: Success
         '404':
           description: NOT FOUND
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
-            Content-Type:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: application/json
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '38'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            Set-Cookie:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/404CM'
-              example:
-                message: Worker not found.
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Worker not found.
       deprecated: false
   /monitoring/criminal/enrolled_individuals:
     get:
       tags:
         - Continuous Monitoring
-      summary: /monitoring/criminal/enrolled_individuals
+      summary: List
       description: |
         This endpoint will allow users to confirm the total number of monitored individuals enrolled in the Continuous Criminal Monitoring service, and will return the listed data points for each enrolled individual:
 
@@ -2283,63 +1327,52 @@ paths:
           required: false
           style: simple
           schema:
-            $ref: '#/components/schemas/CMEnrolledIndividualsQuery'
+            type: object
+            properties:
+              per_page:
+                type: integer
+              page:
+                type: integer
+              filters:
+                type: object
+                properties:
+                  create_timestamp__gt:
+                    type: string
+                  create_timestamp__lt:
+                    type: string
+            example:
+              per_page: 5
+              page: 1
+              filters:
+                create_timestamp__gt: '2023-06-01'
+                create_timestamp__lt: '2023-07-01'
       responses:
         '200':
           description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
-            Content-Type:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: application/json
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '29'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/200CM1'
+                type: object
+                properties:
+                  limit:
+                    type: integer
+                  offset:
+                    type: integer
+                  count:
+                    type: integer
+                  max_limit:
+                    type: integer
+                  enrolls:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        turn_id:
+                          type: string
+                        reference_id:
+                          type: string
+                        enrrolled_at:
+                          type: string
               example:
                 limit: 10
                 offset: 1
@@ -2352,275 +1385,31 @@ paths:
                   - turn_id: C9785074239
                     reference_id: 987-abc-987654
                     enrrolled_at: '2023-06-18'
-        '422':
-          description: UNPROCESSABLE ENTITY
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Fri, 28 Jul 2023 19:18:55 GMT'
-            Content-Type:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: application/json
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '38'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            Set-Cookie:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'google-login-session=1d122654-c22b-411e-971e-dc000bb31fbf.000L0wmH00tRrmlLvQZyusnGAdM; Expires=Wed, 31-Jul-2023 20:04:44 GMT; HttpOnly; Path=/'
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
+        '404':
+          description: NOT FOUND
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/422CM1'
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Resource not found
               example:
-                message: 'query:{} is not a valid json and should look like {''per_page'': 10, ''page'': 0, ''filters'': {''create_timestamp__gt'': ''2023-06-01'', ''create_timestamp__lt'': ''2023-07-01''}}.'
+                message: Resource not found
+        '422':
+          description: UNPROCESSABLE ENTITY
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'query:{} is not a valid json and should look like {''per_page'': 10, ''page'': 0, ''filters'': {''create_timestamp__gt'': ''2023-06-01'', ''create_timestamp__lt'': ''2023-07-01''}}.'
       deprecated: false
 components:
   schemas:
-    /person/search_async_request:
-      title: /person/search_async_request
-      required:
-        - email_candidate
-        - first_name
-        - last_name
-        - email
-        - phone_number
-        - package_id
-        - callback_url
-        - reference_id
-        - redirect_url
-        - do_checks
-      type: object
-      properties:
-        email_candidate:
-          type: boolean
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-        phone_number:
-          type: string
-        package_id:
-          type: string
-        callback_url:
-          type: string
-        reference_id:
-          type: string
-        redirect_url:
-          type: string
-        do_checks:
-          type: boolean
-      example:
-        email_candidate: true
-        first_name: Alec
-        last_name: Sadler
-        email: contact@turning.io
-        phone_number: '18884998876'
-        package_id: P1234567890
-        callback_url: 'https://somedomain.com/response'
-        reference_id: ABC12345
-        redirect_url: 'https://turning.io'
-        do_checks: true
-      x-internal: true
-    200Success:
-      title: 200Success
-      required:
-        - message
-        - candidate_consent_url
-        - email
-        - email_candidate
-        - first_name
-        - last_name
-        - phone_number
-        - redirect_url
-        - reference_id
-        - email_status
-        - sms_status
-        - uuid
-        - worker_id
-      type: object
-      properties:
-        message:
-          $ref: '#/components/schemas/Message'
-        candidate_consent_url:
-          type: string
-        email:
-          type: string
-        email_candidate:
-          type: boolean
-        first_name:
-          type: string
-        last_name:
-          type: string
-        phone_number:
-          type: string
-        redirect_url:
-          type: string
-        reference_id:
-          type: string
-        email_status:
-          $ref: '#/components/schemas/EmailStatus'
-        sms_status:
-          $ref: '#/components/schemas/SmsStatus'
-        uuid:
-          type: string
-        worker_id:
-          type: string
-      example:
-        message:
-          code: '9200'
-          message: The operation completed successfully.
-          request_uuid: 21aac715-ada2-409a-952d-7610873ebfde
-        candidate_consent_url: 'https://partners.turning.io/consent/HG6qlUzrxv5jEXhqmeywDRL_zpRQ9pe9?first_name=Alec&last_name=Sadler&phone_number=18884998876&email=contact%40turning.io&email_candidate=True&reference_id=ABC12345&redirect_url=https%3A%2F%2Fturning.io'
-        email: contact@turning.io
-        email_candidate: true
-        first_name: Alec
-        last_name: Sadler
-        phone_number: '18884998876'
-        redirect_url: 'https://turning.io'
-        reference_id: ABC12345
-        email_status:
-          message: 'The notification email is on our queue, it will be delivered shortly'
-          status: 200
-        sms_status:
-          message: SMS queued to be sent
-          status: 200
-        uuid: 12d6d04a-45df-4f02-9d2c-a1db2b2391bf
-        worker_id: 5c8f690c-0cc5-4063-beb8-8a140ff3abc6
-      x-internal: true
-    Message:
-      title: Message
-      required:
-        - code
-        - message
-        - request_uuid
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        request_uuid:
-          type: string
-      example:
-        code: '9200'
-        message: The operation completed successfully.
-        request_uuid: 21aac715-ada2-409a-952d-7610873ebfde
-      x-internal: true
-    EmailStatus:
-      title: EmailStatus
-      required:
-        - message
-        - status
-      type: object
-      properties:
-        message:
-          type: string
-        status:
-          type: integer
-          format: int32
-      example:
-        message: 'The notification email is on our queue, it will be delivered shortly'
-        status: 200
-      x-internal: true
-    SmsStatus:
-      title: SmsStatus
-      required:
-        - message
-        - status
-      type: object
-      properties:
-        message:
-          type: string
-        status:
-          type: integer
-          format: int32
-      example:
-        message: SMS queued to be sent
-        status: 200
-      x-internal: true
-    422Missingrequiredfield1:
-      title: 422Missingrequiredfield1
-      required:
-        - json.email
-        - json.first_name
-        - json.last_name
-        - json.callback_url
-      type: object
-      properties:
-        json.email:
-          type: array
-          items:
-            type: string
-          description: ''
-        json.first_name:
-          type: array
-          items:
-            type: string
-          description: ''
-        json.last_name:
-          type: array
-          items:
-            type: string
-          description: ''
-        json.callback_url:
-          type: array
-          items:
-            type: string
-          description: ''
-      example:
-        json.email:
-          - Missing data for required field.
-        json.first_name:
-          - Missing data for required field.
-        json.last_name:
-          - Missing data for required field.
-        json.callback_url:
-          - Missing data for required field.
-      x-internal: true
     200Sucess1:
       title: 200Sucess1
       required:
@@ -2632,1065 +1421,6 @@ components:
       example:
         message: the AsyncPersonSearch /run was requested successfully
       x-internal: true
-    205Checkshavealreadyrun:
-      title: 205Checkshavealreadyrun
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: Checks of this worker have already run.
-      x-internal: true
-    422Wokernotfound1:
-      title: 422Wokernotfound1
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: Worker with id 00000000-0000-0000-0000-000000000000 was not found
-      x-internal: true
-    404NotFound1:
-      title: 404NotFound1
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: Worker not found
-      x-internal: true
-    422Emailedalreadyaccepted1:
-      title: 422Emailedalreadyaccepted1
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: The email was accepted
-      x-internal: true
-    /fcra_check/form_request:
-      title: /fcra_check/form_request
-      required:
-        - package_id
-        - zipcode
-      type: object
-      properties:
-        package_id:
-          type: string
-        zipcode:
-          type: string
-      example:
-        package_id: P1051539566
-        zipcode: '95476'
-      x-internal: true
-    201Success:
-      title: 201Success
-      required:
-        - check_id
-        - data
-        - disclosures
-      type: object
-      properties:
-        check_id:
-          type: string
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Datum'
-          description: ''
-        disclosures:
-          type: array
-          items:
-            $ref: '#/components/schemas/Disclosure'
-          description: ''
-      example:
-        check_id: dd7d8e3e-d852-475d-945d-da998d7707f7
-        data:
-          - field: first_name
-            required: true
-          - field: last_name
-            required: true
-          - field: middle_name
-            required: false
-          - field: email
-            required: true
-          - field: has_middle_name
-            required: true
-          - field: phone_number
-            required: true
-          - field: date_of_birth
-            required: true
-          - field: ssn
-            required: true
-          - field: gender
-            required: true
-          - field: zipcode
-            required: true
-          - field: drivers_license_number
-            required: true
-          - field: drivers_license_state
-            required: true
-        disclosures:
-          - checkboxes:
-              - I do not have a middle name
-              - 'I certify that this is me, and that the information provided in the present fields is true, valid, accurate, and complete. By clicking Continue you agree to Turn Technologies <a href="http://www.turning.io/termsofuse.html" target="_blank">Terms and Conditions</a> and <a href="http://www.turning.io/privacy.html" target="_blank">Privacy Policy</a>'
-            copy_html: 'Turn Technologies (the "Company") has engaged Turn Technologies, Inc. to obtain a consumer report and/or investigative consumer report, as defined in California, for contracted services or employment purposes. Turn Technologies Inc. will provide a background investigation as a pre-condition of your engagement with the Company and in compliance with applicable law.'
-            order: 1
-            title: Welcome
-          - checkboxes:
-              - I have read and understood the summary of my rights
-            copy_html: '<p><span>Para informaci&oacute;n en espa&ntilde;ol, visite <a href="http://www.consumerfinance.gov/learnmore"><span>www.consumerfinance.gov/learnmore</span></a> o escribe a la Consumer Financial Protection Bureau, 1700 G Street N.W., Washington, DC 20552.</span></p> <p><span><strong>A Summary of Your Rights Under the Fair Credit Reporting Act</strong></span></p> <p><span>The federal Fair Credit Reporting Act (FCRA) promotes the accuracy, fairness, and privacy of information in the files of consumer reporting agencies. There are many types of consumer reporting agencies, including credit bureaus and specialty agencies (such as agencies that sell information about check writing histories, medical records, and rental history records). Here is a summary of your major rights under the FCRA. <strong>For more information, including information about additional rights, go to </strong><a href="http://www.consumerfinance.gov/learnmore"><span><strong>www.consumerfinance.gov/learnmore</strong></span></a><strong> or write to: Consumer Financial Protection Bureau, 1700 G Street N.W., Washington, DC 20552.</strong></span></p> <p><span><strong>You must be told if information in your file has been used against you.</strong> Anyone who uses a credit report or another type of consumer report to deny your application for credit, insurance, or employment - or to take another adverse action against you - must tell you, and must give you the name, address, and phone number of the agency that provided the information.</span></p> <p><span><strong>You have the right to know what is in your file.</strong> You may request and obtain all the information about you in the files of a consumer reporting agency (your &ldquo;file disclosure&rdquo;). You will be required to provide proper identification, which may include your Social Security number. In many cases, the disclosure will be free. You are entitled to a free file disclosure if: - a person has taken adverse action against you because of information in your credit report; - you are the victim of identify theft and place a fraud alert in your file; - your file contains inaccurate information as a result of fraud; - you are on public assistance; - you are unemployed but expect to apply for employment within 60 days.</span></p> <p><span>In addition, all consumers are entitled to one free disclosure every 12 months upon request from each nationwide credit bureau and from nationwide specialty consumer reporting agencies. See <a href="http://www.consumerfinance.gov/learnmore"><span>www.consumerfinance.gov/learnmore</span></a> for additional information.</span></p> <p><span><strong>You have the right to ask for a credit score.</strong> Credit scores are numerical summaries of your credit-worthiness based on information from credit bureaus. You may request a credit score from consumer reporting agencies that create scores or distribute scores used in residential real property loans, but you will have to pay for it. In some mortgage transactions, you will receive credit score information for free from the mortgage lender.</span></p> <p><span><strong>You have the right to dispute incomplete or inaccurate information.</strong> If you identify information in your file that is incomplete or inaccurate, and report it to the consumer reporting agency, the agency must investigate unless your dispute is frivolous. See <a href="http://www.consumerfinance.gov/learnmore"><span>www.consumerfinance.gov/learnmore</span></a> for an explanation of dispute procedures.</span></p> <p><span><strong>Consumer reporting agencies must correct or delete inaccurate, incomplete, or unverifiable information.</strong> Inaccurate, incomplete, or unverifiable information must be removed or corrected, usually within 30 days. However, a consumer reporting agency may continue to report information it has verified as accurate.</span></p> <p><span><strong>Consumer reporting agencies may not report outdated negative information.</strong> In most cases, a consumer reporting agency may not report negative information that is more than seven years old, or bankruptcies that are more than 10 years old.</span></p> <p><span><strong>Access to your file is limited.</strong> A consumer reporting agency may provide information about you only to people with a valid need &ndash; usually to consider an application with a creditor, insurer, employer, landlord, or other business. The FCRA specifies those with a valid need for access.</span></p> <p><span><strong>You must give your consent for reports to be provided to employers.</strong> A consumer reporting agency may not give out information about you to your employer, or a potential employer, without your written consent given to the employer. Written consent generally is not required in the trucking industry. For more information, go to <a href="http://www.consumerfinance.gov/learnmore"><span>www.consumerfinance.gov/learnmore</span></a>.</span></p> <p><span><strong>You may limit &ldquo;prescreened&rdquo; offers of credit and insurance you get based on information in your credit report.</strong> Unsolicited &ldquo;prescreened&rdquo; offers for credit and insurance must include a toll-free phone number you can call if you choose to remove your name and address from the lists these offers are based on. You may opt out with the nationwide credit bureaus at 1-888-5-OPTOUT (1-888-567-8688).</span></p> <p><span><strong>You may seek damages from violators.</strong> If a consumer reporting agency, or, in some cases, a user of consumer reports or a furnisher of information to a consumer reporting agency violates the FCRA, you may be able to sue in state or federal court.</span></p> <p><span><strong>Identity theft victims and active duty military personnel have additional rights.</strong> For more information, visit <a href="http://www.consumerfinance.gov/learnmore"><span>www.consumerfinance.gov/learnmore</span></a>.</span></p> <p><span><strong>States may enforce the FCRA, and many states have their own consumer reporting laws. In some cases, you may have more rights under state law. For more information, contact your state or local consumer protection agency or your state Attorney General. For information about your federal rights, contact:</strong></span></p> <table style="width: 100%; height: 100%;" cellspacing="0" cellpadding="0"> <tbody> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>TYPE OF BUSINESS:</span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>CONTACT:</span></p> </td> </tr> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>1. a. Banks, savings associations, and credit unions with total assets of over $10 billion and their affiliates.</span></p> <p><span>b. Such affiliates that are not banks, savings associations, or credit unions also should list, in addition to the CFPB:</span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>a. Consumer Financial Protection Bureau <br />1700 G Street N.W.<br />Washington, DC 20552</span></p> <p>&nbsp;</p> <p><span>b. Federal Trade Commission: Consumer Response Center -- FCRA<br />Washington, DC 20580<br />(877) 382-4357</span></p> </td> </tr> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>2. To the extent not included in item 1 above:</span></p> <p>&nbsp;</p> <p><span>a. National banks, federal savings associations, and federal branches and federal agencies of foreign banks</span></p> <p>&nbsp;</p> <p><span>b. State member banks, branches and agencies of foreign banks (other than federal branches, federal agencies, and Insured State Branches of Foreign Banks), commercial lending companies owned or controlled by foreign banks, and organizations operating under section 25 or 25A of the Federal Reserve Act</span></p> <p>&nbsp;</p> <p><span>c. Nonmember Insured Banks, Insured State Branches of Foreign Banks, and insured state savings associations</span></p> <p>&nbsp;</p> <p><span>d. Federal Credit Unions</span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>a. Office of the Controller of the Currency<br />Customer Assistance Group<br />1301 McKinney Street, Suite 3450<br />Houston, TX 77010-9050</span></p> <p>&nbsp;</p> <p><span>b. Federal Reserve Consumer Help Center<br />P.O. Box 1200<br />Minneapolis, MN 55480</span></p> <p>&nbsp;</p> <p><span>c. FDIC Consumer Response Center<br />1100 Walnut Street, Box #11<br />Kansas City, MO 64106</span></p> <p>&nbsp;</p> <p><span>d. National Credit Union Administration<br />Office of Consumer Protection (OCP)<br />Division of Consumer Compliance and Outreach (DCCO)<br />1775 Duke Street<br />Alexandria, VA 22314</span></p> </td> </tr> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>3. Air carriers </span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>Asst. General Counsel for Aviation Enforcement &amp; Proceedings<br />Aviation Consumer Protection Division<br />Department of Transportation<br />1200 New Jersey Avenue, S.E.<br />Washington, DC 20590</span></p> </td> </tr> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>4. Creditors Subject to Surface Transportation Board </span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>Office of Proceedings, Surface Transportation Board<br />Department of Transportation<br />395 E Street, S.W.<br />Washington, DC 20423</span></p> </td> </tr> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>5. Creditors Subject to Packers and Stockyards Act </span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>Nearest Packers and Stockyards Administration area supervisor </span></p> </td> </tr> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>6. Small Business Investment Companies </span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>Associate Deputy Administrator for Capital Access <br />United States Small Business Administration <br />409 Third Street, S.W., 8th Floor <br />Washington, DC 20416</span></p> </td> </tr> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>7. Brokers and Dealers </span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>Securities and Exchange Commission<br />100 F St NE<br />Washington, DC 20549</span></p> </td> </tr> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>8. Federal Land Banks, Federal Land Bank Associations, Federal Intermediate Credit Banks, and Production Credit Associations </span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>Farm Credit Administration<br />1501 Farm Credit Drive<br />McLean, VA 22102-5090</span></p> </td> </tr> <tr> <td style="width: 48%;padding:1%" valign="middle"> <p><span>9. Retailers, Finance Companies, and All Other Creditors Not Listed Above </span></p> </td> <td style="width: 48%;padding:1%" valign="middle"> <p><span>FTC Regional Office for region in which the creditor operates or Federal Trade Commission: <br />Consumer Response Center - FCRA <br />Washington, DC 20580 <br />(877) 382-4357</span></p> </td> </tr> </tbody> </table>'
-            order: 2
-            title: A Summary of your rights
-          - checkboxes:
-              - I have read and understood the disclosure regarding background information
-            copy_html: '<p><b>Turn Technologies</b> (“the Company”) may obtain information about you from a third party consumer reporting agency in connection with your performance of services.  Thus, you may be the subject of a “consumer report” which may include information about your character, general reputation, personal characteristics, and/or mode of living.  These reports may contain information regarding your criminal history, social security verification, motor vehicle records (“driving records”), verification of your education or employment history, or other background checks.</p>'
-            order: 3
-            title: Disclosure
-          - checkboxes:
-              - I want to receive a copy of my Background Report
-              - I have read and understood the summary of my rights
-            copy_html: '<p>Turn Technologies, (the “Company”) intends to obtain information about you from a consumer reporting agency in connection with your performance of services.    Thus, you can expect to be the subject of “investigative consumer reports” obtained for employment purposes. Such reports may include information about your character, general reputation, personal characteristics and mode of living.     With respect to any investigative consumer report from an investigative consumer reporting agency (“ICRA”), the Company may investigate the information contained in your employment application and other background information about you, including but not limited to obtaining a criminal record report, verifying references, work history, your social security number, your educational achievements, licensure, and certifications, your driving record, and other information about you, and interviewing people who are knowledgeable about you.     The results of this report may be used as a factor in making employment decisions.     The source of any investigative consumer report (as that term is defined under California law) will be <strong>Turn Technologies, Inc., 20 West Kinzie Street, 17th Floor, Chicago, IL 60654; Tel. # 1.888.499.TURN (8876); <a href=''http://www.turning.io'' target=''_blank''>www.turning.io</a>.</strong>   The Company agrees to provide you with a copy of an investigative consumer report when required to do so under California law.    </p> <p>   Under California Civil Code section 1786.22, you are entitled to find out what is in the ICRA’s file on you with proper identification, as follows:   <ul>     <li>In person, by visual inspection of your file during normal business hours and on reasonable notice. You also may request     a copy of the information in person. The ICRA may not charge you more than the actual copying costs for providing you with     a copy of your file.</li>     <li>A summary of all information contained in the ICRA’s file on you that is required to be provided by the California Civil     Code will be provided to you via telephone, if you have made a written request, with proper identification, for telephone     disclosure, and the toll charge, if any, for the telephone call is prepaid by or charged directly to you.</li>     <li>By requesting a copy be sent to a specified addressee by certified mail. ICRAs complying with requests for certified mailings     shall not be liable for disclosures to third parties caused by mishandling of mail after such mailings leave the ICRAs.</li>   </ul>   “Proper Identification” includes documents such as a valid driver’s license, social security account number, military identification card, and credit cards.     Only if you cannot identify yourself with such information may the ICRA require additional information concerning your employment and personal or family history in order to verify your identity.     The ICRA will provide trained personnel to explain any information furnished to you and will provide a written explanation of any coded information contained in files maintained on you.     This written explanation will be provided whenever a file is provided to you for visual inspection.     You may be accompanied by one other person of your choosing, who must furnish reasonable identification.     An ICRA may require you to furnish a written statement granting permission to the ICRA to discuss your file in such person’s presence.</p> <p> <b>San Francisco applicants only:</b> Please click below for the San Francisco Fair Chance Act Notice. - <a href="https://turn-hq.s3.amazonaws.com/SFFairChanceNotice.pdf">English</a> - <a href="https://turn-hq.s3.amazonaws.com/SFOrdinance-Spanish.pdf">Spanish</a> - <a href="https://turn-hq.s3.amazonaws.com/SFOrdinance-Tagalog.pdf">Tagalog</a> - <a href="https://turn-hq.s3.amazonaws.com/SFOrdinance-Chinese.pdf">Chinese</a> - </p> <p> <b>Los Angeles applicants only:</b> Please click <a href="https://turn-hq.s3.amazonaws.com/Notice+to+Applicants+and+Employees+for+Private+Employers.pdf">here</a> for the Los Angeles Notice to Applicants and Employees for Private Employers.'
-            order: 4
-            title: A Summary of Your State Rights
-          - checkboxes:
-              - 'By clicking this checkbox, I indicate my agreement to all of the above.'
-            copy_html: '<p>I acknowledge receipt of the separate document entitled DISCLOSURE REGARDING BACKGROUND INVESTIGATION and A SUMMARY OF YOUR RIGHTS UNDER THE FAIR CREDIT REPORTING ACT and certify that I have read and understand both of those documents.  I hereby authorize the obtaining of “consumer reports” and/or “investigative consumer reports” by Turn Technologies (“Company”) at any time after receipt of this authorization and throughout the performance of services.  To this end, I hereby authorize, without reservation, any law enforcement agency, administrator, state or federal agency, institution, school or university (public or private), information service bureau, Company, or insurance company to furnish any and all background information requested by <b>Turn Technologies, Inc., 20 West Kinzie Street, 17th Floor, Chicago, IL 60654; Tel. # 1.888.499.TURN (8876)</b>; <a href="http://www.turning.io" target="_blank">www.turning.io</a> and/or Company.  I agree that a facsimile (“fax”), electronic or photographic copy of this Authorization shall be as valid as the original.</p>'
-            order: 5
-            title: Authorization of Background Investigation
-      x-internal: true
-    Datum:
-      title: Datum
-      required:
-        - field
-        - required
-      type: object
-      properties:
-        field:
-          type: string
-        required:
-          type: boolean
-      example:
-        field: first_name
-        required: true
-      x-internal: true
-    Disclosure:
-      title: Disclosure
-      required:
-        - checkboxes
-        - copy_html
-        - order
-        - title
-      type: object
-      properties:
-        checkboxes:
-          type: array
-          items:
-            type: string
-          description: ''
-        copy_html:
-          type: string
-        order:
-          type: integer
-          format: int32
-        title:
-          type: string
-      example:
-        checkboxes:
-          - I do not have a middle name
-          - 'I certify that this is me, and that the information provided in the present fields is true, valid, accurate, and complete. By clicking Continue you agree to Turn Technologies <a href="http://www.turning.io/termsofuse.html" target="_blank">Terms and Conditions</a> and <a href="http://www.turning.io/privacy.html" target="_blank">Privacy Policy</a>'
-        copy_html: 'Turn Technologies (the "Company") has engaged Turn Technologies, Inc. to obtain a consumer report and/or investigative consumer report, as defined in California, for contracted services or employment purposes. Turn Technologies Inc. will provide a background investigation as a pre-condition of your engagement with the Company and in compliance with applicable law.'
-        order: 1
-        title: Welcome
-      x-internal: true
-    422Missingrequiredfield3:
-      title: 422Missingrequiredfield3
-      required:
-        - json.package_id
-        - json.zipcode
-      type: object
-      properties:
-        json.package_id:
-          type: array
-          items:
-            type: string
-          description: ''
-        json.zipcode:
-          type: array
-          items:
-            type: string
-          description: ''
-      example:
-        json.package_id:
-          - Missing data for required field.
-        json.zipcode:
-          - Missing data for required field.
-      x-internal: true
-    /fcra_check/form/<check_id>_request:
-      title: /fcra_check/form/<check_id>_request
-      type: object
-      example:
-        first_name: Alec
-        last_name: Sadler
-        no_middle_name: false
-        middle_name: M
-        date_of_birth: '1980-11-30'
-        zipcode: '95476'
-        phone: '18884998876'
-        ssn: '123456789'
-        email: contact@turning.io
-        drivers_license_number: U1234567
-        drivers_license_state: CA
-        consent_document: 'data:image/png;base64,'
-        callback_url: 'https://somedomain.com/response'
-        do_checks: true
-        timestamps:
-          welcome:
-            - '2021-06-13T21:40:04.766Z'
-          summary_of_rights:
-            - '2021-06-13T21:40:05.766Z'
-          disclosure:
-            - '2021-06-13T21:40:06.766Z'
-          summary_of_state_rights:
-            - '2021-06-13T21:40:07.766Z'
-          authorization_of_background_investigation:
-            - '2021-06-13T21:40:08.766Z'
-          signature:
-            - '2021-06-13T21:40:09.766Z'
-        metadata:
-          ip_address: 73.9.149.180
-          user_agent: Turn Mobile 1/1.4
-      x-internal: true
-      x-examples: {}
-      properties:
-        first_name:
-          type: string
-        last_name:
-          type: string
-        no_middle_name:
-          type: boolean
-        middle_name:
-          type: string
-        date_of_birth:
-          type: string
-        zipcode:
-          type: string
-        city:
-          type: string
-        address:
-          type: string
-        phone:
-          type: string
-        ssn:
-          type: string
-        email:
-          type: string
-        drivers_license_number:
-          type: string
-        drivers_license_state:
-          type: string
-        consent_document:
-          type: string
-        callback_url:
-          type: string
-        do_checks:
-          type: boolean
-        timestamps:
-          $ref: '#/components/schemas/Timestamps'
-        metadata:
-          $ref: '#/components/schemas/Metadata'
-      required:
-        - first_name
-        - last_name
-        - no_middle_name
-        - middle_name
-        - date_of_birth
-        - zipcode
-        - city
-        - address
-        - phone
-        - ssn
-        - email
-        - drivers_license_number
-        - drivers_license_state
-        - consent_document
-        - callback_url
-        - do_checks
-        - timestamps
-        - metadata
-      description: |+
-
-    Timestamps:
-      title: Timestamps
-      required:
-        - welcome
-        - summary_of_rights
-        - disclosure
-        - summary_of_state_rights
-        - authorization_of_background_investigation
-        - signature
-      type: object
-      properties:
-        welcome:
-          type: array
-          items:
-            type: string
-          description: ''
-        summary_of_rights:
-          type: array
-          items:
-            type: string
-          description: ''
-        disclosure:
-          type: array
-          items:
-            type: string
-          description: ''
-        summary_of_state_rights:
-          type: array
-          items:
-            type: string
-          description: ''
-        authorization_of_background_investigation:
-          type: array
-          items:
-            type: string
-          description: ''
-        signature:
-          type: array
-          items:
-            type: string
-          description: ''
-      example:
-        welcome:
-          - '2021-06-13T21:40:04.766Z'
-        summary_of_rights:
-          - '2021-06-13T21:40:05.766Z'
-        disclosure:
-          - '2021-06-13T21:40:06.766Z'
-        summary_of_state_rights:
-          - '2021-06-13T21:40:07.766Z'
-        authorization_of_background_investigation:
-          - '2021-06-13T21:40:08.766Z'
-        signature:
-          - '2021-06-13T21:40:09.766Z'
-      x-internal: true
-    Metadata:
-      title: Metadata
-      required:
-        - ip_address
-        - user_agent
-      type: object
-      properties:
-        ip_address:
-          type: string
-        user_agent:
-          type: string
-      example:
-        ip_address: 73.9.149.180
-        user_agent: Turn Mobile 1/1.4
-      x-internal: true
-    200Success1:
-      title: 200Success1
-      required:
-        - message
-        - rcmp_redirect_url
-        - turn_id
-      type: object
-      properties:
-        message:
-          $ref: '#/components/schemas/Message1'
-        rcmp_redirect_url:
-          type: string
-          nullable: true
-        turn_id:
-          type: string
-      example:
-        message:
-          code: 9200
-          message: The operation completed successfully.
-          transaction_uuid: 3ea933c7-1e2f-4245-8d80-2c31709a09ff
-        rcmp_redirect_url: ''
-        turn_id: C1259272294
-      x-internal: true
-    Message1:
-      title: Message1
-      required:
-        - code
-        - message
-        - transaction_uuid
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-        transaction_uuid:
-          type: string
-      example:
-        code: 9200
-        message: The operation completed successfully.
-        transaction_uuid: 3ea933c7-1e2f-4245-8d80-2c31709a09ff
-      x-internal: true
-    404InvalidCheckId1:
-      title: 404InvalidCheckId1
-      required:
-        - error
-      type: object
-      properties:
-        error:
-          type: string
-      example:
-        error: FOOBAR is not valid id
-      x-internal: true
-    422checkidhasalreadybeenused1:
-      title: 422checkidhasalreadybeenused1
-      required:
-        - error
-      type: object
-      properties:
-        error:
-          type: string
-      example:
-        error: a4b9b53e-b665-4a11-8872-2005bb15165d has already been used
-      x-internal: true
-    404ChecksIdalreadyrunning1:
-      title: 404ChecksIdalreadyrunning1
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: Checks of this worker have already run.
-      x-internal: true
-    200Success3:
-      title: 200Success3
-      required:
-        - dashboard_url
-        - state
-        - turn_id
-        - worker_email
-        - worker_id
-      type: object
-      properties:
-        dashboard_url:
-          type: string
-        state:
-          type: string
-        turn_id:
-          type: string
-        worker_email:
-          type: string
-        worker_id:
-          type: string
-      example:
-        dashboard_url: 'https://partners.turning.io/workers/d46d4365-a895-4bc9-9dce-09d24b790d30'
-        state: approved
-        turn_id: C1234567890
-        worker_email: contact@turning.io
-        worker_id: d46d4365-a895-4bc9-9dce-09d24b790d30
-      x-internal: true
-    422Workernotfound1:
-      title: 422Workernotfound1
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: Worker with id C0000000000 was not found
-      x-internal: true
-    200Success4:
-      title: 200Success4
-      required:
-        - checks
-        - complete
-        - current_address
-        - dashboard_url
-        - date_of_birth
-        - email
-        - license_number
-        - license_state
-        - name
-        - partner_worker_status
-        - reference_id
-        - turn_id
-        - worker_uuid
-      type: object
-      properties:
-        checks:
-          $ref: '#/components/schemas/Checks'
-        complete:
-          type: boolean
-        current_address:
-          $ref: '#/components/schemas/CurrentAddress'
-        dashboard_url:
-          type: string
-        date_of_birth:
-          type: string
-        email:
-          type: string
-        license_number:
-          type: string
-        license_state:
-          type: string
-        name:
-          type: string
-        partner_worker_status:
-          type: string
-        reference_id:
-          type: string
-        turn_id:
-          type: string
-        worker_uuid:
-          type: string
-      example:
-        checks:
-          addresses:
-            - address1: 123 Main St
-              city: CHICAGO
-              county: COOK
-              state: IL
-              zip: '12345'
-              zip4: ''
-            - address1: 123 Main St
-              city: NEW YORK
-              county: NEW YORK
-              state: NY
-              zip: '6789'
-              zip4: ''
-          aliases: ''
-          candidate_provided_date_of_birth: '1987-09-15'
-          candidate_provided_name: Hari Seldon
-          candidate_provided_ssn: ''
-          criminal: clear
-          dob_status: matched
-          location: ''
-          mvr: ''
-          name_status: matched
-          partner_provided_name: Hari Seldon
-          partner_provided_ssn: ''
-          public_name_status: matched
-          public_provided_name: HARI SELDON
-          public_record_date_of_birth: '1987-09-15'
-          sex_offender: clear
-          ssn:
-            deceased_date: ''
-            dob_status: ''
-            is_deceased: false
-            is_random: false
-            issue_date: IN THE YEAR 1994-1996
-            issue_state: OH
-            name_status: ''
-            number: '*****1234'
-            status: valid
-          ssn_status: none
-          watchlist: clear
-        complete: true
-        current_address:
-          address1: 123 Main St
-          address2: ''
-          city: CHICAGO
-          first_seen: '2016-11-01'
-          last_seen: '2019-08-01'
-          state: IL
-          zip: '12345'
-        dashboard_url: 'https://partners.turning.io/workers/6c72b249-d1c1-4a1e-9697-650948171738'
-        date_of_birth: '1987-09-15'
-        email: someone@gmail.com
-        license_number: ''
-        license_state: ''
-        name: Hari Seldon
-        partner_worker_status: approved
-        reference_id: ''
-        turn_id: C1108624821
-        worker_uuid: 6c72b249-d1c1-4a1e-9697-650948171739
-      x-internal: true
-    Checks:
-      title: Checks
-      required:
-        - addresses
-        - aliases
-        - candidate_provided_date_of_birth
-        - candidate_provided_name
-        - candidate_provided_ssn
-        - criminal
-        - dob_status
-        - location
-        - mvr
-        - name_status
-        - partner_provided_name
-        - partner_provided_ssn
-        - public_name_status
-        - public_provided_name
-        - public_record_date_of_birth
-        - sex_offender
-        - ssn
-        - ssn_status
-        - watchlist
-      type: object
-      properties:
-        addresses:
-          type: array
-          items:
-            $ref: '#/components/schemas/Address'
-          description: ''
-        aliases:
-          type: string
-          nullable: true
-        candidate_provided_date_of_birth:
-          type: string
-        candidate_provided_name:
-          type: string
-        candidate_provided_ssn:
-          type: string
-          nullable: true
-        criminal:
-          type: string
-        dob_status:
-          type: string
-        location:
-          type: string
-          nullable: true
-        mvr:
-          type: string
-          nullable: true
-        name_status:
-          type: string
-        partner_provided_name:
-          type: string
-        partner_provided_ssn:
-          type: string
-          nullable: true
-        public_name_status:
-          type: string
-        public_provided_name:
-          type: string
-        public_record_date_of_birth:
-          type: string
-        sex_offender:
-          type: string
-        ssn:
-          $ref: '#/components/schemas/Ssn'
-        ssn_status:
-          type: string
-        watchlist:
-          type: string
-      example:
-        addresses:
-          - address1: 123 Main St
-            city: CHICAGO
-            county: COOK
-            state: IL
-            zip: '12345'
-            zip4: ''
-          - address1: 123 Main St
-            city: NEW YORK
-            county: NEW YORK
-            state: NY
-            zip: '6789'
-            zip4: ''
-        aliases: ''
-        candidate_provided_date_of_birth: '1987-09-15'
-        candidate_provided_name: Hari Seldon
-        candidate_provided_ssn: ''
-        criminal: clear
-        dob_status: matched
-        location: ''
-        mvr: ''
-        name_status: matched
-        partner_provided_name: Hari Seldon
-        partner_provided_ssn: ''
-        public_name_status: matched
-        public_provided_name: HARI SELDON
-        public_record_date_of_birth: '1987-09-15'
-        sex_offender: clear
-        ssn:
-          deceased_date: ''
-          dob_status: ''
-          is_deceased: false
-          is_random: false
-          issue_date: IN THE YEAR 1994-1996
-          issue_state: OH
-          name_status: ''
-          number: '*****1234'
-          status: valid
-        ssn_status: none
-        watchlist: clear
-      x-internal: true
-    Address:
-      title: Address
-      required:
-        - address1
-        - city
-        - county
-        - state
-        - zip
-        - zip4
-      type: object
-      properties:
-        address1:
-          type: string
-        city:
-          type: string
-        county:
-          type: string
-        state:
-          type: string
-        zip:
-          type: string
-        zip4:
-          type: string
-          nullable: true
-      example:
-        address1: 123 Main St
-        city: CHICAGO
-        county: COOK
-        state: IL
-        zip: '12345'
-        zip4: ''
-      x-internal: true
-    Ssn:
-      title: Ssn
-      required:
-        - deceased_date
-        - dob_status
-        - is_deceased
-        - is_random
-        - issue_date
-        - issue_state
-        - name_status
-        - number
-        - status
-      type: object
-      properties:
-        deceased_date:
-          type: string
-          nullable: true
-        dob_status:
-          type: string
-        is_deceased:
-          type: boolean
-        is_random:
-          type: boolean
-        issue_date:
-          type: string
-        issue_state:
-          type: string
-        name_status:
-          type: string
-        number:
-          type: string
-        status:
-          type: string
-      example:
-        deceased_date: ''
-        dob_status: ''
-        is_deceased: false
-        is_random: false
-        issue_date: IN THE YEAR 1994-1996
-        issue_state: OH
-        name_status: ''
-        number: '*****1234'
-        status: valid
-      x-internal: true
-    CurrentAddress:
-      title: CurrentAddress
-      required:
-        - address1
-        - address2
-        - city
-        - first_seen
-        - last_seen
-        - state
-        - zip
-      type: object
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-          nullable: true
-        city:
-          type: string
-        first_seen:
-          type: string
-        last_seen:
-          type: string
-        state:
-          type: string
-        zip:
-          type: string
-      example:
-        address1: 123 Main St
-        address2: ''
-        city: CHICAGO
-        first_seen: '2016-11-01'
-        last_seen: '2019-08-01'
-        state: IL
-        zip: '12345'
-      x-internal: true
-    404Workernotfound1:
-      title: 404Workernotfound1
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: Worker not found
-      x-internal: true
-    422Invalidcandidatestatus1:
-      title: 422Invalidcandidatestatus1
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: the candidate status not allow to be recheck.
-      x-internal: true
-    /onboardingsrequest:
-      title: /onboardingsrequest
-      required:
-        - name
-        - steps
-      type: object
-      properties:
-        name:
-          type: string
-        steps:
-          type: array
-          items:
-            $ref: '#/components/schemas/Step'
-          description: ''
-      example:
-        name: Onboarding Flow
-        steps:
-          - name: Handoff
-            order: 0
-          - name: Phone Interview
-            order: 1
-          - name: Background Check
-            order: 2
-      x-internal: true
-    Step:
-      title: Step
-      required:
-        - name
-        - order
-      type: object
-      properties:
-        name:
-          type: string
-        order:
-          type: integer
-          format: int32
-      example:
-        name: Handoff
-        order: 0
-      x-internal: true
-    200CM:
-      title: 200CM
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          $ref: '#/components/schemas/CMMessage'
-      example:
-        message:
-          message: Success.
-      x-internal: true
-    200CM1:
-      title: 200CM1
-      required:
-        - limit
-        - offset
-        - count
-        - max_limit
-        - enrolls
-      type: object
-      properties:
-        limit:
-          type: integer
-        offset:
-          type: integer
-        count:
-          type: integer
-        max_limit:
-          type: integer
-        enrolls:
-          type: array
-          items:
-            $ref: '#/components/schemas/Enrolls'
-          description: ''
-      example:
-        limit: 10
-        offset: 1
-        count: 50
-        max_limit: 100
-        enrolls:
-          - turn_id: C2983071100
-            reference_id: 123-abc-123456
-            enrrolled_at: '2023-07-28'
-          - turn_id: C9785074239
-            reference_id: 987-abc-987654
-            enrrolled_at: '2023-06-18'
-      x-internal: true
-    201CM:
-      title: 201CM
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          $ref: '#/components/schemas/CMMessage'
-      example:
-        message:
-          message: Worker has already been enrolled.
-      x-internal: true
-    404CM:
-      title: 404CM
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: Worker not found
-    404CM1:
-      title: 404CM1
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: Worker has not been enrolled.
-      x-internal: true
-    404CM2:
-      title: 404CM2
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: Resource not found.
-    422CM:
-      title: 422CM
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: ''
-      example:
-        message:
-          message: The current status of the candidate does not permit enrollment.
-      x-internal: true
-    422CM1:
-      title: 422CM1
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: ''
-      example:
-        message:
-          message: 'query:{} is not a valid json and should look like {''per_page'': 10, ''page'': 0, ''filters'': {''create_timestamp__gt'': ''2023-06-01'', ''create_timestamp__lt'': ''2023-07-01''}}.'
-      x-internal: true
-    Enrolls:
-      title: Enrolls
-      required:
-        - turn_id
-        - reference_id
-        - enrrolled_at
-      type: object
-      properties:
-        turn_id:
-          type: string
-        reference_id:
-          type: string
-        enrrolled_at:
-          type: string
-      example:
-        turn_id: C2983071100
-        reference_id: 123-abc-123456
-        enrrolled_at: '2023-07-28'
-      x-internal: true
-    CMEnrolledIndividualsQuery:
-      title: CMEnrolledIndividualsQuery
-      required: []
-      type: object
-      properties:
-        per_page:
-          type: integer
-        page:
-          type: integer
-        filters:
-          type: object
-          schema:
-            $ref: '#/components/schemas/CMFilters'
-      example:
-        per_page: 5
-        page: 1
-        filters:
-          create_timestamp__gt: '2023-06-01'
-          create_timestamp__lt: '2023-07-01'
-      x-internal: true
-    CMFilters:
-      title: CMFilters
-      required:
-        - message
-        - status
-      type: object
-      properties:
-        create_timestamp__gt:
-          type: string
-        create_timestamp__lt:
-          type: string
-      example:
-        create_timestamp__gt: '2023-06-01'
-        create_timestamp__lt: '2023-07-01'
-      x-internal: true
-    CMMessage:
-      title: SmsStatus
-      required:
-        - message
-        - status
-      type: object
-      properties:
-        message:
-          type: string
-        status:
-          type: integer
-          format: int32
-      example:
-        message: Success
-        status: 200
-      x-internal: true
   securitySchemes:
     httpBearer:
       type: http
@@ -3698,7 +1428,7 @@ components:
 security:
   - httpBearer: []
 tags:
-  - name: Person Search
+  - name: Invite
   - name: End to End
   - name: Candidates
   - name: Continuous Monitoring

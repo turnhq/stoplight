@@ -15,7 +15,7 @@ info:
   contact: {}
   version: '1.0'
 servers:
-  - url: 'https://api.turning.io/v1'
+  - url: 'https://api.turn.ai/v1'
     variables: {}
 paths:
   /public_api/me:
@@ -29,221 +29,49 @@ paths:
       responses:
         '200':
           description: OK
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Mon, 16 Dec 2019 22:45:51 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '36'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/200Sucess'
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: ACME
               example:
                 name: ACME
         '400':
           description: BAD REQUEST
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Mon, 16 Dec 2019 22:56:58 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '89'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/400InvalidToken1'
+                type: object
+                properties:
+                  code:
+                    type: string
+                  description:
+                    type: string
+                example:
+                  code: invalid_header
+                  description: Unable to parse authentication token
               example:
                 code: invalid_header
                 description: Unable to parse authentication token
         '401':
           description: UNAUTHORIZED
-          headers:
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Server:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gunicorn/19.6.0
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 'Mon, 16 Dec 2019 22:58:51 GMT'
-            Content-Length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '99'
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            Strict-Transport-Security:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: max-age=31536000
-            X-Protected-By:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Sqreen
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1.1 vegur
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/401NoTokenProvided1'
-              example:
-                code: authorization_header_missing
-                description: Authorization header is expected
+                type: object
+                properties:
+                  code:
+                    type: string
+                  description:
+                    type: string
+                example:
+                  code: authorization_header_missing
+                  description: Authorization header is expected
       deprecated: false
 components:
-  schemas:
-    200Sucess:
-      title: 200Sucess
-      required:
-        - name
-      type: object
-      properties:
-        name:
-          type: string
-      example:
-        name: ACME
-      x-internal: true
-    400InvalidToken1:
-      title: 400InvalidToken1
-      required:
-        - code
-        - description
-      type: object
-      properties:
-        code:
-          type: string
-        description:
-          type: string
-      example:
-        code: invalid_header
-        description: Unable to parse authentication token
-      x-internal: true
-    401NoTokenProvided1:
-      title: 401NoTokenProvided1
-      required:
-        - code
-        - description
-      type: object
-      properties:
-        code:
-          type: string
-        description:
-          type: string
-      example:
-        code: authorization_header_missing
-        description: Authorization header is expected
-      x-internal: true
   securitySchemes:
     httpBearer:
       type: http
