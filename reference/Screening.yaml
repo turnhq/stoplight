@@ -1009,6 +1009,10 @@ paths:
                     type: string
                   recheck_date:
                     type: string
+                  cm_criminal_enroll:
+                    type: string
+                  criminal_monitoring:
+                    type: boolean
               example:
                 checks:
                   addresses:
