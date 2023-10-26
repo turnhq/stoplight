@@ -26,7 +26,9 @@ In this case, 4 webhooks would be triggered one for each status change.
   "worker_email": "alec@sadtech.ca",
   "worker_id": "623580e8-9a76-462f-acc9-2a190be182fa",
   "consent_date": '2022-09-15',
-  "recheck_date": '2023-01-10'
+  "recheck_date": '2023-01-10',
+  "cm_criminal_enroll": '2023-07-19',
+  "criminal_monitoring_triggered": true
 }
 ```
 
@@ -582,7 +584,9 @@ Both endpoints use a `callback_url` input parameter which will be used to delive
   "callback_uuid": "a8e385ac-6d3e-40bd-8b8d-d6704290c676",
   "worker_uuid": "07960b8b-0987-4cb6-ac1b-f0d26654d013",
   "consent_date": '2022-09-15',
-  "recheck_date": '2023-01-10'
+  "recheck_date": '2023-01-10',
+  "cm_criminal_enroll": '2023-07-19',
+  "criminal_monitoring_triggered": true
 }
 ```
 
