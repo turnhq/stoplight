@@ -28,7 +28,7 @@ In this case, 4 webhooks would be triggered one for each status change.
   "consent_date": '2022-09-15',
   "recheck_date": '2023-01-10',
   "cm_criminal_enroll": '2023-07-19',
-  "criminal_monitoring": true
+  "criminal_monitoring_triggered": true
 }
 ```
 
@@ -586,7 +586,7 @@ Both endpoints use a `callback_url` input parameter which will be used to delive
   "consent_date": '2022-09-15',
   "recheck_date": '2023-01-10',
   "cm_criminal_enroll": '2023-07-19',
-  "criminal_monitoring": true
+  "criminal_monitoring_triggered": true
 }
 ```
 
