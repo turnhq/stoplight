@@ -2038,10 +2038,6 @@ components:
           type: string
         worker_id:
           type: string
-        cm_criminal_enroll:
-          type: string
-        criminal_monitoring_triggered:
-          type: boolean
       example:
         dashboard_url: 'https://partners.turning.io/workers/d46d4365-a895-4bc9-9dce-09d24b790d30'
         state: approved
