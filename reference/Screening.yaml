@@ -1417,18 +1417,6 @@ paths:
                     example: 'query:{} is not a valid json and should look like {''per_page'': 10, ''page'': 0, ''filters'': {''create_timestamp__gt'': ''2023-06-01'', ''create_timestamp__lt'': ''2023-07-01''}}.'
       deprecated: false
 components:
-  schemas:
-    200Sucess1:
-      title: 200Sucess1
-      required:
-        - message
-      type: object
-      properties:
-        message:
-          type: string
-      example:
-        message: the AsyncPersonSearch /run was requested successfully
-      x-internal: true
   securitySchemes:
     httpBearer:
       type: http
