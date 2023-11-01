@@ -646,54 +646,51 @@ paths:
               schema:
                 type: object
                 properties:
-                  timestamps:
-                    type: object
-                    properties:
-                      json.callback_url:
-                        type: array
-                        items:
-                          type: string
-                        description: ''
-                      json.consent_document:
-                        type: array
-                        items:
-                          type: string
-                        description: ''
-                      json.date_of_birth:
-                        type: array
-                        items:
-                          type: string
-                        description: ''
-                      json.email:
-                        type: array
-                        items:
-                          type: string
-                        description: ''
-                      json.first_name:
-                        type: array
-                        items:
-                          type: string
-                        description: ''
-                      json.last_name:
-                        type: array
-                        items:
-                          type: string
-                        description: ''
-                      json.phone:
-                        type: array
-                        items:
-                          type: string
-                        description: ''
-                      json.ssn:
-                        type: array
-                        items:
-                          type: string
-                        description: ''
-                      json.zipcode:
-                        type: array
-                        items:
-                          type: string
-                        description: ''
+                  json.callback_url:
+                    type: array
+                    items:
+                      type: string
+                    description: ''
+                  json.consent_document:
+                    type: array
+                    items:
+                      type: string
+                    description: ''
+                  json.date_of_birth:
+                    type: array
+                    items:
+                      type: string
+                    description: ''
+                  json.email:
+                    type: array
+                    items:
+                      type: string
+                    description: ''
+                  json.first_name:
+                    type: array
+                    items:
+                      type: string
+                    description: ''
+                  json.last_name:
+                    type: array
+                    items:
+                      type: string
+                    description: ''
+                  json.phone:
+                    type: array
+                    items:
+                      type: string
+                    description: ''
+                  json.ssn:
+                    type: array
+                    items:
+                      type: string
+                    description: ''
+                  json.zipcode:
+                    type: array
+                    items:
+                      type: string
+                    description: ''
               examples:
                 example 422 - missing required field:
                   value:
